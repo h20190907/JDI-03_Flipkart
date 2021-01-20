@@ -13,14 +13,14 @@ public class DummyDB {
 
 	public static Map<Integer,Student> studentList;
 	public static List<Course> courseList;
-	public static Map<Integer,List<Integer>> registeredCourses;
+	public static Map<Integer,List<String>> registeredCourses;
 
 	
 	public static void init() {
 		
 		studentList = new HashMap<Integer,Student>();
 		courseList = new ArrayList<Course>();
-		registeredCourses = new HashMap<Integer, List<Integer>>();
+		registeredCourses = new HashMap<Integer, List<String>>();
 		
 		studentList.put(1,new Student(1,"Dilpreet","Student","1234","CS","101",2019,true));
 		studentList.put(2,new Student(2,"Rag","Student","1235","CS","102",2017,true));

@@ -59,6 +59,10 @@ public class CRSApplication {
 				StudentMenu studentMenu = new StudentMenu();
 				studentMenu.create_menu(uid);
 			}
+			else
+			{
+				
+			}
 			
 			
 		}
