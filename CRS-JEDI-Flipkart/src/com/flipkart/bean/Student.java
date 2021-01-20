@@ -13,6 +13,16 @@ public class Student extends User {
 	private int batch;
 	private boolean isAppproved;
 	
+	
+	// Parameterized Constructor
+	public Student(int userId, String name, String role, String password,String branchName, String studentId, int batch, boolean isAppproved) {
+		super(userId, name,  role, password);
+		this.branchName = branchName;
+		this.studentId = studentId;
+		this.batch = batch;
+		this.isAppproved = isAppproved;
+	}
+	
 	public String getBranchName() {
 		return branchName;
 	}

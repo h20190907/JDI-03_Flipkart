@@ -9,6 +9,17 @@ public abstract class User {
 	private String role;
 	private String password;
 	
+	public User(){
+		
+	}
+	
+	public User(int userId, String name, String role, String password) {
+		super();
+		this.userId = userId;
+		this.name = name;
+		this.role = role;
+		this.password = password;
+	}
 	public int getUserId() {
 		return userId;
 	}

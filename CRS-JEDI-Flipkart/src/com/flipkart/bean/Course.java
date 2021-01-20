@@ -8,6 +8,14 @@ public class Course {
 	private int seats = 10;
 	private boolean isOffered;
 	
+	public Course(String courseCode, String courseName, String instructor, int seats, boolean isOffered) {
+		super();
+		this.courseCode = courseCode;
+		this.courseName = courseName;
+		this.instructor = instructor;
+		this.seats = seats;
+		this.isOffered = isOffered;
+	}
 	public String getCourseCode() {
 		return courseCode;
 	}

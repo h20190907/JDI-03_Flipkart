@@ -5,3 +5,134 @@
 11:15:56,536  INFO LoginClient,main:13 - ------Enter Username and Password------
 11:15:56,555  INFO LoginClient,main:15 - Username=
 
+19:31:53,518  INFO CRSApplication,main:23 - -------Welcome to Course Registration System--------
+19:32:19,388  INFO CRSApplication,main:23 - -------Welcome to Course Registration System--------
+19:32:19,390  INFO CRSApplication,main:24 - ------- Login ------
+19:32:30,519  INFO CRSApplication,main:23 - -------Welcome to Course Registration System--------
+19:32:30,521  INFO CRSApplication,main:24 - ------- Login ----------------
+19:34:25,005  INFO CRSApplication,main:26 - -------Welcome to Course Registration System--------
+19:34:25,007  INFO CRSApplication,main:27 - Enter Username:
+19:34:28,781  INFO CRSApplication,main:29 - Enter Password:
+19:41:40,169  INFO CRSApplication,main:27 - -------Welcome to Course Registration System--------
+19:41:40,172  INFO CRSApplication,main:28 - Enter Username:
+19:41:54,292  INFO CRSApplication,main:30 - Enter Password:
+19:42:32,231  INFO CRSApplication,main:28 - -------Welcome to Course Registration System--------
+19:42:32,234  INFO CRSApplication,main:29 - Enter Username:
+19:42:35,865  INFO CRSApplication,main:31 - Enter Password:
+19:49:01,584  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:49:01,586  INFO CRSApplication,main:35 - Enter Username:
+19:49:03,482  INFO CRSApplication,main:37 - Enter Password:
+19:50:22,366  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:50:22,370  INFO CRSApplication,main:35 - Enter Username:
+19:50:25,110  INFO CRSApplication,main:37 - Enter Password:
+19:50:26,471  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:50:26,471  INFO CRSApplication,main:35 - Enter Username:
+19:50:33,392  INFO CRSApplication,main:37 - Enter Password:
+19:51:34,887  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:51:34,889  INFO CRSApplication,main:35 - Enter Username:
+19:51:39,873  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:51:39,876  INFO CRSApplication,main:35 - Enter Username:
+19:51:41,512  INFO CRSApplication,main:37 - Enter Password:
+19:51:43,163  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:51:43,164  INFO CRSApplication,main:35 - Enter Username:
+19:53:21,371  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:53:21,374  INFO CRSApplication,main:35 - Enter Username:
+19:53:23,634  INFO CRSApplication,main:37 - Enter Password:
+19:53:28,756  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:53:28,756  INFO CRSApplication,main:35 - Enter Username:
+19:53:42,134  INFO CRSApplication,main:37 - Enter Password:
+19:53:43,951  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:53:43,951  INFO CRSApplication,main:35 - Enter Username:
+19:55:17,524  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:55:17,526  INFO CRSApplication,main:35 - Enter Username:
+19:55:19,398  INFO CRSApplication,main:37 - Enter Password:
+19:55:20,931  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:55:20,932  INFO CRSApplication,main:35 - Enter Username:
+19:55:59,245  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:55:59,247  INFO CRSApplication,main:35 - Enter Username:
+19:56:21,267  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:56:21,269  INFO CRSApplication,main:35 - Enter Username:
+19:56:25,733  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:56:25,735  INFO CRSApplication,main:35 - Enter Username:
+19:56:26,740  INFO CRSApplication,main:37 - Enter Password:
+19:56:33,102  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:56:33,104  INFO CRSApplication,main:35 - Enter Username:
+19:56:34,450  INFO CRSApplication,main:37 - Enter Password:
+19:56:36,307  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:56:36,307  INFO CRSApplication,main:35 - Enter Username:
+19:56:38,504  INFO CRSApplication,main:37 - Enter Password:
+19:56:41,061  INFO CRSApplication,main:34 - -------Welcome to Course Registration System--------
+19:56:41,061  INFO CRSApplication,main:35 - Enter Username:
+20:12:41,436  INFO CRSApplication,main:36 - -------Welcome to Course Registration System--------
+20:12:41,439  INFO CRSApplication,main:37 - Enter Username:
+20:12:43,574  INFO CRSApplication,main:39 - Enter Password:
+20:12:45,710  INFO StudentMenu,main:38 - 1. Register
+	2. Add course
+	3. Drop course
+	4. View course
+	5. view grade card
+20:13:08,661  INFO CRSApplication,main:36 - -------Welcome to Course Registration System--------
+20:13:08,664  INFO CRSApplication,main:37 - Enter Username:
+20:13:10,372  INFO CRSApplication,main:39 - Enter Password:
+20:13:11,818  INFO StudentMenu,main:38 - 
+1. Register
+	2. Add course
+	3. Drop course
+	4. View course
+	5. view grade card
+20:13:33,619  INFO CRSApplication,main:36 - -------Welcome to Course Registration System--------
+20:13:33,622  INFO CRSApplication,main:37 - Enter Username:
+20:13:35,280  INFO CRSApplication,main:39 - Enter Password:
+20:13:36,619  INFO CRSApplication,main:36 - -------Welcome to Course Registration System--------
+20:13:36,619  INFO CRSApplication,main:37 - Enter Username:
+20:13:38,055  INFO CRSApplication,main:39 - Enter Password:
+20:13:39,455  INFO StudentMenu,main:38 - 
+1. Register
+	2. Add course
+	3. Drop course
+	4. View course
+	5. view grade card
+20:14:23,496  INFO CRSApplication,main:36 - -------Welcome to Course Registration System--------
+20:14:23,499  INFO CRSApplication,main:37 - Enter Username:
+20:14:25,511  INFO CRSApplication,main:39 - Enter Password:
+20:15:11,396  INFO CRSApplication,main:36 - -------Welcome to Course Registration System--------
+20:15:11,398  INFO CRSApplication,main:37 - Enter Username:
+20:15:12,728  INFO CRSApplication,main:39 - Enter Password:
+20:15:13,993  INFO StudentMenu,main:38 - 
+1. Register
+ 2. Add course
+ 3. Drop course
+ 4. View course
+ 5. view grade card
+20:15:24,709  INFO CRSApplication,main:36 - -------Welcome to Course Registration System--------
+20:15:24,713  INFO CRSApplication,main:37 - Enter Username:
+20:15:25,972  INFO CRSApplication,main:39 - Enter Password:
+20:15:27,623  INFO StudentMenu,main:38 -  
+1. Register
+ 2. Add course
+ 3. Drop course
+ 4. View course
+ 5. view grade card
+20:15:55,003  INFO CRSApplication,main:36 - -------Welcome to Course Registration System--------
+20:15:55,005  INFO CRSApplication,main:37 - Enter Username:
+20:15:57,176  INFO CRSApplication,main:39 - Enter Password:
+20:15:58,470  INFO StudentMenu,main:38 - 
+1. Register
+2. Add course
+3. Drop course
+4. View course
+5. view grade card
+20:29:19,701  INFO CRSApplication,main:42 - -------Welcome to Course Registration System--------
+20:29:19,704  INFO CRSApplication,main:43 - Enter Username:
+20:29:21,235  INFO CRSApplication,main:45 - Enter Password:
+20:29:27,371  INFO CRSApplication,main:42 - -------Welcome to Course Registration System--------
+20:29:27,372  INFO CRSApplication,main:43 - Enter Username:
+20:29:32,584  INFO CRSApplication,main:45 - Enter Password:
+20:29:53,286  INFO CRSApplication,main:42 - -------Welcome to Course Registration System--------
+20:29:53,287  INFO CRSApplication,main:43 - Enter Username:
+20:29:56,246  INFO CRSApplication,main:45 - Enter Password:
+20:29:57,540  INFO CRSApplication,main:42 - -------Welcome to Course Registration System--------
+20:29:57,541  INFO CRSApplication,main:43 - Enter Username:
+20:29:59,418  INFO CRSApplication,main:45 - Enter Password:
+20:30:00,410  INFO CRSApplication,main:42 - -------Welcome to Course Registration System--------
+20:30:00,411  INFO CRSApplication,main:43 - Enter Username:
