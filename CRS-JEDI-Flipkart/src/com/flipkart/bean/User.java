@@ -3,10 +3,6 @@
  */
 package com.flipkart.bean;
 
-/**
- * @author dilpreetkaur
- *
- */
 public abstract class User {
 	private int userId;
 	private String name;
