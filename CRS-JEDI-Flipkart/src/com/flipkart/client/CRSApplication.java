@@ -13,7 +13,7 @@ public class CRSApplication {
 	//private static Logger logger = Logger.getLogger(CRSApplication.class);
 	
 	//TODO: Create the login menu
-	//TODO: verify credentials call
+	//TODO: validate credentials call
 	//TODO: role student default
 	//Register
 	//TODO: add courses
