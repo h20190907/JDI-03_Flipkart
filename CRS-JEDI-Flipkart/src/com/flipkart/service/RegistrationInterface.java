@@ -1,6 +1,8 @@
-package com.flipkart.business;
+package com.flipkart.service;
 
 import java.util.List;
+
+import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourse;
 
 public interface RegistrationInterface {
@@ -9,4 +11,5 @@ public interface RegistrationInterface {
 	public boolean dropCourse(String courseCode,int semester,String studentId);
 	public double calculateFees(String studentId);
 	public float generateReportCard(int semester,String studentId);
+	public List<Course> viewCourses();
 }

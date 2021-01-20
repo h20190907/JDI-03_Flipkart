@@ -1,9 +1,11 @@
 package com.flipkart.bean;
 
 public class Course {
+	//TODO: add constructor 
 	private String courseCode;
 	private String courseName;
 	private String instructor;
+	private int seats = 10;
 	private boolean isOffered;
 	
 	public String getCourseCode() {
@@ -29,5 +31,11 @@ public class Course {
 	}
 	public void setOffered(boolean isOffered) {
 		this.isOffered = isOffered;
+	}
+	public int getSeats() {
+		return seats;
+	}
+	public void setSeats(int seats) {
+		this.seats = seats;
 	}
 }
