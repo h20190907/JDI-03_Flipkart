@@ -16,6 +16,7 @@ public class CRSApplication {
 	//TODO: verify credentials call
 	//TODO: role student default
 	//Register
+	//TODO: add courses
 	
 	public static void main(String[] args)
 	{
