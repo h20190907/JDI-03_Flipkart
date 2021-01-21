@@ -20,11 +20,11 @@ public class DummyDB {
 		courseList = new ArrayList<Course>();
 		registeredCourses = new HashMap<Integer, List<String>>();
 		
-		studentList.put(1,new Student(1,"Dilpreet","Student","1234","CS","101",2019,true));
-		studentList.put(2,new Student(2,"Rag","Student","1235","CS","102",2017,true));
-		studentList.put(3,new Student(3,"Umang","Student","1236","CS","003",2017,true));
-		studentList.put(4,new Student(4,"Lakshya","Student","1237","EEE","004",2017,true));
-		studentList.put(5,new Student(5,"Anurag","Student","1238","ENI","005",2017,true));
+		studentList.put(1,new Student(1,"Dilpreet","Student","1234","CS",101,2019,true));
+		studentList.put(2,new Student(2,"Rag","Student","1235","CS",102,2017,true));
+		studentList.put(3,new Student(3,"Umang","Student","1236","CS",003,2017,true));
+		studentList.put(4,new Student(4,"Lakshya","Student","1237","EEE",004,2017,true));
+		studentList.put(5,new Student(5,"Anurag","Student","1238","ENI",005,2017,true));
 		
 		for(int i=0; i<10; i++)
 		{
