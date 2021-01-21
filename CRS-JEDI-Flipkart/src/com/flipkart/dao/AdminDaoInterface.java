@@ -1,10 +1,17 @@
-package com.flipkart.service;
-
-import com.flipkart.bean.Student;
+/**
+ * 
+ */
+package com.flipkart.dao;
 
 import java.util.List;
 
-public interface AdminInterface {
+import com.flipkart.bean.Student;
+
+/**
+ * @author Anurag Behera, Rag Patel
+ *
+ */
+public interface AdminDaoInterface {
 	public void deleteCourse(String courseCode);
 	public void addCourse(String courseCode, String courseName,String instructor);
 	public List<Student> viewPendingAdmissions();
