@@ -419,3 +419,449 @@
 15:28:13,431  INFO StudentMenu,main:46 - 6. View grade card
 15:28:13,432  INFO StudentMenu,main:47 - 7. Logout
 15:28:13,432  INFO StudentMenu,main:48 - *****************************
+16:49:20,568  INFO CRSApplication,main:43 - -------Welcome to CRS Login-------
+16:49:20,572  INFO CRSApplication,main:44 - Enter Username:
+16:49:24,844  INFO CRSApplication,main:46 - Enter Password:
+16:49:26,754  INFO CRSApplication,main:43 - -------Welcome to CRS Login-------
+16:49:26,754  INFO CRSApplication,main:44 - Enter Username:
+16:49:27,780  INFO CRSApplication,main:46 - Enter Password:
+16:49:29,305  INFO CRSApplication,main:52 - Login Successful!
+16:49:29,308  INFO StudentMenu,main:40 - *****************************
+16:49:29,309  INFO StudentMenu,main:41 - 1. Course Registration
+16:49:29,309  INFO StudentMenu,main:42 - 2. Add course
+16:49:29,309  INFO StudentMenu,main:43 - 3. Drop course
+16:49:29,310  INFO StudentMenu,main:44 - 4. View courses
+16:49:29,310  INFO StudentMenu,main:45 - 5. View Registered Courses
+16:49:29,310  INFO StudentMenu,main:46 - 6. View grade card
+16:49:29,311  INFO StudentMenu,main:47 - 7. Logout
+16:49:29,311  INFO StudentMenu,main:48 - *****************************
+16:49:36,290  WARN RegistrationOperation,main:76 - You have not registered any course yet 
+16:49:36,290  INFO StudentMenu,main:40 - *****************************
+16:49:36,291  INFO StudentMenu,main:41 - 1. Course Registration
+16:49:36,291  INFO StudentMenu,main:42 - 2. Add course
+16:49:36,292  INFO StudentMenu,main:43 - 3. Drop course
+16:49:36,293  INFO StudentMenu,main:44 - 4. View courses
+16:49:36,293  INFO StudentMenu,main:45 - 5. View Registered Courses
+16:49:36,294  INFO StudentMenu,main:46 - 6. View grade card
+16:49:36,294  INFO StudentMenu,main:47 - 7. Logout
+16:49:36,294  INFO StudentMenu,main:48 - *****************************
+16:49:50,627  WARN RegistrationOperation,main:76 - You have not registered any course yet 
+16:49:50,628  INFO StudentMenu,main:79 - Enter courseCode to be dropped: 
+20:55:24,825  INFO CRSApplication,main:43 - -------Welcome to CRS Login-------
+20:55:24,840  INFO CRSApplication,main:44 - Enter Username:
+20:55:30,518  INFO CRSApplication,main:46 - Enter Password:
+20:55:31,763  INFO CRSApplication,main:52 - Login Successful!
+20:55:31,806  INFO StudentMenu,main:40 - *****************************
+20:55:31,808  INFO StudentMenu,main:41 - 1. Course Registration
+20:55:31,808  INFO StudentMenu,main:42 - 2. Add course
+20:55:31,809  INFO StudentMenu,main:43 - 3. Drop course
+20:55:31,810  INFO StudentMenu,main:44 - 4. View courses
+20:55:31,811  INFO StudentMenu,main:45 - 5. View Registered Courses
+20:55:31,811  INFO StudentMenu,main:46 - 6. View grade card
+20:55:31,812  INFO StudentMenu,main:47 - 7. Logout
+20:55:31,813  INFO StudentMenu,main:48 - *****************************
+20:55:32,772  WARN RegistrationOperation,main:76 - You have not registered any course yet 
+20:55:32,773  INFO StudentMenu,main:40 - *****************************
+20:55:32,773  INFO StudentMenu,main:41 - 1. Course Registration
+20:55:32,773  INFO StudentMenu,main:42 - 2. Add course
+20:55:32,774  INFO StudentMenu,main:43 - 3. Drop course
+20:55:32,774  INFO StudentMenu,main:44 - 4. View courses
+20:55:32,775  INFO StudentMenu,main:45 - 5. View Registered Courses
+20:55:32,775  INFO StudentMenu,main:46 - 6. View grade card
+20:55:32,776  INFO StudentMenu,main:47 - 7. Logout
+20:55:32,776  INFO StudentMenu,main:48 - *****************************
+22:05:43,601  INFO CRSApplication,main:45 - -------Welcome to CRS Login-------
+22:05:43,605  INFO CRSApplication,main:46 - Enter Username:
+22:05:46,148  INFO CRSApplication,main:48 - Enter Password:
+22:05:48,031  INFO CRSApplication,main:45 - -------Welcome to CRS Login-------
+22:05:48,031  INFO CRSApplication,main:46 - Enter Username:
+22:05:50,091  INFO CRSApplication,main:48 - Enter Password:
+22:05:54,708 ERROR CRSApplication,main:53 - User Not Found 15646546
+22:05:54,709  INFO CRSApplication,main:58 - Login Successful!
+22:06:03,927  INFO CRSApplication,main:45 - -------Welcome to CRS Login-------
+22:06:03,932  INFO CRSApplication,main:46 - Enter Username:
+22:06:07,047  INFO CRSApplication,main:48 - Enter Password:
+22:06:08,028 ERROR CRSApplication,main:53 - User Not Found 46546
+22:06:08,029  INFO CRSApplication,main:58 - Login Successful!
+22:06:57,350  INFO CRSApplication,main:45 - -------Welcome to CRS Login-------
+22:06:57,354  INFO CRSApplication,main:46 - Enter Username:
+22:07:06,572  INFO CRSApplication,main:48 - Enter Password:
+22:07:07,711 ERROR CRSApplication,main:58 - User Not Found 546546
+22:08:49,875  INFO CRSApplication,main:45 - -------Welcome to CRS Login-------
+22:08:49,879  INFO CRSApplication,main:46 - Enter Username:
+22:08:52,704  INFO CRSApplication,main:48 - Enter Password:
+22:08:54,258 ERROR CRSApplication,main:67 - User Not Found 4546
+22:08:54,258  INFO CRSApplication,main:45 - -------Welcome to CRS Login-------
+22:08:54,259  INFO CRSApplication,main:46 - Enter Username:
+22:10:09,252  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+22:10:09,254  INFO CRSApplication,main:42 - Enter Username:
+22:10:16,911  INFO CRSApplication,main:44 - Enter Password:
+22:10:18,139 ERROR CRSApplication,main:60 - User Not Found 45456465
+22:10:18,139  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+22:10:18,140  INFO CRSApplication,main:42 - Enter Username:
+22:12:26,306  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+22:12:26,312  INFO CRSApplication,main:42 - Enter Username:
+22:12:29,378  INFO CRSApplication,main:44 - Enter Password:
+22:12:30,409 ERROR CRSApplication,main:60 - User Not Found 454
+22:12:30,409  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+22:12:30,409  INFO CRSApplication,main:42 - Enter Username:
+22:12:31,649  INFO CRSApplication,main:44 - Enter Password:
+22:12:32,681  INFO CRSApplication,main:50 - Login Successful!
+22:12:32,698  INFO StudentMenu,main:40 - *****************************
+22:12:32,699  INFO StudentMenu,main:41 - 1. Course Registration
+22:12:32,699  INFO StudentMenu,main:42 - 2. Add course
+22:12:32,700  INFO StudentMenu,main:43 - 3. Drop course
+22:12:32,700  INFO StudentMenu,main:44 - 4. View courses
+22:12:32,701  INFO StudentMenu,main:45 - 5. View Registered Courses
+22:12:32,701  INFO StudentMenu,main:46 - 6. View grade card
+22:12:32,702  INFO StudentMenu,main:47 - 7. Logout
+22:12:32,702  INFO StudentMenu,main:48 - *****************************
+22:12:34,794  WARN RegistrationOperation,main:76 - You have not registered any course yet 
+22:12:34,795  INFO StudentMenu,main:79 - Enter courseCode to be dropped: 
+22:16:21,997  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+22:16:22,002  INFO CRSApplication,main:42 - Enter Username:
+22:16:24,323  INFO CRSApplication,main:44 - Enter Password:
+22:16:25,881  INFO CRSApplication,main:50 - Login Successful!
+22:16:25,884  INFO StudentMenu,main:32 - *****************************
+22:16:25,884  INFO StudentMenu,main:33 - 1. Course Registration
+22:16:25,884  INFO StudentMenu,main:34 - 2. Add course
+22:16:25,885  INFO StudentMenu,main:35 - 3. Drop course
+22:16:25,885  INFO StudentMenu,main:36 - 4. View courses
+22:16:25,885  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:16:25,885  INFO StudentMenu,main:38 - 6. View grade card
+22:16:25,885  INFO StudentMenu,main:39 - 7. Logout
+22:16:25,886  INFO StudentMenu,main:40 - *****************************
+22:16:28,397  WARN RegistrationOperation,main:82 - You have not registered any course yet 
+22:16:28,398  INFO StudentMenu,main:70 - Enter courseCode to be dropped: 
+22:16:33,750 ERROR StudentMenu,main:75 - 456465464Is not found 
+22:16:33,751  INFO StudentMenu,main:32 - *****************************
+22:16:33,752  INFO StudentMenu,main:33 - 1. Course Registration
+22:16:33,752  INFO StudentMenu,main:34 - 2. Add course
+22:16:33,753  INFO StudentMenu,main:35 - 3. Drop course
+22:16:33,754  INFO StudentMenu,main:36 - 4. View courses
+22:16:33,754  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:16:33,755  INFO StudentMenu,main:38 - 6. View grade card
+22:16:33,755  INFO StudentMenu,main:39 - 7. Logout
+22:16:33,756  INFO StudentMenu,main:40 - *****************************
+22:16:59,185  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+22:16:59,190  INFO CRSApplication,main:42 - Enter Username:
+22:17:02,336  INFO CRSApplication,main:44 - Enter Password:
+22:17:03,252  INFO CRSApplication,main:50 - Login Successful!
+22:17:03,254  INFO StudentMenu,main:32 - *****************************
+22:17:03,254  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:03,255  INFO StudentMenu,main:34 - 2. Add course
+22:17:03,255  INFO StudentMenu,main:35 - 3. Drop course
+22:17:03,255  INFO StudentMenu,main:36 - 4. View courses
+22:17:03,255  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:03,255  INFO StudentMenu,main:38 - 6. View grade card
+22:17:03,256  INFO StudentMenu,main:39 - 7. Logout
+22:17:03,256  INFO StudentMenu,main:40 - *****************************
+22:17:05,080  WARN RegistrationOperation,main:82 - You have not registered any course yet 
+22:17:05,081  INFO StudentMenu,main:70 - Enter courseCode to be dropped: 
+22:17:06,062 ERROR StudentMenu,main:75 - Course 13213 is not found 
+22:17:06,063  INFO StudentMenu,main:32 - *****************************
+22:17:06,063  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:06,063  INFO StudentMenu,main:34 - 2. Add course
+22:17:06,064  INFO StudentMenu,main:35 - 3. Drop course
+22:17:06,064  INFO StudentMenu,main:36 - 4. View courses
+22:17:06,064  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:06,065  INFO StudentMenu,main:38 - 6. View grade card
+22:17:06,065  INFO StudentMenu,main:39 - 7. Logout
+22:17:06,065  INFO StudentMenu,main:40 - *****************************
+22:17:36,355  INFO RegistrationOperation,main:70 - CourseCode  CourseName Instructor Seats
+
+22:17:36,356  INFO RegistrationOperation,main:74 - 1, A, I1, 10
+22:17:36,356  INFO RegistrationOperation,main:74 - 2, B, I2, 10
+22:17:36,356  INFO RegistrationOperation,main:74 - 3, C, I3, 10
+22:17:36,357  INFO RegistrationOperation,main:74 - 4, D, I4, 10
+22:17:36,357  INFO RegistrationOperation,main:74 - 5, E, I5, 10
+22:17:36,357  INFO RegistrationOperation,main:74 - 6, F, I6, 10
+22:17:36,357  INFO RegistrationOperation,main:74 - 7, G, I7, 10
+22:17:36,357  INFO RegistrationOperation,main:74 - 8, H, I8, 10
+22:17:36,358  INFO RegistrationOperation,main:74 - 9, I, I9, 10
+22:17:36,358  INFO RegistrationOperation,main:74 - 10, J, I10, 10
+22:17:36,358  INFO StudentMenu,main:48 - Enter 6 courseCodes: 
+22:17:47,287  INFO RegistrationOperation,main:22 - Courses added to DB
+22:17:47,288  INFO StudentMenu,main:53 - Registration Successful!
+22:17:47,289  INFO StudentMenu,main:32 - *****************************
+22:17:47,289  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,290  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,290  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,291  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,291  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,292  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,293  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,293  INFO StudentMenu,main:40 - *****************************
+22:17:47,294  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,295  INFO StudentMenu,main:32 - *****************************
+22:17:47,296  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,296  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,297  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,297  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,298  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,299  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,299  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,300  INFO StudentMenu,main:40 - *****************************
+22:17:47,301  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,301  INFO StudentMenu,main:32 - *****************************
+22:17:47,302  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,302  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,302  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,303  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,303  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,304  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,304  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,305  INFO StudentMenu,main:40 - *****************************
+22:17:47,305  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,305  INFO StudentMenu,main:32 - *****************************
+22:17:47,306  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,306  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,306  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,306  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,307  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,307  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,307  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,307  INFO StudentMenu,main:40 - *****************************
+22:17:47,308  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,308  INFO StudentMenu,main:32 - *****************************
+22:17:47,308  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,309  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,309  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,309  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,310  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,310  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,310  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,311  INFO StudentMenu,main:40 - *****************************
+22:17:47,311  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,312  INFO StudentMenu,main:32 - *****************************
+22:17:47,312  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,312  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,312  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,312  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,313  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,313  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,313  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,313  INFO StudentMenu,main:40 - *****************************
+22:17:47,314  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,314  INFO StudentMenu,main:32 - *****************************
+22:17:47,314  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,314  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,314  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,315  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,315  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,315  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,315  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,315  INFO StudentMenu,main:40 - *****************************
+22:17:47,316  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,316  INFO StudentMenu,main:32 - *****************************
+22:17:47,316  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,316  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,316  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,317  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,317  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,317  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,317  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,318  INFO StudentMenu,main:40 - *****************************
+22:17:47,318  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,318  INFO StudentMenu,main:32 - *****************************
+22:17:47,319  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,319  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,319  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,319  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,320  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,320  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,320  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,321  INFO StudentMenu,main:40 - *****************************
+22:17:47,321  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,322  INFO StudentMenu,main:32 - *****************************
+22:17:47,322  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,322  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,322  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,323  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,323  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,323  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,323  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,323  INFO StudentMenu,main:40 - *****************************
+22:17:47,324  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,324  INFO StudentMenu,main:32 - *****************************
+22:17:47,324  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,325  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,325  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,325  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,325  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,326  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,326  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,326  INFO StudentMenu,main:40 - *****************************
+22:17:47,326  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,327  INFO StudentMenu,main:32 - *****************************
+22:17:47,327  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,327  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,327  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,328  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,328  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,328  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,328  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,328  INFO StudentMenu,main:40 - *****************************
+22:17:47,329  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,329  INFO StudentMenu,main:32 - *****************************
+22:17:47,329  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,330  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,330  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,330  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,330  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,330  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,331  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,331  INFO StudentMenu,main:40 - *****************************
+22:17:47,331  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,331  INFO StudentMenu,main:32 - *****************************
+22:17:47,331  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,332  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,332  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,332  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,332  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,332  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,332  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,333  INFO StudentMenu,main:40 - *****************************
+22:17:47,333  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,333  INFO StudentMenu,main:32 - *****************************
+22:17:47,333  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,333  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,334  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,334  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,334  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,334  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,335  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,335  INFO StudentMenu,main:40 - *****************************
+22:17:47,335  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,335  INFO StudentMenu,main:32 - *****************************
+22:17:47,336  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,336  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,336  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,336  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,337  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,337  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,337  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,337  INFO StudentMenu,main:40 - *****************************
+22:17:47,338  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,338  INFO StudentMenu,main:32 - *****************************
+22:17:47,338  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,338  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,338  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,339  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,339  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,339  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,340  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,340  INFO StudentMenu,main:40 - *****************************
+22:17:47,341  WARN StudentMenu,main:97 - ***** Wrong Choice *****
+22:17:47,341  INFO StudentMenu,main:32 - *****************************
+22:17:47,341  INFO StudentMenu,main:33 - 1. Course Registration
+22:17:47,342  INFO StudentMenu,main:34 - 2. Add course
+22:17:47,342  INFO StudentMenu,main:35 - 3. Drop course
+22:17:47,342  INFO StudentMenu,main:36 - 4. View courses
+22:17:47,343  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:17:47,343  INFO StudentMenu,main:38 - 6. View grade card
+22:17:47,343  INFO StudentMenu,main:39 - 7. Logout
+22:17:47,343  INFO StudentMenu,main:40 - *****************************
+22:17:47,344  INFO RegistrationOperation,main:70 - CourseCode  CourseName Instructor Seats
+
+22:17:47,344  INFO RegistrationOperation,main:74 - 1, A, I1, 10
+22:17:47,344  INFO RegistrationOperation,main:74 - 2, B, I2, 10
+22:17:47,345  INFO RegistrationOperation,main:74 - 3, C, I3, 10
+22:17:47,345  INFO RegistrationOperation,main:74 - 4, D, I4, 10
+22:17:47,345  INFO RegistrationOperation,main:74 - 5, E, I5, 10
+22:17:47,345  INFO RegistrationOperation,main:74 - 6, F, I6, 10
+22:17:47,345  INFO RegistrationOperation,main:74 - 7, G, I7, 10
+22:17:47,346  INFO RegistrationOperation,main:74 - 8, H, I8, 10
+22:17:47,346  INFO RegistrationOperation,main:74 - 9, I, I9, 10
+22:17:47,346  INFO RegistrationOperation,main:74 - 10, J, I10, 10
+22:17:47,346  INFO StudentMenu,main:48 - Enter 6 courseCodes: 
+22:18:06,066  INFO RegistrationOperation,main:22 - Courses added to DB
+22:18:06,067  INFO StudentMenu,main:53 - Registration Successful!
+22:18:06,067  INFO StudentMenu,main:32 - *****************************
+22:18:06,067  INFO StudentMenu,main:33 - 1. Course Registration
+22:18:06,067  INFO StudentMenu,main:34 - 2. Add course
+22:18:06,067  INFO StudentMenu,main:35 - 3. Drop course
+22:18:06,067  INFO StudentMenu,main:36 - 4. View courses
+22:18:06,067  INFO StudentMenu,main:37 - 5. View Registered Courses
+22:18:06,067  INFO StudentMenu,main:38 - 6. View grade card
+22:18:06,068  INFO StudentMenu,main:39 - 7. Logout
+22:18:06,068  INFO StudentMenu,main:40 - *****************************
+22:23:11,355  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+22:23:11,358  INFO CRSApplication,main:42 - Enter Username:
+22:23:14,331  INFO CRSApplication,main:44 - Enter Password:
+22:23:15,138 ERROR CRSApplication,main:60 - User Not Found 45465
+22:23:15,138  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+22:23:15,138  INFO CRSApplication,main:42 - Enter Username:
+22:24:39,398  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+22:24:39,403  INFO CRSApplication,main:42 - Enter Username:
+22:24:42,396  INFO CRSApplication,main:44 - Enter Password:
+22:24:43,779 ERROR CRSApplication,main:60 - User Not Found 4465
+22:24:43,779  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+22:24:43,779  INFO CRSApplication,main:42 - Enter Username:
+22:25:16,195  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+22:25:16,197  INFO CRSApplication,main:42 - Enter Username:
+23:53:49,443  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+23:53:49,478  INFO CRSApplication,main:42 - Enter Username:
+23:53:56,659  INFO CRSApplication,main:44 - Enter Password:
+23:53:57,955 ERROR CRSApplication,main:60 - User Not Found 1231
+23:53:57,956  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+23:53:57,956  INFO CRSApplication,main:42 - Enter Username:
+00:11:47,258  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+00:11:47,262  INFO CRSApplication,main:42 - Enter Username:
+00:11:51,483  INFO CRSApplication,main:44 - Enter Password:
+00:11:52,459 ERROR CRSApplication,main:60 - User Not Found 1231
+00:11:52,459  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+00:11:52,459  INFO CRSApplication,main:42 - Enter Username:
+00:13:24,592  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+00:13:24,597  INFO CRSApplication,main:42 - Enter Username:
+00:13:26,845  INFO CRSApplication,main:44 - Enter Password:
+00:13:27,861 ERROR CRSApplication,main:60 - User Not Found 1321
+00:13:27,862  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+00:13:27,863  INFO CRSApplication,main:42 - Enter Username:
+00:13:32,996  INFO CRSApplication,main:44 - Enter Password:
+00:13:34,434  INFO CRSApplication,main:50 - Login Successful!
+00:13:34,439  INFO StudentMenu,main:32 - *****************************
+00:13:34,439  INFO StudentMenu,main:33 - 1. Course Registration
+00:13:34,439  INFO StudentMenu,main:34 - 2. Add course
+00:13:34,440  INFO StudentMenu,main:35 - 3. Drop course
+00:13:34,440  INFO StudentMenu,main:36 - 4. View courses
+00:13:34,442  INFO StudentMenu,main:37 - 5. View Registered Courses
+00:13:34,442  INFO StudentMenu,main:38 - 6. View grade card
+00:13:34,443  INFO StudentMenu,main:39 - 7. Logout
+00:13:34,443  INFO StudentMenu,main:40 - *****************************
+00:13:37,580  WARN RegistrationOperation,main:82 - You have not registered any course yet 
+00:13:37,581  INFO StudentMenu,main:70 - Enter courseCode to be dropped: 
+00:13:46,021 ERROR StudentMenu,main:75 - Course 456 is not found 
+00:13:46,022  INFO StudentMenu,main:32 - *****************************
+00:13:46,023  INFO StudentMenu,main:33 - 1. Course Registration
+00:13:46,024  INFO StudentMenu,main:34 - 2. Add course
+00:13:46,024  INFO StudentMenu,main:35 - 3. Drop course
+00:13:46,025  INFO StudentMenu,main:36 - 4. View courses
+00:13:46,025  INFO StudentMenu,main:37 - 5. View Registered Courses
+00:13:46,026  INFO StudentMenu,main:38 - 6. View grade card
+00:13:46,026  INFO StudentMenu,main:39 - 7. Logout
+00:13:46,026  INFO StudentMenu,main:40 - *****************************
+00:13:59,695  INFO RegistrationOperation,main:70 - CourseCode  CourseName Instructor Seats
+
+00:13:59,696  INFO RegistrationOperation,main:74 - 1, A, I1, 10
+00:13:59,697  INFO RegistrationOperation,main:74 - 2, B, I2, 10
+00:13:59,697  INFO RegistrationOperation,main:74 - 3, C, I3, 10
+00:13:59,697  INFO RegistrationOperation,main:74 - 4, D, I4, 10
+00:13:59,698  INFO RegistrationOperation,main:74 - 5, E, I5, 10
+00:13:59,698  INFO RegistrationOperation,main:74 - 6, F, I6, 10
+00:13:59,698  INFO RegistrationOperation,main:74 - 7, G, I7, 10
+00:13:59,699  INFO RegistrationOperation,main:74 - 8, H, I8, 10
+00:13:59,700  INFO RegistrationOperation,main:74 - 9, I, I9, 10
+00:13:59,700  INFO RegistrationOperation,main:74 - 10, J, I10, 10
+00:13:59,700  INFO StudentMenu,main:48 - Enter 6 courseCodes: 
+00:14:18,174  INFO RegistrationOperation,main:22 - Courses added to DB
+00:14:18,174  INFO StudentMenu,main:53 - Registration Successful!
+00:14:18,175  INFO StudentMenu,main:32 - *****************************
+00:14:18,175  INFO StudentMenu,main:33 - 1. Course Registration
+00:14:18,175  INFO StudentMenu,main:34 - 2. Add course
+00:14:18,175  INFO StudentMenu,main:35 - 3. Drop course
+00:14:18,176  INFO StudentMenu,main:36 - 4. View courses
+00:14:18,176  INFO StudentMenu,main:37 - 5. View Registered Courses
+00:14:18,176  INFO StudentMenu,main:38 - 6. View grade card
+00:14:18,176  INFO StudentMenu,main:39 - 7. Logout
+00:14:18,178  INFO StudentMenu,main:40 - *****************************

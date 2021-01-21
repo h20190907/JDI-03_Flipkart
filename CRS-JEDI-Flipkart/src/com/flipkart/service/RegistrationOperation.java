@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Course;
+import com.flipkart.exception.CourseNotFoundException;
 
 public class RegistrationOperation implements RegistrationInterface {
 
@@ -35,7 +36,9 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 
 	@Override
-	public boolean dropCourse(String courseCode, int studentId) {
+	public boolean dropCourse(String courseCode, int studentId) throws CourseNotFoundException {
+		try {
+			
 		
 		DummyDB.registeredCourses.get(studentId).remove(courseCode);
 
@@ -43,6 +46,9 @@ public class RegistrationOperation implements RegistrationInterface {
 		for (Course course : DummyDB.courseList) {
 			if (courseCode.equals(course.getCourseCode()))
 				course.setSeats(course.getSeats() + 1);
+		}}
+		catch(NullPointerException e){
+			throw new CourseNotFoundException(courseCode);
 		}
 		return true;
 	}
