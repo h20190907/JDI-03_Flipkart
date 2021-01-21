@@ -16,6 +16,7 @@ public class CRSApplication {
 	static boolean loggedin = false;
 	
 	//TODO: Create the login menu
+	
 	//TODO: validate credentials call
 	//TODO: role student default
 	//Register
