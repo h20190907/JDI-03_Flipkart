@@ -6,6 +6,10 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/Lakshya Goyal/Downloads/log4j-1.2.11.jar"/>
+=======
+	<classpathentry kind="lib" path="libs/log4j-1.2.11.jar"/>
+>>>>>>> 29b9e0976f11f7d7cd982caf7615e0cdd41cbc20
 	<classpathentry kind="output" path="bin"/>
 </classpath>
