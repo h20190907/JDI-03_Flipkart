@@ -1,8 +1,7 @@
-/**
- * 
- */
+
 package com.flipkart.bean;
 
+// User bean class	
 public abstract class User {
 	private int userId;
 	private String name;
@@ -12,7 +11,6 @@ public abstract class User {
 	public User(){
 		
 	}
-	
 	public User(int userId, String name, String role, String password) {
 		super();
 		this.userId = userId;
@@ -20,6 +18,8 @@ public abstract class User {
 		this.role = role;
 		this.password = password;
 	}
+	
+
 	public int getUserId() {
 		return userId;
 	}

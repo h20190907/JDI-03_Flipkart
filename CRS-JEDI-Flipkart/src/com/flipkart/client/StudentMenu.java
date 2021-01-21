@@ -13,18 +13,34 @@ import com.flipkart.service.DummyDB;
 import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.RegistrationOperation;
 
+
+/**
+ *  The class displays the menu for student client
+ */
 public class StudentMenu {
 	/*
 	 * TODO: Student menu create 1. Register 2. Add course 3. Drop course 4. View
 	 * course 5. view grade card //calculate fee
 	 */
 	private static Logger logger = Logger.getLogger(StudentMenu.class);
+<<<<<<< HEAD
 
 	// TODO: Course Register-- View Courses, business class
 	// TODO: display courses
 	// TODO: input the courses
 
 	public void create_menu(int sid) {
+=======
+	
+
+	
+	/**
+	 * Menu for registration, addition, removal and fee payment 
+	 * @param sid  student id 
+	 */
+	public void create_menu(int sid)
+	{
+>>>>>>> dc7416f58841cd8517fa0a7b9866c54dbae6e78a
 		Scanner sc = new Scanner(System.in);
 		RegistrationInterface registrationInteface = new RegistrationOperation();
 

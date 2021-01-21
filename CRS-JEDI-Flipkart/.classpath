@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+<<<<<<< HEAD
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+=======
+	<classpathentry kind="lib" path="libs/log4j-1.2.11.jar"/>
+>>>>>>> dc7416f58841cd8517fa0a7b9866c54dbae6e78a
 	<classpathentry kind="output" path="bin"/>
 </classpath>
