@@ -1,14 +1,9 @@
-/**
- * 
- */
+
 package com.flipkart.bean;
 
 import java.util.Date;
 
-/**
- * @author dilpreetkaur
- *
- */
+
 public class Admin extends User{
 	private Date dateOfJoining;
 

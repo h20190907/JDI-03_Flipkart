@@ -1,4 +1,4 @@
-package com.flipkart.client;
+	package com.flipkart.client;
 
 import java.util.Scanner;
 import java.util.*;
@@ -15,15 +15,11 @@ public class CRSApplication {
 	private static Logger logger = Logger.getLogger(CRSApplication.class);
 	static boolean loggedin = false;
 	
-	//TODO: Create the login menu
 	
-	//TODO: validate credentials call
-	//TODO: role student default
-	//Register
-	//TODO: add courses
-	
-	
-	
+	/**
+	 * This is UserClient class for login and registration
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
@@ -51,13 +47,24 @@ public class CRSApplication {
 				loggedin = true;
 				logger.info("Login Successful!");
 			}
+			
 			User user = DummyDB.studentList.get(uid);
+			
 			if(user.getRole().equals("Student"))
 			{
 				StudentMenu studentMenu = new StudentMenu();
 				studentMenu.create_menu(uid);
 				logger.info("Logout Successful!");
 			}
+			else if(user.getRole().equals("Professor"))
+			{
+				
+			}
+			else if(user.getRole().equals("Admin" ))
+			{
+				
+			}
+				
 		}	
 	}
 } 	
