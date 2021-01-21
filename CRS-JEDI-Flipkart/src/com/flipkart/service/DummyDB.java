@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 
@@ -28,18 +26,11 @@ public class DummyDB {
 		studentList.put(4,new Student(4,"Lakshya","Student","1237","EEE","004",2017,true));
 		studentList.put(5,new Student(5,"Anurag","Student","1238","ENI","005",2017,true));
 		
-
-		
 		for(int i=0; i<10; i++)
 		{
 			courseList.add(new Course(String.valueOf(i+1),Character.toString('A' + i),"I" +String.valueOf(i+1),10,true));
 		}
 		
 	}
-	
-	public static void main(String[] args)
-	{
-		init();
-	}
-	
+		
 }

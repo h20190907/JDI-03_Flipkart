@@ -1,7 +1,5 @@
 package com.flipkart.service;
 
-import com.flipkart.bean.User;
-
 public class UserOperation implements UserInterface{
 
 	@Override
@@ -19,12 +17,7 @@ public class UserOperation implements UserInterface{
 		{
 			return true;
 		}
-		
 		return false;
-		
 	}
-	
-	
-	
 
 }

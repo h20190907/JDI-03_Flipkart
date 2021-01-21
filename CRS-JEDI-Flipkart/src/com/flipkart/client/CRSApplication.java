@@ -39,38 +39,24 @@ public class CRSApplication {
 				do
 				{
 				
-					logger.info("-------Welcome to Course Registration System--------");
+					logger.info("-------Welcome to CRS Login-------");
 					logger.info("Enter Username:");
 					uid = sc.nextInt();
 					logger.info("Enter Password:");
 					password = sc.next();
 					
-				}while(username.verifyCredentials(uid, password) == false);
+				} while(username.verifyCredentials(uid, password) == false);
 				
 				loggedin = true;
+				logger.info("Login Successful!");
 			}
-			
-			System.out.println("Login Successful");
-			
 			User user = DummyDB.studentList.get(uid);
-			
 			if(user.getRole().equals("Student"))
 			{
 				StudentMenu studentMenu = new StudentMenu();
 				studentMenu.create_menu(uid);
+				logger.info("Logout Successful!");
 			}
-			else
-			{
-				
-			}
-			
-			
-		}
-		
+		}	
 	}
-		
-		
-		
-	
-
 } 	
