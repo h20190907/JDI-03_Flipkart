@@ -15,7 +15,7 @@ public abstract class User {
 	
 	public User(int userId, String name, String role, String password) {
 		super();
-		this.userId = userId;
+		//this.userId = userId;
 		this.name = name;
 		this.role = role;
 		this.password = password;
