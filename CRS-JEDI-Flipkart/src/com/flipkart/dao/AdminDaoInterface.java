@@ -15,7 +15,7 @@ public interface AdminDaoInterface {
 	public void deleteCourse(String courseCode);
 	public void addCourse(String courseCode, String courseName,String instructor);
 	public List<Student> viewPendingAdmissions();
-	public void approveStudent(String studentId);
+	public void approveStudent(int studentId);
 	public void addProfessor(String name, String role, int userId, String password,String department);	
 	public void assignCourse(String courseCode, int userId);
 }
