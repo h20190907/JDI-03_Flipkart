@@ -894,3 +894,16 @@
 18:33:43,836  INFO RegistrationOperation,main:68 - 10, J, I10, 10
 18:33:43,836  INFO StudentMenu,main:56 - Enter 6 courseCodes: 
 >>>>>>> dc7416f58841cd8517fa0a7b9866c54dbae6e78a
+02:11:48,837  INFO CRSApplication,main:41 - -------Welcome to CRS Login-------
+02:11:48,840  INFO CRSApplication,main:42 - Enter Username:
+02:11:54,259  INFO CRSApplication,main:44 - Enter Password:
+02:11:59,548  INFO CRSApplication,main:50 - Login Successful!
+02:11:59,553  INFO StudentMenu,main:33 - *****************************
+02:11:59,553  INFO StudentMenu,main:34 - 1. Course Registration
+02:11:59,554  INFO StudentMenu,main:35 - 2. Add course
+02:11:59,554  INFO StudentMenu,main:36 - 3. Drop course
+02:11:59,554  INFO StudentMenu,main:37 - 4. View courses
+02:11:59,554  INFO StudentMenu,main:38 - 5. View Registered Courses
+02:11:59,554  INFO StudentMenu,main:39 - 6. View grade card
+02:11:59,555  INFO StudentMenu,main:40 - 7. Logout
+02:11:59,555  INFO StudentMenu,main:41 - *****************************

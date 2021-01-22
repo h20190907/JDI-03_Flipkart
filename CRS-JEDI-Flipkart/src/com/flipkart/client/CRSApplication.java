@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import com.flipkart.service.UserOperation;
 import com.flipkart.bean.User;
 import com.flipkart.exception.UserNotFoundException;
-import com.flipkart.service.DummyDB;
 import com.flipkart.service.UserInterface;
 
 public class CRSApplication {
@@ -25,7 +24,7 @@ public class CRSApplication {
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
-		DummyDB.init();
+		//DummyDB.init();
 
 		UserInterface username = new UserOperation();
 		int uid = 0;
@@ -50,23 +49,27 @@ public class CRSApplication {
 					logger.info("Login Successful!");
 				}
 
-				User user = DummyDB.studentList.get(uid);
-				if (user.getRole().equals("Student")) {
-					StudentMenu studentMenu = new StudentMenu();
-					studentMenu.create_menu(uid);
-					logger.info("Logout Successful!");
-				}
-				else if(user.getRole().equals("Professor"))
-				{
-					
-				}
-				else if(user.getRole().equals("Admin" ))
-				{
-					
-				}
+//				User user = DummyDB.studentList.get(uid);
+//				if (user.getRole().equals("Student")) {
+//					StudentMenu studentMenu = new StudentMenu();
+//					studentMenu.create_menu(uid);
+//					logger.info("Logout Successful!");
+//				}
+//				else if(user.getRole().equals("Professor"))
+//				{
+//					
+//				}
+//				else if(user.getRole().equals("Admin" ))
+//				{
+//					
+//				}
 			} 
 			catch (UserNotFoundException e) {
 				logger.error("User Not Found " + e.getUserId());
+			}
+			finally
+			{
+				sc.close();
 			}
 		}
 	}

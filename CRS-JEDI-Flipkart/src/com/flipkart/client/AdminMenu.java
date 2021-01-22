@@ -9,6 +9,7 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Student;
+import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminOperation;
 
@@ -25,7 +26,6 @@ public class AdminMenu {
 		AdminInterface adminOperation = new AdminOperation();
 		Scanner scanner = new Scanner(System.in);
 		while(true) {
-			
 			logger.info("*****************************");
 			logger.info("1. Add Course");
 			logger.info("2. Delete Course");
@@ -132,6 +132,7 @@ public class AdminMenu {
 				logger.warn("***** Wrong Choice *****");
 			}
 		}
+		
 	}
 
 }

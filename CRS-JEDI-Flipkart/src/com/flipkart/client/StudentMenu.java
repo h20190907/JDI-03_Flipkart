@@ -9,7 +9,6 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.service.DummyDB;
 import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.RegistrationOperation;
 
@@ -56,13 +55,13 @@ public class StudentMenu {
 				break;
 
 			case 2: {
-				if (DummyDB.registeredCourses.get(sid).size() >= 6) {
-					logger.warn("You have aleady added 6 courses");
-				} else {
-					registrationInteface.viewCourses(sid);
-					logger.info("Enter courseCode to be added: ");
-					registrationInteface.addCourse(sc.next(), sid);
-				}
+//				if (DummyDB.registeredCourses.get(sid).size() >= 6) {
+//					logger.warn("You have aleady added 6 courses");
+//				} else {
+//					registrationInteface.viewCourses(sid);
+//					logger.info("Enter courseCode to be added: ");
+//					registrationInteface.addCourse(sc.next(), sid);
+//				}
 			}
 				break;
 
