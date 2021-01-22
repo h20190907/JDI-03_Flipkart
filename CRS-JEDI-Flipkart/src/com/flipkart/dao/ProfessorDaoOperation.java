@@ -4,7 +4,7 @@ import java.util.List;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 
-public class ProfessorDAOOperation implements ProfessorDAOInterface {
+public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	
 	/**

@@ -6,11 +6,11 @@ import java.util.List;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Grade;
-import com.flipkart.dao.ProfessorDAOInterface;
-import com.flipkart.dao.ProfessorDAOOperation;
+import com.flipkart.dao.ProfessorDaoInterface;
+import com.flipkart.dao.ProfessorDaoOperation;
 
 public class ProfessorOperation implements ProfessorInterface {
-	ProfessorDAOInterface professorDAOInterface=new ProfessorDAOOperation();
+	ProfessorDaoInterface professorDAOInterface=new ProfessorDaoOperation();
 	@Override
 	public Grade addGrade(int profId, String studentId, String courseCode, int semester) {
 		// TODO Auto-generated method stub

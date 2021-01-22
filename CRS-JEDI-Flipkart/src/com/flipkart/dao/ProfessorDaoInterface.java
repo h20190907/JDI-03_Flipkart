@@ -4,7 +4,7 @@ import java.util.*;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 
-public interface ProfessorDAOInterface {
+public interface ProfessorDaoInterface {
 	/**
 	 * 
 	 * @param userId, prof id of the professor

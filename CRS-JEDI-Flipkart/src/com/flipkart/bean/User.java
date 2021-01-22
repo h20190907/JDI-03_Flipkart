@@ -1,29 +1,51 @@
 
 package com.flipkart.bean;
 
+import com.flipkart.constant.Gender;
+
 // User bean class	
 public abstract class User {
-	private int userId;
+	private String userId;
 	private String name;
 	private String role;
 	private String password;
+	private Gender gender;
+	private String address;
+	private String country;
 	
+	public Gender getGender() {
+		return gender;
+	}
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
 	public User(){
 		
 	}
-	public User(int userId, String name, String role, String password) {
+	public User(String userId, String name, String role, String password) {
 		super();
-		//this.userId = userId;
+		this.userId = userId;
 		this.name = name;
 		this.role = role;
 		this.password = password;
 	}
 	
-
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	public String getName() {

@@ -9,7 +9,14 @@ import java.util.Date;
  */
 public class Professor extends User{
 	private String department;
+	private String designation;
 	
+	public String getDesignation() {
+		return designation;
+	}
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
 	public String getDepartment() {
 		return department;
 	}

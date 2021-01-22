@@ -15,7 +15,7 @@ public class Student extends User {
 	
 	
 	// Parameterized Constructor
-	public Student(int userId, String name, String role, String password,String branchName, int studentId, int batch, boolean isAppproved) {
+	public Student(String userId, String name, String role, String password,String branchName, int studentId, int batch, boolean isAppproved) {
 		super(userId, name,  role, password);
 		this.branchName = branchName;
 		this.studentId = studentId;

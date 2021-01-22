@@ -11,7 +11,7 @@ import com.flipkart.bean.Course;
  * @author Umang
  *
  */
-public class RegistrationDaoImplementation implements RegistrationDaoInterface{
+public class RegistrationDaoOperation implements RegistrationDaoInterface{
 
 	@Override
 	public boolean registerCourses(int studentId, List<String> clist) {
