@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/Java SE 14.0.2 [14.0.2]">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/dilpreetkaur/Desktop/Training_Flipkart/Training_Project/JDI-03_Flipkart/CRS-JEDI-Flipkart/libs/log4j-1.2.11.jar"/>
-	<classpathentry kind="lib" path="/Users/dilpreetkaur/Desktop/Training_Flipkart/Training_Project/JDI-03_Flipkart/CRS-JEDI-Flipkart/libs/mysql-connector-java-8.0.21.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Lakshya Goyal/Downloads/mysql-connector-java-5.1.7-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lakshya Goyal/Downloads/log4j-1.2.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

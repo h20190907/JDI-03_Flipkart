@@ -6,9 +6,10 @@ package com.flipkart.dao;
 import java.util.List;
 
 import com.flipkart.bean.Course;
+import com.flipkart.exception.CourseNotFoundException;
 
 /**
- * @author Umang
+ * 
  *
  */
 public class RegistrationDaoOperation implements RegistrationDaoInterface{
@@ -20,27 +21,24 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	}
 
 	@Override
-	public boolean addCourse(String courseCode, int studentId) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addCourse(String courseCode, int studentId) throws CourseNotFoundException {
+		throw new CourseNotFoundException(courseCode);
 	}
 
 	@Override
-	public boolean dropCourse(String courseCode, int studentId) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean dropCourse(String courseCode, int studentId) throws CourseNotFoundException {
+		throw new CourseNotFoundException(courseCode);
 	}
 
 	@Override
-	public double calculateFees(int studentId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double payFees(int studentId) {
+		return 0.0;
 	}
 
 	@Override
-	public float generateReportCard(int semester, int studentId) {
+	public List<Course> viewGradeCard(int studentId) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override

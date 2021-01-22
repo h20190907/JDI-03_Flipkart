@@ -26,7 +26,7 @@ public class StudentMenu {
 	public void create_menu(int sid)
 	{
 		Scanner sc = new Scanner(System.in);
-		RegistrationInterface registrationInteface = new RegistrationOperation();
+		RegistrationInterface registrationInterface = new RegistrationOperation();
 
 		while (true) {
 			logger.info("*****************************");
@@ -36,7 +36,8 @@ public class StudentMenu {
 			logger.info("4. View courses");
 			logger.info("5. View Registered Courses");
 			logger.info("6. View grade card");
-			logger.info("7. Logout");
+			logger.info("7. Make Payment");
+			logger.info("8. Logout");
 			logger.info("*****************************");
 
 			int choice = sc.nextInt();
@@ -44,12 +45,12 @@ public class StudentMenu {
 			switch (choice) {
 			case 1: {
 				List<String> courseList = new ArrayList<>();
-				registrationInteface.viewCourses(sid);
+				registrationInterface.viewCourses(sid);
 				logger.info("Enter 6 courseCodes: ");
 				for (int i = 0; i < 6; i++) {
 					courseList.add(sc.next());
 				}
-				registrationInteface.registerCourses(sid, courseList);
+				registrationInterface.registerCourses(sid, courseList);
 				logger.info("Registration Successful!");
 			}
 				break;
@@ -58,38 +59,41 @@ public class StudentMenu {
 //				if (DummyDB.registeredCourses.get(sid).size() >= 6) {
 //					logger.warn("You have aleady added 6 courses");
 //				} else {
-//					registrationInteface.viewCourses(sid);
+//					registrationInterface.viewCourses(sid);
 //					logger.info("Enter courseCode to be added: ");
-//					registrationInteface.addCourse(sc.next(), sid);
+//					registrationInterface.addCourse(sc.next(), sid);
 //				}
 			}
 				break;
 
 			case 3: {
-				registrationInteface.viewRegisteredCourses(sid);
+				registrationInterface.viewRegisteredCourses(sid);
 				logger.info("Enter courseCode to be dropped: ");
 				try {
 
-					registrationInteface.dropCourse(sc.next(), sid);
+					registrationInterface.dropCourse(sc.next(), sid);
 				} catch (CourseNotFoundException e) {
-					logger.error("Course "+e.getCourseId() + " is not found ");
+					logger.error("Course "+e.getCourseCode() + " not found ");
 				}
 			}
 				break;
 
 			case 4:
-				registrationInteface.viewCourses(sid);
+				registrationInterface.viewCourses(sid);
 				break;
 
 			case 5:
-				registrationInteface.viewRegisteredCourses(sid);
+				registrationInterface.viewRegisteredCourses(sid);
 				break;
 
 			case 6:
-				logger.info("Your SPI is : " + registrationInteface.generateReportCard(1, sid));
+				registrationInterface.viewGradeCard(sid);
 				break;
 
-			case 7: {
+			case 7:{
+				registrationInterface.payFees(sid);	
+			} 
+			case 8: {
 				CRSApplication.loggedin = false;
 				return;
 			}
