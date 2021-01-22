@@ -14,6 +14,7 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.constant.Gender;
+import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.utils.DBUtils;
 
@@ -28,7 +29,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	@Override
 	public void deleteCourse(String courseCode) {
 		try {
-			String sql = "delete from Course where courseCode = ?";
+			String sql = SQLQueriesConstants.DELETE_COURSE_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
 			statement.setString(1,courseCode);
@@ -58,7 +59,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	public void addCourse(Course course) {
 		try {
 			
-			String sql = "insert into Course(courseCode, courseName, catalogId) values (?, ?, ?)";
+			String sql = SQLQueriesConstants.ADD_COURSE_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
 			statement.setString(1, course.getCourseCode());
@@ -94,7 +95,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 		try {
 			
-			String sql = "select userId, name, password, role, gender, address, country from student natural join user where isApproved = 0";
+			String sql = SQLQueriesConstants.VIEW_PENDING_ADMISSION_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
 			ResultSet resultSet = statement.executeQuery();
 
@@ -141,7 +142,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	@Override
 	public void approveStudent(int studentId) {
 		try {
-			String sql = "update Student set isApproved = 1 where studentId = ?";
+			String sql = SQLQueriesConstants.APPROVE_STUDENT_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
 			statement.setInt(1,studentId);
@@ -176,7 +177,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 		try {
 			
-			String sql = "insert into User(userId, name, password, role, gender, address, country) values (?, ?, ?, ?, ?, ?, ?)";
+			String sql = SQLQueriesConstants.ADD_USER_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
 			statement.setString(1, user.getUserId());
@@ -216,7 +217,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			
 			this.addUser(professor);
 			
-			String sql = "insert into Professor(userId, department, designation) values (?, ?, ?)";
+			String sql = SQLQueriesConstants.ADD_PROFESSOR_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
 			statement.setString(1, professor.getUserId());
@@ -247,7 +248,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	@Override
 	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException{
 		try {
-			String sql = "update Course set professorId = ? where courseCode = ?";
+			String sql = SQLQueriesConstants.ASSIGN_COURSE_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
 			statement.setString(1,professorId);
