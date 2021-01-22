@@ -7,6 +7,8 @@ public class Notification {
 	private int studentId;
 	private NotificationType type;
 	private int paymentId;
+	
+	
 	public int getNotificationId() {
 		return notificationId;
 	}

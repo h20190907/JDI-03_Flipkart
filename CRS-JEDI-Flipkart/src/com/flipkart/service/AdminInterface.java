@@ -5,6 +5,7 @@ import com.flipkart.bean.Student;
 import java.util.List;
 
 public interface AdminInterface {
+	
 	public void deleteCourse(String courseCode);
 	public void addCourse(String courseCode, String courseName,String instructor);
 	public List<Student> viewPendingAdmissions();

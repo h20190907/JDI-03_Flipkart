@@ -15,6 +15,10 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	private static Logger logger = Logger.getLogger(AdminDaoOperation.class);
 	Connection connection = DBUtils.getConnection();
 	
+	/**
+	 * Delete Course using SQL commands
+	 * @param courseCode
+	 */
 	@Override
 	public void deleteCourse(String courseCode) {
 		try {
@@ -38,6 +42,12 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 	}
 
+	/**
+	 * Add Course using SQL commands
+	 * @param courseCode
+	 * @param courseName
+	 * @param instructor
+	 */
 	@Override
 	public void addCourse(String courseCode, String courseName, String instructor) {
 		try {
@@ -65,12 +75,20 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 	}
 
+	/**
+	 * Fetch Students yet to approved using SQL commands
+	 * @return
+	 */
 	@Override
 	public List<Student> viewPendingAdmissions() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * Approve Student using SQL commands
+	 * @param studentId
+	 */
 	@Override
 	public void approveStudent(int studentId) {
 		try {
@@ -94,12 +112,25 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 	}
 
+	/**
+	 * Add professor using SQL commands
+	 * @param name
+	 * @param role
+	 * @param userId
+	 * @param password
+	 * @param department
+	 */
 	@Override
 	public void addProfessor(String name, String role, int userId, String password, String department) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * Assign courses to Professor using SQL commands
+	 * @param courseCode
+	 * @param professorId
+	 */
 	@Override
 	public void assignCourse(String courseCode, int professorId) {
 		try {
@@ -121,8 +152,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			
 			logger.error(e.getMessage());
 		}
-		
-		
 		
 	}
 

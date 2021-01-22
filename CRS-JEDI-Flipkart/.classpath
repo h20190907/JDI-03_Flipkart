@@ -2,7 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/anura/Downloads/Compressed/log4j-1.2.11.jar"/>
 	<classpathentry kind="lib" path="C:/Users/anura/Downloads/Compressed/mysql-connector-java-5.1.7-bin.jar"/>
+=======
+	<classpathentry kind="lib" path="C:/Users/Lakshya Goyal/Downloads/mysql-connector-java-5.1.7-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lakshya Goyal/Downloads/log4j-1.2.11.jar"/>
+>>>>>>> 430bc44e8263175c6afa5c50389b9f7bcd6376e7
 	<classpathentry kind="output" path="bin"/>
 </classpath>

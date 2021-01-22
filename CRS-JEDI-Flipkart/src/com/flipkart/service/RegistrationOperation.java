@@ -4,12 +4,17 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.flipkart.bean.Course;
+import com.flipkart.dao.RegistrationDaoInterface;
+import com.flipkart.dao.RegistrationDaoOperation;
 import com.flipkart.exception.CourseNotFoundException;
 
+/**
+ *
+ */
 public class RegistrationOperation implements RegistrationInterface {
 
 	private static Logger logger = Logger.getLogger(RegistrationOperation.class);
+	RegistrationDaoInterface  registrationDaoInterface  = new RegistrationDaoOperation();
 
 	/**
 	 * Register Courses selected by student
@@ -20,30 +25,50 @@ public class RegistrationOperation implements RegistrationInterface {
 	
 	@Override
 	public boolean registerCourses(int studentId, List<String> courseList) {
-		return true;
+		
+		return registrationDaoInterface.registerCourses(studentId, courseList);
+		
 	}
 
 	/**
 	 * Add Course selected by student 
-	 * @param courseCode --> code for selected course
+	 * @param courseCode : code for selected course
 	 * @param studentId
 	 * @return
 	 */
 	@Override
 	
-	
-	public boolean addCourse(String courseCode, int studentId) {
+	public boolean addCourse(String courseCode, int studentId)  {
+		
+		try
+		{
+			registrationDaoInterface.addCourse(courseCode, studentId);
+		}
+		catch(CourseNotFoundException e)
+		{
+			logger.error(e.getCourseCode() + "Not Found");
+		}
+		
 		return true;
 	}
 
 	/**
 	 * Drop Course selected by student
-	 * @param courseCode --> code for selected course
+	 * @param courseCode : code for selected course
 	 * @param studentId
 	 * @return
 	 */
 	@Override
 	public boolean dropCourse(String courseCode, int studentId) throws CourseNotFoundException {
+		try
+		{
+			registrationDaoInterface.dropCourse(courseCode, studentId);
+		}
+		catch(CourseNotFoundException e)
+		{
+			logger.error(e.getCourseCode() + "Not Found");
+		}
+		
 		return true;
 	}
 	
@@ -53,21 +78,19 @@ public class RegistrationOperation implements RegistrationInterface {
 	 * @return
 	 */
 	@Override
-	public double calculateFees(int studentId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean payFees(int studentId) {
+		registrationDaoInterface.payFees(studentId);
+		return true;
 	}
 
 	/**
 	 * 
-	 * @param semester
 	 * @param studentId
 	 * @return
 	 */
 	@Override
-	public float generateReportCard(int semester, int studentId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void viewGradeCard(int studentId) {
+		registrationDaoInterface.viewGradeCard(studentId);
 	}
 
 	/**
@@ -77,7 +100,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	 */
 	@Override
 	public void viewCourses(int studentId) {
-
+		registrationDaoInterface.viewCourses(studentId);
 	}
 
 	/**
@@ -86,6 +109,6 @@ public class RegistrationOperation implements RegistrationInterface {
 	 */
 	@Override
 	public void viewRegisteredCourses(int studentId) {
-//		
+		registrationDaoInterface.viewRegisteredCourses(studentId);
 	}
 }

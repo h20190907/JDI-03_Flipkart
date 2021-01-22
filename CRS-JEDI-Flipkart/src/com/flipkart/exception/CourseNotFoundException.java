@@ -1,19 +1,19 @@
 package com.flipkart.exception;
 
 public class CourseNotFoundException extends Exception{
-	private String courseId;
+	private String courseCode;
 
 	
 	
-	public CourseNotFoundException(String courseId) {
-		
-		this.courseId = courseId;
+	public CourseNotFoundException(String courseCode)
+	{	
+		this.courseCode = courseCode;
 	}
 
 
-
-	public String getCourseId() {
-		return courseId;
+	public String getCourseCode()
+	{
+		return courseCode;
 	}
 
 
