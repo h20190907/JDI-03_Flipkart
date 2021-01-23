@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package com.flipkart.constant;
 
 /**
@@ -21,18 +21,4 @@ public class SQLQueriesConstant {
 	public static final String VIEW_GRADE = "select course.courseCode,course.courseName,registeredcourse.grade from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?;";	
 	public static final String GET_SEATS = "select seats from course where courseCode = ?;";
 	
-=======
-/**
- * 
- */
-package com.flipkart.constant;
-
-/**
- * @author dilpreetkaur
- *
- */
-public class SQLQueriesConstant {
-	public static final String VIEW_PROFESSOR_QUERY="select";
-
->>>>>>> af191a2626562410db29c2d717331c2d1408de04
 }
