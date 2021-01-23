@@ -53,7 +53,7 @@ public class AdminMenu {
 				logger.info("Enter Instructor Name:\n");
 				String instructorName = scanner.nextLine();
 				
-				adminOperation.addCourse(courseCode, courseName, instructorName);						
+				//adminOperation.addCourse(courseCode, courseName, instructorName);						
 				
 				break;
 			}
@@ -74,7 +74,7 @@ public class AdminMenu {
 				logger.info("Enter Student's User ID:\n");
 				String studentUserIdApproval = scanner.nextLine();
 				
-				adminOperation.approveStudent(studentUserIdApproval);
+				//adminOperation.approveStudent(studentUserIdApproval);
 				
 				break;
 			}
@@ -107,7 +107,7 @@ public class AdminMenu {
 				logger.info("Enter Department:\n");
 				String department = scanner.nextLine();
 				
-				adminOperation.addProfessor(professorName, role, userId, password, department);
+				//adminOperation.addProfessor(professorName, role, userId, password, department);
 				
 				break;
 				
@@ -121,7 +121,7 @@ public class AdminMenu {
 				logger.info("Enter Professor's User Id:\n");
 				int userId = scanner.nextInt();
 				
-				adminOperation.assignCourse(courseCode, userId);
+				//adminOperation.assignCourse(courseCode, userId);
 			
 				break;
 			}

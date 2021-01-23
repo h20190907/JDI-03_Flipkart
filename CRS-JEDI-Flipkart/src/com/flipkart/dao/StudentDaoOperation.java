@@ -3,11 +3,13 @@
  */
 package com.flipkart.dao;
 
+
 /**
- * @author Dilpreet Kaur
+ * @author dilpreet kaur
  *
  */
-public interface StudentDaoInterface {
+public class StudentDaoOperation implements StudentDaoInterface {
+	
 	/**
 	 * 
 	 * @param name
@@ -20,5 +22,11 @@ public interface StudentDaoInterface {
 	 * @param country
 	 * @return true, if record is added in DB, else false.
 	 */
-	public boolean addStudent(String name,String userID,String password,String gender,int batch,String branch,String address,String country);
+
+	@Override
+	public boolean addStudent(String name,String userID,String password,String gender,int batch,String branch,String address,String country){
+		
+		return true;
+	}
+
 }

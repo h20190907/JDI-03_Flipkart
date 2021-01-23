@@ -1,7 +1,6 @@
 
 package com.flipkart.bean;
 
-import com.flipkart.constant.Gender;
 
 // User bean class	
 public abstract class User {
@@ -9,14 +8,14 @@ public abstract class User {
 	private String name;
 	private String role;
 	private String password;
-	private Gender gender;
+	private String gender;
 	private String address;
 	private String country;
 	
-	public Gender getGender() {
+	public String getGender() {
 		return gender;
 	}
-	public void setGender(Gender gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 	public String getAddress() {
