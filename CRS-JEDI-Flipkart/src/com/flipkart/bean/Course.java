@@ -4,15 +4,15 @@ public class Course {
 	//TODO: add constructor 
 	private String courseCode;
 	private String courseName;
-	private String instructor;
+	private String instructorId;
 	private int seats = 10;
 	private boolean isOffered;
 	
-	public Course(String courseCode, String courseName, String instructor, int seats, boolean isOffered) {
+	public Course(String courseCode, String courseName, String instructorId, int seats, boolean isOffered) {
 		super();
 		this.courseCode = courseCode;
 		this.courseName = courseName;
-		this.instructor = instructor;
+		this.instructorId = instructorId;
 		this.seats = seats;
 		this.isOffered = isOffered;
 	}
@@ -29,10 +29,10 @@ public class Course {
 		this.courseName = courseName;
 	}
 	public String getInstructor() {
-		return instructor;
+		return instructorId;
 	}
 	public void setInstructor(String instructor) {
-		this.instructor = instructor;
+		this.instructorId = instructor;
 	}
 	public boolean isOffered() {
 		return isOffered;

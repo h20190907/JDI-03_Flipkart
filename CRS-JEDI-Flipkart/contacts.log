@@ -907,6 +907,7 @@
 02:11:59,554  INFO StudentMenu,main:39 - 6. View grade card
 02:11:59,555  INFO StudentMenu,main:40 - 7. Logout
 02:11:59,555  INFO StudentMenu,main:41 - *****************************
+<<<<<<< HEAD
 19:54:45,859  INFO RegistrationDaoOperation,main:52 - false
 19:59:04,954  INFO RegistrationDaoOperation,main:51 - false
 19:59:04,956  INFO RegistrationDaoOperation,main:54 - You are not registered for the Course 
@@ -990,3 +991,35 @@
 12:22:00,695  INFO RegistrationDaoOperation,main:15 - COURSE CODE          COURSE NAME           INSTRUCTOR                SEATS
 12:22:20,605  INFO RegistrationDaoOperation,main:15 - COURSE CODE                    COURSE NAME                     INSTRUCTOR                          SEATS
 12:22:35,100  INFO RegistrationDaoOperation,main:15 -          COURSE CODE          COURSE NAME           INSTRUCTOR                SEATS
+=======
+16:07:40,445 ERROR AdminDaoOperation,main:73 - Cannot invoke "java.sql.Connection.prepareStatement(String)" because "this.connection" is null
+16:07:58,922 ERROR AdminDaoOperation,main:69 - Cannot add or update a child row: a foreign key constraint fails (`test/course`, CONSTRAINT `course_ibfk_1` FOREIGN KEY (`professorId`) REFERENCES `professor` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+16:10:46,023 ERROR AdminDaoOperation,main:69 - Cannot add or update a child row: a foreign key constraint fails (`test/course`, CONSTRAINT `course_ibfk_1` FOREIGN KEY (`professorId`) REFERENCES `professor` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+16:11:29,144 ERROR AdminDaoOperation,main:69 - Duplicate entry '101' for key 1
+16:11:49,348 ERROR AdminDaoOperation,main:69 - Cannot add or update a child row: a foreign key constraint fails (`test/course`, CONSTRAINT `course_ibfk_1` FOREIGN KEY (`professorId`) REFERENCES `professor` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+19:58:28,443 ERROR AdminDaoOperation,main:150 - Data truncation: Data too long for column 'gender' at row 1
+19:58:28,446 ERROR AdminDaoOperation,main:186 - Cannot add or update a child row: a foreign key constraint fails (`test/professor`, CONSTRAINT `professor_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE)
+19:58:28,446 ERROR AdminDaoOperation,main:150 - Data truncation: Data too long for column 'gender' at row 1
+19:58:28,447 ERROR AdminDaoOperation,main:186 - Cannot add or update a child row: a foreign key constraint fails (`test/professor`, CONSTRAINT `professor_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE)
+20:11:22,609 ERROR AdminDaoOperation,main:74 - Duplicate entry '101' for key 1
+20:12:42,751 ERROR AdminDaoOperation,main:74 - Duplicate entry '101' for key 1
+20:14:21,775  INFO AdminDaoOperation,main:68 - 1 course added
+20:14:21,777  INFO AdminDaoOperation,main:69 - 101 is added to Catalog
+20:14:21,779  INFO AdminDaoOperation,main:212 - 1 Updated
+20:14:21,779  INFO AdminDaoOperation,main:213 - 101is assigned to anurag@2017
+20:19:29,319  INFO AdminDaoOperation,main:69 - 1 course added
+20:19:29,320  INFO AdminDaoOperation,main:70 - 101 is added to Catalog
+20:19:29,321  INFO AdminDaoOperation,main:213 - 0 Updated
+20:19:29,321  WARN AdminDaoOperation,main:219 - 102 not found
+20:19:29,321 ERROR AdminDaoOperation,main:230 - 
+20:44:25,538  INFO AdminDaoOperation,main:37 - 1 deleted
+20:44:25,539  INFO AdminDaoOperation,main:38 - 101 deleted
+20:48:49,327  INFO AdminDaoOperation,main:123 - 2 students have pending approval
+20:49:40,772  INFO AdminDaoOperation,main:123 - 2 students have pending approval
+20:49:40,775  INFO AdminDaoOperation,main:123 - 2 students have pending approval
+20:50:44,367 ERROR AdminDaoOperation,main:155 - Parameter index out of range (2 > number of parameters, which is 1).
+20:52:02,092 ERROR AdminDaoOperation,main:155 - Parameter index out of range (2 > number of parameters, which is 1).
+20:52:27,540 ERROR AdminDaoOperation,main:155 - Table 'test.studennt' doesn't exist
+20:52:36,712  INFO AdminDaoOperation,main:150 - 1 Updated
+20:52:36,713  INFO AdminDaoOperation,main:151 - 2is Approved
+>>>>>>> af191a2626562410db29c2d717331c2d1408de04

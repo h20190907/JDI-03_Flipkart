@@ -21,6 +21,9 @@ public class AdminMenu {
 
 	private static Logger logger = Logger.getLogger(AdminMenu.class);
 	
+	/**
+	 * Method to Create Admin Menu
+	 */
 	public void createMenu() {
 		
 		AdminInterface adminOperation = new AdminOperation();
