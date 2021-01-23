@@ -33,7 +33,7 @@ public class StudentMenu {
 	public void create_menu(int studentId)
 	{
 
-		while (true) 
+		while (CRSApplication.loggedin) 
 		{
 			logger.info("*****************************");
 			logger.info("1. Course Registration");
