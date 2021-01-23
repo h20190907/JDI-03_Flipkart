@@ -23,6 +23,10 @@ public class Student extends User {
 		this.isApproved = isAppproved;
 	}
 	
+	public Student() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getBranchName() {
 		return branchName;
 	}

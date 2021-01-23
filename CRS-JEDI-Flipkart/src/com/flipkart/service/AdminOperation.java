@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
+import com.flipkart.exception.CourseNotFoundException;
 
 public class AdminOperation implements AdminInterface{
 
@@ -29,8 +32,8 @@ public class AdminOperation implements AdminInterface{
 	 * @param instructor
 	 */
 	@Override
-	public void addCourse(String courseCode, String courseName, String instructor) {
-		adminDaoOperation.addCourse(courseCode, courseName, instructor);
+	public void addCourse(Course course) {
+		adminDaoOperation.addCourse(course);
 	}
 
 	/**
@@ -48,7 +51,7 @@ public class AdminOperation implements AdminInterface{
 	 * @param studentId
 	 */
 	@Override
-	public void approveStudent(String studentId) {
+	public void approveStudent(int studentId) {
 		//TODO display viewPendingAdmissions
 		adminDaoOperation.viewPendingAdmissions();
 		adminDaoOperation.approveStudent(studentId);
@@ -63,18 +66,20 @@ public class AdminOperation implements AdminInterface{
 	 * @param department
 	 */
 	@Override
-	public void addProfessor(String name, String role, int userId, String password, String department) {
-		adminDaoOperation.addProfessor(name, role, userId, password, department);
+	public void addProfessor(Professor professor) {
+		
+		adminDaoOperation.addProfessor(professor);
 	}
 
 	/**
 	 * Method to assign a course to a Professor
 	 * @param courseCode
 	 * @param userId
+	 * @throws CourseNotFoundException 
 	 */
 	@Override
-	public void assignCourse(String courseCode, int userId) {
-		adminDaoOperation.assignCourse(courseCode, userId);
+	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException {
+		adminDaoOperation.assignCourse(courseCode, professorId);
 	}
 
 }

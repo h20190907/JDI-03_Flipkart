@@ -5,7 +5,11 @@ package com.flipkart.dao;
 
 import java.util.List;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.User;
+import com.flipkart.exception.CourseNotFoundException;
 
 /**
  * @author Anurag Behera, Rag Patel
@@ -13,9 +17,10 @@ import com.flipkart.bean.Student;
  */
 public interface AdminDaoInterface {
 	public void deleteCourse(String courseCode);
-	public void addCourse(String courseCode, String courseName,String instructor);
+	public void addCourse(Course course);
 	public List<Student> viewPendingAdmissions();
 	public void approveStudent(int studentId);
-	public void addProfessor(String name, String role, int userId, String password,String department);	
-	public void assignCourse(String courseCode, int userId);
+	public void addProfessor(Professor professor);	
+	public void addUser(User user);	
+	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException;
 }

@@ -2,19 +2,26 @@ package com.flipkart.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.User;
+import com.flipkart.constant.Gender;
+import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.utils.DBUtils;
 
 public class AdminDaoOperation implements AdminDaoInterface{
 
 	private static Logger logger = Logger.getLogger(AdminDaoOperation.class);
 	Connection connection = DBUtils.getConnection();
-	
 	/**
 	 * Delete Course using SQL commands
 	 * @param courseCode
@@ -22,7 +29,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	@Override
 	public void deleteCourse(String courseCode) {
 		try {
-			String sql = "delete from Course where courseCode = ?";
+			String sql = SQLQueriesConstants.DELETE_COURSE_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
 			statement.setString(1,courseCode);
@@ -49,20 +56,21 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	 * @param instructor
 	 */
 	@Override
-	public void addCourse(String courseCode, String courseName, String instructor) {
+	public void addCourse(Course course) {
 		try {
 			
-			String sql = "insert into Course(courseCode, courseName, catalogId, professorId) values (?, ?, ?, ?)";
+			String sql = SQLQueriesConstants.ADD_COURSE_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
-			statement.setString(1, courseCode);
-			statement.setString(2, courseName);
+			statement.setString(1, course.getCourseCode());
+			statement.setString(2, course.getCourseName());
+			
+			//TODO Course Catalog ID default is set to 1
 			statement.setString(3, "1");
-			statement.setString(4, instructor);
 			int row = statement.executeUpdate();
 			
 			logger.info(row + " course added");
-			logger.info(courseName + "is added to Catalog"); 
+			logger.info(course.getCourseCode() + " is added to Catalog"); 
 			
 		}catch(SQLException se) {
 			
@@ -75,13 +83,55 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 	}
 
+	//TODO Complete Pending Admissions
 	/**
 	 * Fetch Students yet to approved using SQL commands
 	 * @return
 	 */
 	@Override
 	public List<Student> viewPendingAdmissions() {
-		// TODO Auto-generated method stub
+		
+		List<Student> userList = new ArrayList<Student>();
+		
+		try {
+			
+			String sql = SQLQueriesConstants.VIEW_PENDING_ADMISSION_QUERY;
+			PreparedStatement statement = connection.prepareStatement(sql);
+			ResultSet resultSet = statement.executeQuery();
+
+			while(resultSet.next()) {
+				Student user = new Student();
+				user.setUserId(resultSet.getString(1));
+				user.setName(resultSet.getString(2));
+				user.setPassword(resultSet.getString(3));
+				user.setRole(resultSet.getString(4));
+				user.setRole(resultSet.getString(6));
+				user.setRole(resultSet.getString(7));
+				
+				if(resultSet.getString(5).equals("MALE")) {
+					user.setGender(Gender.MALE);
+				}	
+				else if(resultSet.getString(5).equals("FEMALE")) {
+					user.setGender(Gender.FEMALE);
+				}
+				else {
+					user.setGender(Gender.OTHER);
+				}
+				
+				userList.add(user);
+			}
+			
+			logger.info(userList.size() + " students have pending approval");
+			
+			return userList;
+		}catch(SQLException se) {
+			
+			logger.error(se.getMessage());
+			
+		}catch(Exception e) {
+			
+			logger.error(e.getMessage());
+		}
 		return null;
 	}
 
@@ -92,10 +142,10 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	@Override
 	public void approveStudent(int studentId) {
 		try {
-			String sql = "update Studennt set isApproved = 1 where studentId = ?";
+			String sql = SQLQueriesConstants.APPROVE_STUDENT_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
-			statement.setInt(2,studentId);
+			statement.setInt(1,studentId);
 			int row = statement.executeUpdate();
 			
 			logger.info(row + " Updated");
@@ -113,6 +163,47 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	}
 
 	/**
+	 * 
+	 * @param userId
+	 * @param name
+	 * @param password
+	 * @param role
+	 * @param gender
+	 * @param address
+	 * @param country
+	 */
+	@Override
+	public void addUser(User user) {
+		
+		try {
+			
+			String sql = SQLQueriesConstants.ADD_USER_QUERY;
+			PreparedStatement statement = connection.prepareStatement(sql);
+			
+			statement.setString(1, user.getUserId());
+			statement.setString(2, user.getName());
+			statement.setString(3, user.getPassword());
+			statement.setString(4, user.getRole());
+			statement.setString(5, user.getGender().toString());
+			statement.setString(6, user.getAddress());
+			statement.setString(7, user.getCountry());
+			int row = statement.executeUpdate();
+			
+			logger.info(row + " course added");
+			logger.info(user.getUserId() + " Added"); 
+			
+		}catch(SQLException se) {
+			
+			logger.error(se.getMessage());
+			
+		}catch(Exception e) {
+			
+			logger.error(e.getMessage());
+		}
+		
+	}
+	
+	/**
 	 * Add professor using SQL commands
 	 * @param name
 	 * @param role
@@ -121,28 +212,59 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	 * @param department
 	 */
 	@Override
-	public void addProfessor(String name, String role, int userId, String password, String department) {
-		// TODO Auto-generated method stub
+	public void addProfessor(Professor professor) {
+		try {
+			
+			this.addUser(professor);
+			
+			String sql = SQLQueriesConstants.ADD_PROFESSOR_QUERY;
+			PreparedStatement statement = connection.prepareStatement(sql);
+			
+			statement.setString(1, professor.getUserId());
+			statement.setString(2, professor.getDepartment());
+			statement.setString(3, professor.getDesignation());
+			int row = statement.executeUpdate();
+			
+			logger.info(row + " course added");
+			logger.info(professor.getUserId() + " Added"); 
+			
+		}catch(SQLException se) {
+			
+			logger.error(se.getMessage());
+			
+		}catch(Exception e) {
+			
+			logger.error(e.getMessage());
+		}
+		
 		
 	}
-
+	
 	/**
 	 * Assign courses to Professor using SQL commands
 	 * @param courseCode
 	 * @param professorId
 	 */
 	@Override
-	public void assignCourse(String courseCode, int professorId) {
+	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException{
 		try {
-			String sql = "update Course set professorId = ? where courseCode = ?";
+			String sql = SQLQueriesConstants.ASSIGN_COURSE_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
-			statement.setInt(1,professorId);
+			statement.setString(1,professorId);
 			statement.setString(2,courseCode);
 			int row = statement.executeUpdate();
 			
 			logger.info(row + " Updated");
-			logger.info(courseCode + "is assigned to " + professorId);
+			
+			if(row == 1) {
+				logger.info(courseCode + "is assigned to " + professorId);
+			}
+			else {
+				logger.warn(courseCode + " not found");
+				throw new CourseNotFoundException(courseCode);
+			}
+			
 			
 		}catch(SQLException se) {
 			
