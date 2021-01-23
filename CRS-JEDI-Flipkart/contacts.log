@@ -907,3 +907,86 @@
 02:11:59,554  INFO StudentMenu,main:39 - 6. View grade card
 02:11:59,555  INFO StudentMenu,main:40 - 7. Logout
 02:11:59,555  INFO StudentMenu,main:41 - *****************************
+19:54:45,859  INFO RegistrationDaoOperation,main:52 - false
+19:59:04,954  INFO RegistrationDaoOperation,main:51 - false
+19:59:04,956  INFO RegistrationDaoOperation,main:54 - You are not registered for the Course 
+20:17:39,895  INFO RegistrationDaoOperation,main:65 - Course 104 is successfully dropped.
+20:20:17,912  INFO RegistrationDaoOperation,main:95 - true
+20:20:17,914  INFO RegistrationDaoOperation,main:65 - Course 104 is successfully dropped.
+20:24:21,290  INFO RegistrationDaoOperation,main:101 - false
+20:24:21,291  INFO RegistrationDaoOperation,main:48 - You haven't registered for the course 
+20:25:30,642  INFO RegistrationDaoOperation,main:101 - true
+20:25:30,653  INFO RegistrationDaoOperation,main:65 - Course 101 is successfully dropped.
+22:25:44,410  INFO RegistrationDaoOperation,main:138 - Cannot invoke "java.util.List.add(Object)" because "grade_List" is null
+22:27:54,948  INFO RegistrationDaoOperation,main:128 - 102
+22:27:54,949  INFO RegistrationDaoOperation,main:129 - DBMS
+22:28:02,629  INFO RegistrationDaoOperation,main:128 - 102
+22:28:02,630  INFO RegistrationDaoOperation,main:129 - DBMS
+22:28:08,745  INFO RegistrationDaoOperation,main:128 - 102
+22:28:08,747  INFO RegistrationDaoOperation,main:129 - DBMS
+22:28:37,140  INFO RegistrationDaoOperation,main:128 - 101
+22:28:37,142  INFO RegistrationDaoOperation,main:129 - OOP
+22:28:37,142  INFO RegistrationDaoOperation,main:128 - 102
+22:28:37,142  INFO RegistrationDaoOperation,main:129 - DBMS
+22:43:21,064  INFO RegistrationDaoOperation,main:131 - No value specified for parameter 1
+22:44:01,332  INFO RegistrationDaoOperation,main:132 - Column 'courseFee' not found.
+22:46:19,771  INFO RegistrationDaoOperation,main:126 - com.mysql.jdbc.JDBC4ResultSet@5ea434c8
+22:46:19,777  INFO RegistrationDaoOperation,main:133 - Column 'courseFee' not found.
+22:47:03,751  INFO RegistrationDaoOperation,main:132 - Column 'courseFee' not found.
+22:47:36,395 ERROR RegistrationDaoOperation,main:132 - 0
+22:47:36,396  INFO RegistrationDaoOperation,main:133 - Column 'courseFee' not found.
+22:54:17,509 ERROR RegistrationDaoOperation,main:132 - 0
+22:54:17,510  INFO RegistrationDaoOperation,main:133 - Column 'courseFee' not found.
+22:54:23,448 ERROR RegistrationDaoOperation,main:132 - 0
+22:54:23,450  INFO RegistrationDaoOperation,main:133 - Column 'courseFee' not found.
+22:59:46,613 ERROR RegistrationDaoOperation,main:132 - 0
+22:59:46,614  INFO RegistrationDaoOperation,main:133 - Column 'courseFee' not found.
+23:00:26,141 ERROR RegistrationDaoOperation,main:132 - 0
+23:00:26,142  INFO RegistrationDaoOperation,main:133 - Column 'courseFee' not found.
+23:02:53,212  INFO RegistrationDaoOperation,main:126 - 1003
+23:02:53,214  INFO RegistrationDaoOperation,main:128 - 0.0
+23:04:41,264  INFO RegistrationDaoOperation,main:128 - 300.0
+23:04:55,143  INFO RegistrationDaoOperation,main:128 - 0.0
+23:05:15,726  INFO RegistrationDaoOperation,main:126 - 0.0
+00:00:59,236 ERROR RegistrationDaoOperation,main:292 - Column 'isOffered' not found.
+00:03:33,349  INFO RegistrationDaoOperation,main:326 - Not unique table/alias: 'course'
+00:07:09,643  INFO RegistrationDaoOperation,main:202 - false
+00:07:09,650  INFO RegistrationDaoOperation,main:89 - Course Not Found
+00:08:27,602  INFO RegistrationDaoOperation,main:202 - false
+00:08:27,609  INFO RegistrationDaoOperation,main:89 - Course Not Found
+00:09:12,781  INFO RegistrationDaoOperation,main:202 - false
+00:09:12,789  INFO RegistrationDaoOperation,main:90 - Course Not Found
+00:11:24,988  INFO RegistrationDaoOperation,main:202 - true
+00:11:24,990  INFO RegistrationDaoOperation,main:63 - You have already registered for the course : 101
+00:11:49,246  INFO RegistrationDaoOperation,main:202 - true
+00:11:49,248  INFO RegistrationDaoOperation,main:63 - You have already registered for the course : 101
+00:11:49,249  INFO RegistrationDaoOperation,main:202 - false
+00:11:49,250  INFO RegistrationDaoOperation,main:69 - You can't add course because seat is not available : 110
+00:14:47,507  INFO RegistrationDaoOperation,main:204 - true
+00:14:47,509  INFO RegistrationDaoOperation,main:63 - You have already registered for the course : 101
+00:14:47,510  INFO RegistrationDaoOperation,main:204 - false
+00:14:47,524  INFO RegistrationDaoOperation,main:90 - Course Not Found
+00:15:35,735  INFO RegistrationDaoOperation,main:204 - true
+00:15:35,736  INFO RegistrationDaoOperation,main:63 - You have already registered for the course : 101
+00:15:35,737  INFO RegistrationDaoOperation,main:204 - false
+00:15:42,527  INFO RegistrationDaoOperation,main:204 - true
+00:15:42,528  INFO RegistrationDaoOperation,main:63 - You have already registered for the course : 103
+00:18:14,241  INFO RegistrationDaoOperation,main:204 - true
+00:18:14,252  INFO RegistrationDaoOperation,main:168 - Course 103 is successfully dropped.
+12:13:09,580  INFO CRSApplication,main:40 - -------Welcome to CRS Login-------
+12:13:09,585  INFO CRSApplication,main:41 - Enter Username:
+12:13:11,504  INFO CRSApplication,main:43 - Enter Password:
+12:13:19,042  INFO CRSApplication,main:40 - -------Welcome to CRS Login-------
+12:13:19,043  INFO CRSApplication,main:41 - Enter Username:
+12:13:20,778  INFO CRSApplication,main:43 - Enter Password:
+12:13:21,339  INFO CRSApplication,main:40 - -------Welcome to CRS Login-------
+12:13:21,340  INFO CRSApplication,main:41 - Enter Username:
+12:15:53,225  INFO CRSApplication,main:40 - -------Welcome to CRS Login-------
+12:15:53,230  INFO CRSApplication,main:41 - Enter Username:
+12:15:57,177  INFO CRSApplication,main:43 - Enter Password:
+12:15:58,446  INFO CRSApplication,main:40 - -------Welcome to CRS Login-------
+12:15:58,446  INFO CRSApplication,main:41 - Enter Username:
+12:21:45,073  INFO RegistrationDaoOperation,main:15 -          COURSE CODE          COURSE NAME           INSTRUCTOR                SEATS
+12:22:00,695  INFO RegistrationDaoOperation,main:15 - COURSE CODE          COURSE NAME           INSTRUCTOR                SEATS
+12:22:20,605  INFO RegistrationDaoOperation,main:15 - COURSE CODE                    COURSE NAME                     INSTRUCTOR                          SEATS
+12:22:35,100  INFO RegistrationDaoOperation,main:15 -          COURSE CODE          COURSE NAME           INSTRUCTOR                SEATS
