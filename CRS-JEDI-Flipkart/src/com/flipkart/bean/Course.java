@@ -2,19 +2,18 @@ package com.flipkart.bean;
 
 public class Course {
 	//TODO: add constructor 
-	private String courseCode	;
+	private String courseCode;
 	private String courseName;
 	private String instructorId;
 	private int seats = 10;
-	private boolean isOffered;
 	
-	public Course(String courseCode, String courseName, String instructorId, int seats, boolean isOffered) {
+	public Course(String courseCode, String courseName, String instructorId, int seats) 
+	{
 		super();
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.instructorId = instructorId;
 		this.seats = seats;
-		this.isOffered = isOffered;
 	}
 	public String getCourseCode() {
 		return courseCode;
@@ -33,12 +32,6 @@ public class Course {
 	}
 	public void setInstructor(String instructor) {
 		this.instructorId = instructor;
-	}
-	public boolean isOffered() {
-		return isOffered;
-	}
-	public void setOffered(boolean isOffered) {
-		this.isOffered = isOffered;
 	}
 	public int getSeats() {
 		return seats;
