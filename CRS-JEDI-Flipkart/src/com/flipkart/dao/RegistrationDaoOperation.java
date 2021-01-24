@@ -346,6 +346,9 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		Connection conn = null;
 		UUID uuid=UUID.randomUUID();
 		Notification notify = null;
+		
+
+		logger.info(studentId + mode.toString() + uuid.toString());
 	
 		try
 		{
@@ -505,6 +508,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		{
 			stmt = conn.prepareStatement(SQLQueriesConstants.VIEW_AVAILABLE_COURSES);
 			stmt.setInt(1, studentId);
+			stmt.setBoolean(2, true);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -555,7 +559,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		{
 			stmt = conn.prepareStatement(SQLQueriesConstants.VIEW_REGISTERED_COURSES);
 			stmt.setInt(1, studentId);
-			stmt.setBoolean(2, true);
 
 			ResultSet rs = stmt.executeQuery();
 			

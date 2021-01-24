@@ -99,7 +99,6 @@ public class CRSApplication {
 			//true->role->student->approved
 			if(loggedin)
 			{
-				//get the role
 				String role=userInterface.getRole(userId);
 				Role userRole=Role.stringToName(role);
 				switch(userRole)
@@ -111,11 +110,9 @@ public class CRSApplication {
 				case PROFESSOR:
 					ProfessorMenu professorMenu=new ProfessorMenu();
 					
-					//professorMenu.createMenu();
 					break;
 				case STUDENT:
 					
-					//checkk if approved
 					int studentId=studentInterface.getStudentId(userId);
 					boolean isApproved=studentInterface.isApproved(studentId);
 					if(isApproved)

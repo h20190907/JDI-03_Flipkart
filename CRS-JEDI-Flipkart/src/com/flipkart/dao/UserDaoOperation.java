@@ -66,7 +66,7 @@ public class UserDaoOperation implements UserDaoInterface{
 	
 	@Override
 	public boolean verifyCredentials(String userId, String password) throws UserNotFoundException {
-		Connection connection=DBUtils.getConnection();
+		Connection connection = DBUtils.getConnection();
 		try
 		{
 			//open db connection

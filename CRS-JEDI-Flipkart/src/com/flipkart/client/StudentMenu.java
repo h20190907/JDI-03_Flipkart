@@ -97,7 +97,7 @@ public class StudentMenu {
 		List<String> courselist = new ArrayList<>();
 		for (int i = 0; i < 6; i++) 
 		{
-			logger.info("Select Course : " + i+1);
+			logger.info("Select Course : "  + (i+1));
 			courselist.add(sc.next());
 		}
 		
@@ -137,7 +137,7 @@ public class StudentMenu {
 		}
 		catch(CourseNotFoundException e)
 		{
-			logger.info(e.getCourseCode() + "course not found");
+			logger.info(e.getCourseCode() + " course not found");
 		}
 		catch(SeatNotAvailableException e)
 		{
@@ -166,7 +166,7 @@ public class StudentMenu {
 		}
 		catch(CourseNotFoundException e)
 		{
-			logger.info("You have not registered for course" + e.getCourseCode());
+			logger.info("You have not registered for course : " + e.getCourseCode());
 		}
 	}
 	
@@ -262,7 +262,6 @@ public class StudentMenu {
 					logger.info("Invalid Input");
 				else
 				{
-					
 					Notification notify = registrationInterface.payFee(studentId, mode,fee);
 					logger.info("Your Payment is successful");
 					logger.info("Your transaction id : " + notify.getReferenceId());

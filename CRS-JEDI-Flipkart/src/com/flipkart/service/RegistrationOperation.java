@@ -109,7 +109,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	@Override
 	public Notification payFee(int studentId, ModeOfPayment mode, double amount) 
 	{
-		return registrationDaoInterface.payFee(studentId, null, amount);
+		return registrationDaoInterface.payFee(studentId, mode, amount);
 		
 	}
 
