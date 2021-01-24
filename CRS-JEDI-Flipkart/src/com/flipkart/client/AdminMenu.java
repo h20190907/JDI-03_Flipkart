@@ -8,6 +8,8 @@ import org.apache.log4j.Logger;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.constant.Gender;
+import com.flipkart.constant.Role;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.service.AdminInterface;
@@ -132,7 +134,7 @@ public class AdminMenu {
 		
 		logger.info("Enter Gender: \t 1: Male \t 2.Female \t 3.Other ");
 		int gender = scanner.nextInt();
-		professor.setGender(CRSApplication.mapValueToGender(gender));
+		professor.setGender(Gender.getName(gender));
 		
 		logger.info("Enter Address:");
 		String address = scanner.next();
@@ -142,7 +144,7 @@ public class AdminMenu {
 		String country = scanner.next();
 		professor.setCountry(country);
 		
-		professor.setRole("Professor");
+		professor.setRole(Role.stringToName("Professor"));
 		
 		adminOperation.addProfessor(professor);
 		
