@@ -18,7 +18,7 @@ import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.Grade;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
-import com.flipkart.constant.SQLQueriesConstant;
+import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.exception.CourseLimitExceedException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.SeatNotAvailableException;
@@ -107,13 +107,13 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 
 			try 
 			{
-				stmt = conn.prepareStatement(SQLQueriesConstant.ADD_COURSE);
+				stmt = conn.prepareStatement(SQLQueriesConstants.ADD_COURSE);
 				stmt.setInt(1, studentId);
 				stmt.setString(2, courseCode);
 
 				stmt.executeUpdate();
 				
-				stmt = conn.prepareStatement(SQLQueriesConstant.DECREMENT_COURSE_SEATS);
+				stmt = conn.prepareStatement(SQLQueriesConstants.DECREMENT_COURSE_SEATS);
 				stmt.setString(1, courseCode);
 				stmt.executeUpdate();
 				return true;
@@ -153,7 +153,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		int count = 0;
 		try {
 
-			stmt = conn.prepareStatement(SQLQueriesConstant.NUMBER_OF_REGISTERED_COURSES);
+			stmt = conn.prepareStatement(SQLQueriesConstants.NUMBER_OF_REGISTERED_COURSES);
 			stmt.setInt(1, studentId);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -200,7 +200,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		Connection conn = DBUtils.getConnection();
 		try 
 		{
-			stmt = conn.prepareStatement(SQLQueriesConstant.GET_SEATS);
+			stmt = conn.prepareStatement(SQLQueriesConstants.GET_SEATS);
 			stmt.setString(1, courseCode);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -251,12 +251,12 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		{
 			try
 			{
-				stmt = conn.prepareStatement(SQLQueriesConstant.DROP_COURSE_QUERY);
+				stmt = conn.prepareStatement(SQLQueriesConstants.DROP_COURSE_QUERY);
 				stmt.setString(1, courseCode);
 				stmt.setInt(2, studentId);
 				stmt.execute();
 				
-				stmt = conn.prepareStatement(SQLQueriesConstant.INCREMENT_SEAT_QUERY);
+				stmt = conn.prepareStatement(SQLQueriesConstants.INCREMENT_SEAT_QUERY);
 				stmt.setString(1, courseCode);
 				stmt.execute();
 				
@@ -300,7 +300,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		boolean check = false;
 		try
 		{
-			stmt = conn.prepareStatement(SQLQueriesConstant.IS_REGISTERED);
+			stmt = conn.prepareStatement(SQLQueriesConstants.IS_REGISTERED);
 			stmt.setString(1, courseCode);
 			stmt.setInt(2, studentId);
 			ResultSet rs = stmt.executeQuery();
@@ -351,20 +351,20 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		{
 
 			conn = DBUtils.getConnection();
-			stmt = conn.prepareStatement(SQLQueriesConstant.INSERT_PAYMENT);
+			stmt = conn.prepareStatement(SQLQueriesConstants.INSERT_PAYMENT);
 			stmt.setInt(1, studentId);
 			stmt.setString(2, mode.toString());
 			stmt.setString(3,uuid.toString());
 			stmt.setDouble(4, amount);
 			stmt.executeUpdate();
 			
-			stmt = conn.prepareStatement(SQLQueriesConstant.INSERT_NOTIFICATION);
+			stmt = conn.prepareStatement(SQLQueriesConstants.INSERT_NOTIFICATION);
 			stmt.setInt(1,studentId);
 			stmt.setString(2, NotificationType.PAYMENT.toString());
 			stmt.setString(3, uuid.toString());
 			stmt.executeUpdate();
 			
-			stmt = conn.prepareStatement(SQLQueriesConstant.GET_NOTIFICATION);
+			stmt = conn.prepareStatement(SQLQueriesConstants.GET_NOTIFICATION);
 			stmt.setString(1,uuid.toString());
 			
 			ResultSet rs = stmt.executeQuery();
@@ -374,6 +374,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		catch(SQLException e)
 		{
 			logger.info(e.getMessage());
+		}
+		catch(Exception e)
+		{
+			e.getMessage();
 		}
 		finally
 		{
@@ -387,6 +391,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 			{
 				e.getErrorCode();
 			}
+			
 		}
 		
 		return notify;
@@ -406,7 +411,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		double fee = 0;
 		try
 		{
-			stmt = conn.prepareStatement(SQLQueriesConstant.CALCULATE_FEES);
+			stmt = conn.prepareStatement(SQLQueriesConstants.CALCULATE_FEES);
 			stmt.setInt(1, studentId);
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
@@ -448,7 +453,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		List<StudentGrade> grade_List = new ArrayList<>();
 		try
 		{
-			stmt = conn.prepareStatement(SQLQueriesConstant.VIEW_GRADE);
+			stmt = conn.prepareStatement(SQLQueriesConstants.VIEW_GRADE);
 			stmt.setInt(1, studentId);
 			ResultSet rs = stmt.executeQuery();
 			
@@ -498,7 +503,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		
 		try 
 		{
-			stmt = conn.prepareStatement(SQLQueriesConstant.VIEW_AVAILABLE_COURSES);
+			stmt = conn.prepareStatement(SQLQueriesConstants.VIEW_AVAILABLE_COURSES);
 			stmt.setInt(1, studentId);
 			ResultSet rs = stmt.executeQuery();
 
@@ -548,7 +553,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		List<Course> registeredCourseList = new ArrayList<>();
 		try 
 		{
-			stmt = conn.prepareStatement(SQLQueriesConstant.VIEW_REGISTERED_COURSES);
+			stmt = conn.prepareStatement(SQLQueriesConstants.VIEW_REGISTERED_COURSES);
 			stmt.setInt(1, studentId);
 			stmt.setBoolean(2, true);
 

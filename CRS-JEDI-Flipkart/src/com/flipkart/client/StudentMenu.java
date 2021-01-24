@@ -91,7 +91,9 @@ public class StudentMenu {
 
 	void registerCourses(int studentId)
 	{
-		viewCourse(studentId);
+	
+		if(!viewCourse(studentId))
+			return;
 		List<String> courselist = new ArrayList<>();
 		for (int i = 0; i < 6; i++) 
 		{
@@ -200,10 +202,12 @@ public class StudentMenu {
 			return false;
 		}
 		
+		logger.info(String.format("%20s %20s %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
+		
 		for(Course obj : course_registered)
 		{
 			 
-			logger.info(String.format("%20s %20s %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
+			
 			logger.info(String.format("%20s %20s %20s ",obj.getCourseCode(), obj.getCourseName(),"INSTRUCTOR"));
 		}
 		
@@ -240,15 +244,15 @@ public class StudentMenu {
 			
 			logger.info("Your total fee  = " + fee);
 			logger.info("Want to continue Fee Payment(y/n)");
-			char ch = (char) sc.nextByte();
-			if(ch == 'y')
+			String ch = sc.next();
+			if(ch.equals("y"))
 			{
 				logger.info("Select Mode of Payment:");
 				
 				int index = 1;
 				for(ModeOfPayment mode : ModeOfPayment.values())
 				{
-					logger.info("index" + " " + mode);
+					logger.info(index + " " + mode);
 					index = index + 1;
 				}
 				
@@ -258,6 +262,7 @@ public class StudentMenu {
 					logger.info("Invalid Input");
 				else
 				{
+					
 					Notification notify = registrationInterface.payFee(studentId, mode,fee);
 					logger.info("Your Payment is successful");
 					logger.info("Your transaction id : " + notify.getReferenceId());
