@@ -10,16 +10,17 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.StudentNotFoundException;
 
 /**
  * @author Anurag Behera, Rag Patel
  *
  */
 public interface AdminDaoInterface {
-	public void deleteCourse(String courseCode);
+	public void deleteCourse(String courseCode) throws CourseNotFoundException;
 	public void addCourse(Course course);
 	public List<Student> viewPendingAdmissions();
-	public void approveStudent(int studentId);
+	public void approveStudent(int studentId) throws StudentNotFoundException;
 	public void addProfessor(Professor professor);	
 	public void addUser(User user);	
 	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException;
