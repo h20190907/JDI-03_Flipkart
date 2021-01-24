@@ -15,14 +15,18 @@ import org.apache.log4j.Logger;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.StudentGrade;
+import com.flipkart.constant.Grade;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.SQLQueriesConstant;
+import com.flipkart.exception.CourseLimitExceedException;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.SeatNotAvailableException;
 import com.flipkart.utils.DBUtils;
 
+
 /**
- * 
+ *	This class communicates with the database	 
  *
  */
 public class RegistrationDaoOperation implements RegistrationDaoInterface{
@@ -48,60 +52,55 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	
 	
 	/**
-	 * 
+	 * Method to register course in database, throws exception if not registered.
 	 * @param studentId
 	 * @param courselist
 	 * @return
 	 * @throws CourseNotFoundException 
+	 * @throws SeatNotAvailableException 
+	 * @throws CourseLimitExceedException 
 	 */
 	@Override
-	public boolean registerCourses(int studentId, List<String> courselist) {
+	public boolean registerCourses(int studentId, List<String> courselist) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException {
 		
 		boolean check = true;
-		try
+		
+		for (String courseCode : courselist)
 		{
-			for (String courseCode : courselist)
-			{
-				check  = check & addCourse(courseCode, studentId);
-			}
-			
+			check  = check & addCourse(courseCode, studentId);
 		}
-		catch(CourseNotFoundException e)
-		{
-			logger.info(e.getCourseCode() + " not found");
-		}
+		
 		
 		return check;
 	}
 
 	/**
-	 * 
+	 * Method to add course in database
 	 * @param courseCode
 	 * @param studentId
 	 * @return
-	 * @throws CourseNotFoundException
+	 * @throws CourseNotFoundException if course not found in catalog
+	 * @throws CourseLimitExceedException if course limit exceeded
+	 * @throws SeatNotAvailableException if seat is not available
 	 */
 	@Override
-	public boolean addCourse(String courseCode, int studentId) throws CourseNotFoundException {
+	public boolean addCourse(String courseCode, int studentId) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException {
 		
 
 		Connection conn = DBUtils.getConnection();
 		
-		if (numOfRegisteredCourses(studentId) > 6)
+		if (numOfRegisteredCourses(studentId) >= 6)
 		{	
-			logger.info("You have already registered for 6 courses");
-			return false;
+			throw new CourseLimitExceedException(6);
 		}
 		else if (isRegistered(courseCode, studentId)) 
 		{
-			logger.info("You have already registered for the course : " + courseCode);
 			return false;
 
 		} 
 		else if (!seatAvailable(courseCode)) 
 		{
-			logger.info("You can't add course because seat is not available : "+courseCode);
-			return false;
+			throw new SeatNotAvailableException(courseCode);
 		} 
 		else 
 		{
@@ -121,7 +120,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 			}
 			catch (SQLException e) 
 			{
-				logger.info("Course Not Found");
 				throw new CourseNotFoundException(courseCode);
 
 			}
@@ -129,6 +127,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 			{
 				try
 				{
+					stmt.close();
 					conn.close();
 				}
 				catch(SQLException e)
@@ -178,6 +177,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		{
 			try
 			{
+				stmt.close();
 				conn.close();
 			}
 			catch(SQLException e)
@@ -215,6 +215,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		{
 			try
 			{
+				
+				stmt.close();
 				conn.close();
 			}
 			catch(SQLException e)
@@ -234,16 +236,16 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	 * @param courseCode : code for selected course
 	 * @param studentId
 	 * @return
+	 * @throws CourseNotFoundException 
 	 */
 	@Override
-	public boolean dropCourse(String courseCode, int studentId) throws CourseNotFoundException {
+	public boolean dropCourse(String courseCode, int studentId) throws CourseNotFoundException{
 	
 		Connection conn = DBUtils.getConnection();
 		
 		if(!isRegistered(courseCode,studentId))
 		{
-			logger.info("You haven't registered for the course ");
-			return false;
+			throw new CourseNotFoundException(courseCode);
 		}
 		else
 		{
@@ -259,7 +261,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 				stmt.execute();
 				
 				stmt.close();
-				logger.info("Course " + courseCode + " is successfully dropped.");
 				
 				return true;
 			}
@@ -271,6 +272,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 			{
 				try
 				{
+					stmt.close();
 					conn.close();
 				}
 				catch(SQLException e)
@@ -285,6 +287,12 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		
 	}
 	
+	/**
+	 * Method checks if the student is registered for that course
+	 * @param courseCode
+	 * @param studentId
+	 * @return
+	 */
 	public boolean isRegistered(String courseCode, int studentId){
 		
 		Connection conn = DBUtils.getConnection();
@@ -311,6 +319,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		{
 			try
 			{
+				stmt.close();
 				conn.close();
 			}
 			catch(SQLException e)
@@ -319,40 +328,48 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 			}
 		}
 		
-		logger.info(check);
 		return check;
 		
 	}
 
 	/**
-	 * 
+	 * Method for fee payment and send notification to client. The transaction id for the session is generated by UUID.
 	 * @param studentId
+	 * @param mode - mode of payment
+	 * @param amount - amount to paid by student
 	 * @return
 	 */
 	@Override
 	public Notification payFee(int studentId,ModeOfPayment mode,double amount) {
 		
 		
-		Connection conn = DBUtils.getConnection();
+		Connection conn = null;
 		UUID uuid=UUID.randomUUID();
-		Notification notify = new Notification(notificationId,studentId,NotificationType.PAYMENT,uuid.toString());
+		Notification notify = null;
 	
 		try
 		{
 
+			conn = DBUtils.getConnection();
 			stmt = conn.prepareStatement(SQLQueriesConstant.INSERT_PAYMENT);
 			stmt.setInt(1, studentId);
 			stmt.setString(2, mode.toString());
-			stmt.setString(3,notify.getReferenceId());
+			stmt.setString(3,uuid.toString());
 			stmt.setDouble(4, amount);
 			stmt.executeUpdate();
 			
 			stmt = conn.prepareStatement(SQLQueriesConstant.INSERT_NOTIFICATION);
-			stmt.setInt(1, notify.getNotificationId());
-			stmt.setInt(2,studentId);
-			stmt.setString(3, NotificationType.PAYMENT.toString());
-			stmt.setString(4, notify.getReferenceId());
+			stmt.setInt(1,studentId);
+			stmt.setString(2, NotificationType.PAYMENT.toString());
+			stmt.setString(3, uuid.toString());
 			stmt.executeUpdate();
+			
+			stmt = conn.prepareStatement(SQLQueriesConstant.GET_NOTIFICATION);
+			stmt.setString(1,uuid.toString());
+			
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			notify = new Notification(rs.getInt("notificationId"),studentId,NotificationType.PAYMENT,rs.getString("referenceId"));
 		}
 		catch(SQLException e)
 		{
@@ -362,6 +379,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		{
 			try
 			{
+				stmt.close();
 				if(conn != null)
 					conn.close();
 			}
@@ -376,7 +394,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	
 	
 	/**
-	 * Fee calculation for selected courses
+	 * Method to retrieve fee for the selected courses from the database and calcualte total fee
 	 * @param studentId
 	 * @return
 	 */
@@ -393,7 +411,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
 			fee = rs.getDouble(1);
-			logger.info(fee);
 		}
 		catch(SQLException e)
 		{
@@ -408,6 +425,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		{
 			try
 			{
+				stmt.close();
 				conn.close();
 			}
 			catch(SQLException e)
@@ -419,11 +437,15 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		return fee;
 	}
 
+	/**
+	 * Method to view grade card of the student
+	 * @param studentId
+	 */
 	@Override
 	public List<StudentGrade> viewGradeCard(int studentId) {
 		
 		Connection conn = DBUtils.getConnection();
-		List<StudentGrade> grade_List = new ArrayList();
+		List<StudentGrade> grade_List = new ArrayList<>();
 		try
 		{
 			stmt = conn.prepareStatement(SQLQueriesConstant.VIEW_GRADE);
@@ -434,7 +456,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 			{
 				String courseCode = rs.getString("courseCode");
 				String courseName = rs.getString("courseName");
-				StudentGrade obj = new StudentGrade(courseCode, courseName);
+				String grade = rs.getString("grade");
+				StudentGrade obj = new StudentGrade(courseCode, courseName,grade);
 				grade_List.add(obj);
 			}
 		}
@@ -450,6 +473,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		{
 			try
 			{
+				stmt.close();
 				conn.close();
 			}
 			catch(SQLException e)
@@ -461,6 +485,11 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		return grade_List;
 	}
 
+	/**
+	 * Method to get the list of courses available from course catalog 
+	 * @param studentId
+	 * @return list of courses
+	 */
 	@Override
 	public List<Course> viewCourses(int studentId) {
 		
@@ -471,7 +500,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		{
 			stmt = conn.prepareStatement(SQLQueriesConstant.VIEW_AVAILABLE_COURSES);
 			stmt.setInt(1, studentId);
-			System.out.println("student: " + studentId);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -480,9 +508,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 
 			}
 			
-			
-			for(Course course:availableCourseList)
-				System.out.println(course.getCourseCode()+" "+course.getCourseName()+" "+course.getSeats());
 
 		} 
 		catch (SQLException e) 
@@ -497,7 +522,9 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		{
 			try
 			{
+				stmt.close();
 				conn.close();
+				
 			}
 			catch(SQLException e)
 			{
@@ -509,6 +536,11 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		
 	}
 
+	/**
+	 * Method to get the list of courses registered by the student
+	 * @param studentId
+	 * @return list of courses registered by student
+	 */
 	@Override
 	public List<Course> viewRegisteredCourses(int studentId) {
 
@@ -518,6 +550,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		{
 			stmt = conn.prepareStatement(SQLQueriesConstant.VIEW_REGISTERED_COURSES);
 			stmt.setInt(1, studentId);
+			stmt.setBoolean(2, true);
 
 			ResultSet rs = stmt.executeQuery();
 			
@@ -526,10 +559,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 						rs.getString("professorId"), rs.getInt("seats")));
 
 			}
-			
-			for(Course course:registeredCourseList)
-				System.out.println(course.getCourseCode()+" "+course.getCourseName()+" "+course.getSeats());
-
 		} 
 		catch (SQLException e) 
 		{
@@ -544,6 +573,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		{
 			try
 			{
+				stmt.close();
 				conn.close();
 			}
 			catch(SQLException e)

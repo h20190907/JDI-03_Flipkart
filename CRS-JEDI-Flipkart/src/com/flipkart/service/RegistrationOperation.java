@@ -7,9 +7,12 @@ import java.util.List;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.StudentGrade;
+import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.dao.RegistrationDaoInterface;
 import com.flipkart.dao.RegistrationDaoOperation;
+import com.flipkart.exception.CourseLimitExceedException;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.SeatNotAvailableException;
 
 /**
  *
@@ -21,7 +24,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	{}
 	
 	/**
-	 * Method to make RegistrationOperation Singleton
+	 * Method to make Registration Operation Singleton
 	 * @return
 	 */
 	public static RegistrationOperation getInstance()
@@ -40,69 +43,54 @@ public class RegistrationOperation implements RegistrationInterface {
 	RegistrationDaoInterface  registrationDaoInterface  = RegistrationDaoOperation.getInstance();
 
 	/**
-	 * Register Courses selected by student
+	 * Method to register course selected by student
 	 * @param studentId 
 	 * @param clist  --> list of courses selected by student
-	 * @return s
+	 * @return 
+	 * @throws CourseNotFoundException 
+	 * @throws SeatNotAvailableException 
+	 * @throws CourseLimitExceedException 
+	 */
+	
+	@Override
+	public boolean registerCourses(int studentId, List<String> courseList) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException{
+
+		return registrationDaoInterface.registerCourses(studentId, courseList);
+	}
+
+	/**
+	 * Method to add Course selected by student 
+	 * @param courseCode : code for selected course
+	 * @param studentId
+	 * @return
+	 * @throws CourseNotFoundException 
+	 * @throws SeatNotAvailableException 
+	 * @throws CourseLimitExceedException 
+	 */
+	@Override
+	public boolean addCourse(String courseCode, int studentId) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException {
+		
+		return registrationDaoInterface.addCourse(courseCode, studentId);
+		
+	}
+
+	/**
+	 * Method to drop Course selected by student
+	 * @param courseCode : code for selected course
+	 * @param studentId
+	 * @return
 	 * @throws CourseNotFoundException 
 	 */
-	
 	@Override
-	public boolean registerCourses(int studentId, List<String> courseList) {
-
-		try
-		{
-			return registrationDaoInterface.registerCourses(studentId, courseList);
-		}
-		catch(CourseNotFoundException e)
-		{
-			e.getMessage();
-		}
+	public boolean dropCourse(String courseCode, int studentId) throws CourseNotFoundException {
 		
-		return false;
-	}
-
-	/**
-	 * Add Course selected by student 
-	 * @param courseCode : code for selected course
-	 * @param studentId
-	 * @return
-	 */
-	@Override
-	public boolean addCourse(String courseCode, int studentId) {
+		return registrationDaoInterface.dropCourse(courseCode, studentId);
 		
-		try
-		{
-			return registrationDaoInterface.addCourse(courseCode, studentId);
-		}
-		catch(CourseNotFoundException e)
-		{
-			return false;
-		}
-	}
-
-	/**
-	 * Drop Course selected by student
-	 * @param courseCode : code for selected course
-	 * @param studentId
-	 * @return
-	 */
-	@Override
-	public boolean dropCourse(String courseCode, int studentId) {
-		
-		try
-		{
-			return registrationDaoInterface.dropCourse(courseCode, studentId);
-		}
-		catch(CourseNotFoundException e)
-		{
-			return false;
-		}
 	}
 	
 	/**
-	 * Fee calculation for selected courses
-	 * @param studentId
+	 * Method for Fee Calculation for selected courses
+	 * @param studentId 
 	 * @return
 	 */
 	
@@ -112,14 +100,21 @@ public class RegistrationOperation implements RegistrationInterface {
 		return registrationDaoInterface.calculateFee(studentId);
 	}
 	
+	/**
+	 * method for fee payment for selected courses
+	 * @param studentId
+	 * @param mode - mode of payment
+	 * @param amount - amount to be paid by student
+	 */
 	@Override
-	public Notification payFee(int studentId) {
-		return registrationDaoInterface.payFee(studentId);
+	public Notification payFee(int studentId, ModeOfPayment mode, double amount) 
+	{
+		return registrationDaoInterface.payFee(studentId, null, amount);
 		
 	}
 
 	/**
-	 * 
+	 * Method to view grade card for students
 	 * @param studentId
 	 * @return
 	 */
@@ -129,7 +124,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 
 	/**
-	 * View the list of available courses
+	 * Method to view the list of available courses
 	 * The list will not display the courses registered by student
 	 * @param studentId
 	 */
@@ -139,7 +134,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 
 	/**
-	 * View the list of courses registered by the student
+	 * Method to view the list of courses registered by the student
 	 * @param studentId
 	 */
 	@Override

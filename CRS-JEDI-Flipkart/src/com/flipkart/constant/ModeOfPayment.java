@@ -14,10 +14,12 @@ public enum ModeOfPayment {
 				return ModeOfPayment.NET_BANKING;
 			case 3:
 				return ModeOfPayment.DEBIT_CARD;
+			default:
+				return null;
 				
 		}
 			
-		return null;
 	}
+	
 }
 	

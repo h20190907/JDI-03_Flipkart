@@ -9,9 +9,12 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Notification;
 import com.flipkart.bean.StudentGrade;
-import com.flipkart.dao.RegistrationDaoOperation;
+import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.exception.CourseLimitExceedException;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.SeatNotAvailableException;
 import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.RegistrationOperation;
 
@@ -92,85 +95,125 @@ public class StudentMenu {
 		List<String> courselist = new ArrayList<>();
 		for (int i = 0; i < 6; i++) 
 		{
-			logger.info("Course : " + i+1);
+			logger.info("Select Course : " + i+1);
 			courselist.add(sc.next());
 		}
 		
-		registrationInterface.registerCourses(studentId, courselist);
+		try
+		{
+			registrationInterface.registerCourses(studentId, courselist);
+			logger.info("Registration Successful");
+		}
+		catch(CourseNotFoundException | SeatNotAvailableException  | CourseLimitExceedException e)
+		{
+			logger.info("Registration Unsuccessful");
+		}
+		
+		
+		
 	}
 	
 
-	void addCourse(int studentId)
+	void addCourse(int studentId)	
 	{
-		viewCourse(studentId);
-		String courseCode = sc.next();
+		if(!viewCourse(studentId))
+			return;
+
+		logger.info("Enter the Course Code : ");
 		
-		if(registrationInterface.addCourse(courseCode, studentId))
+		try
 		{
-			logger.info(" You have successfully registerd for Course :" + courseCode);
+			String courseCode = sc.next();
+			if(registrationInterface.addCourse(courseCode, studentId))
+			{
+				logger.info(" You have successfully registered for Course : " + courseCode);
+			}
+			else
+			{
+				logger.info(" You have already registered for Course : " + courseCode);
+			}
 		}
-		else
+		catch(CourseNotFoundException e)
 		{
-			logger.info(" You cannot register for Course :" + courseCode);
+			logger.info(e.getCourseCode() + "course not found");
+		}
+		catch(SeatNotAvailableException e)
+		{
+			logger.info( "Seats are not available in : " + e.getCourseCode());
+		}
+		catch(CourseLimitExceedException e)
+		{
+			logger.info("You have already registered for " +e.getNum() + " courses");
 		}
 		
 	}
 	
 	void dropCourse(int studentId)
 	{
-		viewRegisteredCourse(studentId);
+		if(!viewRegisteredCourse(studentId))
+			return;
+		
+		logger.info("Enter the Course Code : ");
 		String courseCode = sc.next();
 		
-		if(registrationInterface.dropCourse(courseCode, studentId))
+		try
 		{
-			logger.info("You have successfully dropped Course :" + courseCode);
+			registrationInterface.dropCourse(courseCode, studentId);
+			logger.info("You have successfully dropped Course : " + courseCode);
+			
 		}
-		else
+		catch(CourseNotFoundException e)
 		{
-			logger.info(" You cannot drop Course :" + courseCode);
+			logger.info("You have not registered for course" + e.getCourseCode());
 		}
 	}
 	
 	
-	void viewCourse(int studentId)
+	boolean viewCourse(int studentId)
 	{
 		List<Course> course_available = registrationInterface.viewCourses(studentId);
-		logger.info(String.format("%20s %20s %20s %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR", "SEATS"));
 		
 		if(course_available.isEmpty())
 		{
-			logger.info("REGISTRATION CLOSED");
-			return;
+			logger.info("NO COURSE AVAILABLE");
+			return false;
 		}
 		
+
+		logger.info(String.format("%20s %20s %20s %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR", "SEATS"));
 		for(Course obj : course_available)
 		{
 			logger.info(String.format("%20s %20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),"INSTRUCTOR", obj.getSeats()));
 		}
+		
+		return true;
 
 	}
 	
-	void viewRegisteredCourse(int studentId)
+	boolean viewRegisteredCourse(int studentId)
 	{
-		List<Course> course_registered = registrationInterface.viewRegisteredCourses(studentId); 
-		logger.info(String.format("%20s %20s %20s %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
+		List<Course> course_registered = registrationInterface.viewRegisteredCourses(studentId);
 		
 		if(course_registered.isEmpty())
 		{
 			logger.info("You haven't registered for any course");
-			return;
+			return false;
 		}
 		
 		for(Course obj : course_registered)
 		{
-			logger.info(String.format("%20s %20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),"INSTRUCTOR"));
+			 
+			logger.info(String.format("%20s %20s %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
+			logger.info(String.format("%20s %20s %20s ",obj.getCourseCode(), obj.getCourseName(),"INSTRUCTOR"));
 		}
+		
+		return true;
 	}
 	
 	void viewGradeCard(int studentId)
 	{
 		List<StudentGrade> grade_card = registrationInterface.viewGradeCard(studentId);
-		logger.info(String.format("%20s %20s %20s %20s","COURSE CODE", "COURSE NAME", "GRADE"));
+		logger.info(String.format("%20s %20s %20s","COURSE CODE", "COURSE NAME", "GRADE"));
 		
 		if(grade_card.isEmpty())
 		{
@@ -180,7 +223,7 @@ public class StudentMenu {
 		
 		for(StudentGrade obj : grade_card)
 		{
-			logger.info(String.format("%20s %20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),"GRADE"));
+			logger.info(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getGrade()));
 		}
 	}
 	
@@ -188,6 +231,41 @@ public class StudentMenu {
 	{
 		double fee = registrationInterface.calculateFee(studentId);
 
+		if(fee == 0.0)
+		{
+			logger.info("You have not for any registered courses yet");
+		}
+		else
+		{
+			
+			logger.info("Your total fee  = " + fee);
+			logger.info("Want to continue Fee Payment(y/n)");
+			char ch = (char) sc.nextByte();
+			if(ch == 'y')
+			{
+				logger.info("Select Mode of Payment:");
+				
+				int index = 1;
+				for(ModeOfPayment mode : ModeOfPayment.values())
+				{
+					logger.info("index" + " " + mode);
+					index = index + 1;
+				}
+				
+				ModeOfPayment mode = ModeOfPayment.getModeofPayment(sc.nextInt());
+				
+				if(mode == null)
+					logger.info("Invalid Input");
+				else
+				{
+					Notification notify = registrationInterface.payFee(studentId, mode,fee);
+					logger.info("Your Payment is successful");
+					logger.info("Your transaction id : " + notify.getReferenceId());
+				}
+					
+			}
+			
+		}
 		
 	}
 	

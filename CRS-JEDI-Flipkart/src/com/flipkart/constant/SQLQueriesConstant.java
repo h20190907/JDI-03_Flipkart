@@ -7,8 +7,8 @@ package com.flipkart.constant;
 public class SQLQueriesConstant {
 	
 	
-	// Student Queries
-	public static final String VIEW_REGISTERED_COURSES=" select * from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where studentId = ?";
+	// Student Query
+	public static final String VIEW_REGISTERED_COURSES=" select * from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ? and where course.isOffered = ?;";
 	public static final String VIEW_AVAILABLE_COURSES=" select * from course where courseCode not in  (select courseCode  from registeredcourse where studentId = ?) ";
 	public static final String IS_REGISTERED=" select courseCode from registeredcourse where courseCode=? and studentId=? ";
 	public static final String NUMBER_OF_REGISTERED_COURSES=" select studentId from registeredcourse where studentId = ? ";
@@ -21,7 +21,8 @@ public class SQLQueriesConstant {
 	public static final String VIEW_GRADE = "select course.courseCode,course.courseName,registeredcourse.grade from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?;";	
 	public static final String GET_SEATS = "select seats from course where courseCode = ?;";
 	public static final String INSERT_PAYMENT = "insert into payment(studentId,modeofPayment,referenceId,amount) values(?,?,?,?);";
-	public static final String INSERT_NOTIFICATION = "insert into notification(notificationId,studentId,type,referenceId) values(?,?,?,?);";
+	public static final String INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId) values(?,?,?);";
+	public static final String GET_NOTIFICATION = "select * from notification where referenceId = ?;";
 	
 	
 }

@@ -9,7 +9,9 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.exception.CourseLimitExceedException;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.SeatNotAvailableException;
 
 
 public interface RegistrationDaoInterface {
@@ -20,8 +22,10 @@ public interface RegistrationDaoInterface {
 	 * @param clist
 	 * @return
 	 * @throws CourseNotFoundException
+	 * @throws SeatNotAvailableException 
+	 * @throws CourseLimitExceedException 
 	 */
-	public boolean  registerCourses(int studentId,List<String>clist) throws CourseNotFoundException;
+	public boolean  registerCourses(int studentId,List<String>clist) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException;
 	/**
 	 * 
 	 * @param courseCode
@@ -29,7 +33,7 @@ public interface RegistrationDaoInterface {
 	 * @return
 	 * @throws CourseNotFoundException
 	 */
-	public boolean addCourse(String courseCode, int studentId) throws CourseNotFoundException;
+	public boolean addCourse(String courseCode, int studentId) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException;
 	/**
 	 * 
 	 * @param courseCode
