@@ -10,9 +10,13 @@ import java.util.Properties;
 
 public class DBUtils {
 	
+<<<<<<< HEAD
 	
 	public static Connection getConnection() {
 		
+=======
+	public static Connection getConnection() {
+>>>>>>> e9eda946cb55c8d46c1444d36c0c15f7b925b233
 		Connection connection = null;
         if (connection != null)
             return connection;

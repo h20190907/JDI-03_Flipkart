@@ -5,9 +5,13 @@ package com.flipkart.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
 import com.flipkart.bean.Student;
+import com.flipkart.client.CRSApplication;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.utils.DBUtils;
@@ -19,6 +23,12 @@ import com.flipkart.utils.DBUtils;
 public class StudentDaoOperation implements StudentDaoInterface {
 	
 	private static volatile StudentDaoOperation instance=null;
+	private static Logger logger = Logger.getLogger(CRSApplication.class);
+	private StudentDaoOperation()
+	{
+		
+	}
+	
 	public static StudentDaoOperation getInstance()
 	{
 		if(instance==null)
@@ -86,6 +96,51 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			}
 		}
 		return true;
+	}
+	
+	@Override
+	public int getStudentId(String userId) {
+		Connection connection=DBUtils.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_STUDENT_ID);
+			statement.setString(1, userId);
+			ResultSet rs = statement.executeQuery();
+			
+			if(rs.next())
+			{
+				return rs.getInt("studentId");
+			}
+				
+		}
+		catch(SQLException e)
+		{
+			logger.error(e.getMessage());
+		}
+		
+		return 0;
+	}
+	
+	
+	@Override
+	public boolean isApproved(int studentId) {
+		Connection connection=DBUtils.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.IS_APPROVED);
+			statement.setInt(1, studentId);
+			ResultSet rs = statement.executeQuery();
+			
+			if(rs.next())
+			{
+				return rs.getBoolean("isApproved");
+			}
+				
+		}
+		catch(SQLException e)
+		{
+			logger.error(e.getMessage());
+		}
+		
+		return false;
 	}
 
 }

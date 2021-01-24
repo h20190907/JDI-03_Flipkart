@@ -10,6 +10,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.StudentNotFoundException;
 
 /**
  * 
@@ -34,7 +35,6 @@ public class AdminOperation implements AdminInterface{
 	{
 		if(instance == null)
 		{
-			// This is a synchronized block, when multiple threads will access this instance
 			synchronized(AdminOperation.class){
 				instance = new AdminOperation();
 			}
@@ -48,10 +48,16 @@ public class AdminOperation implements AdminInterface{
 	/**
 	 * Method to Delete Course from Course Catalog
 	 * @param courseCode
+	 * @throws CourseNotFoundException 
 	 */
 	@Override
-	public void deleteCourse(String courseCode) {
-		adminDaoOperation.deleteCourse(courseCode);
+	public void deleteCourse(String courseCode) throws CourseNotFoundException {
+		try {
+			adminDaoOperation.deleteCourse(courseCode);
+		}
+		catch(CourseNotFoundException e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -75,12 +81,17 @@ public class AdminOperation implements AdminInterface{
 	/**
 	 * Method to approve a Student 
 	 * @param studentId
+	 * @throws StudentNotFoundException 
 	 */
 	@Override
-	public void approveStudent(int studentId) {
+	public void approveStudent(int studentId) throws StudentNotFoundException {
 		//TODO display viewPendingAdmissions
-		adminDaoOperation.viewPendingAdmissions();
-		adminDaoOperation.approveStudent(studentId);
+		try {
+			adminDaoOperation.approveStudent(studentId);
+		}
+		catch(StudentNotFoundException e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -100,8 +111,13 @@ public class AdminOperation implements AdminInterface{
 	 * @throws CourseNotFoundException 
 	 */
 	@Override
-	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException {
-		adminDaoOperation.assignCourse(courseCode, professorId);
+	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException{
+		try {
+			adminDaoOperation.assignCourse(courseCode, professorId);
+		}
+		catch(CourseNotFoundException e) {
+			throw e;
+		}
 	}
 
 }

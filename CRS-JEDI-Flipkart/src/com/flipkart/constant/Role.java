@@ -1,13 +1,8 @@
 package com.flipkart.constant;
 
 public enum Role {
-	ADMIN(1),PROFESSOR(2),STUDENT(3);
-	final private int role;
+	ADMIN,PROFESSOR,STUDENT;
 	
-	private Role(int role)
-	{
-		this.role=role;
-	}
 	
 	@Override
 	public String toString()
@@ -16,15 +11,17 @@ public enum Role {
 		return name; 
 	}
 	
-	public static Role stringToName(String gender)
+	public static Role stringToName(String role)
 	{
-		Role userRole;
-		if(gender.equalsIgnoreCase("admin"))
+		Role userRole=null;
+		
+		if(role.equals("ADMIN"))//admin==ADMIN
 			userRole=Role.ADMIN;
-		else if(gender.equalsIgnoreCase("professor"))
+		else if(role.equals("PROFESSOR"))
 			userRole=Role.PROFESSOR;
-		else if(gender.equalsIgnoreCase("student"));
+		else if(role.equals("STUDENT"))
 			userRole=Role.STUDENT;
+		//System.out.println(userRole+"role in role class");
 		return userRole;
 	}
 }

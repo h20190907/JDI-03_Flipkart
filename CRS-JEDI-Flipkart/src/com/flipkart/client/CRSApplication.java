@@ -5,7 +5,9 @@ import org.apache.log4j.Logger;
 
 import com.flipkart.service.UserOperation;
 import com.flipkart.constant.Gender;
+import com.flipkart.constant.Role;
 import com.flipkart.exception.StudentNotRegisteredException;
+import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentOperation;
 import com.flipkart.service.UserInterface;
@@ -20,13 +22,13 @@ public class CRSApplication {
 
 	private static Logger logger = Logger.getLogger(CRSApplication.class);
 	static boolean loggedin = false;
+	StudentInterface studentInterface=StudentOperation.getInstance();
 	UserInterface userInterface =UserOperation.getInstance();
-
+	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		CRSApplication crsApplication=new CRSApplication();
 		int userInput;	
-		boolean isRegistered;
 		//create the main menu
 		createMainMenu();
 		userInput=sc.nextInt();
@@ -45,18 +47,20 @@ public class CRSApplication {
 				case 2:
 					//student registration
 					crsApplication.registerStudent();
+					break;	
+				case 3:
+					crsApplication.updatePassword();
 					break;
 				default:
 					logger.info("Invalid Input");
 			}
 			createMainMenu();
 			userInput=sc.nextInt();
-				
 		}
 		}
 		catch(Exception ex)
 		{
-			
+			logger.error("Error occured "+ex);
 		}
 		finally
 		{
@@ -80,14 +84,72 @@ public class CRSApplication {
 		//invalid credential exception
 		//user not found exception
 		//user not approved exception
-		logger.info("in login user");
-		
+		Scanner sc=new Scanner(System.in);
+
+		String userId,password;
+		try
+		{
+			logger.info("-----------------Login------------------");
+			logger.info("Email:");
+			userId=sc.next();
+			logger.info("Password:");
+			password=sc.next();
+			loggedin = userInterface.verifyCredentials(userId, password);
+			//2 cases
+			//true->role->student->approved
+			if(loggedin)
+			{
+				//get the role
+				String role=userInterface.getRole(userId);
+				Role userRole=Role.stringToName(role);
+				switch(userRole)
+				{
+				case ADMIN:
+					AdminMenu adminMenu=new AdminMenu();
+					adminMenu.createMenu();
+					break;
+				case PROFESSOR:
+					ProfessorMenu professorMenu=new ProfessorMenu();
+					
+					//professorMenu.createMenu();
+					break;
+				case STUDENT:
+					
+					//checkk if approved
+					int studentId=studentInterface.getStudentId(userId);
+					boolean isApproved=studentInterface.isApproved(studentId);
+					if(isApproved)
+					{
+						StudentMenu studentMenu=new StudentMenu();
+						studentMenu.create_menu(studentId);
+						
+					}
+					else
+					{
+						logger.warn("Failed to login, you have not been approved by the administration!");
+						loggedin=false;
+					}
+					break;
+				}
+				
+				
+			}
+			else
+			{
+				logger.error("Invalid Credentials!");
+			}
+			
+		}
+		catch(UserNotFoundException ex)
+		{
+			logger.error(ex.getUserId()+" not registered!");
+		}	
 	}
 	
 	public void registerStudent()
 	{
 		Scanner sc=new Scanner(System.in);
-		StudentInterface studentInterface=StudentOperation.getInstance();
+
 		String userId,name,password,address,country,branchName;
 		Gender gender;
 		int genderV, batch;
@@ -119,11 +181,31 @@ public class CRSApplication {
 		}
 		catch(StudentNotRegisteredException ex)
 		{
-			logger.warn("Something went wrong! "+ex.getStudentName() +" not registered. Please try again");
+			logger.error("Something went wrong! "+ex.getStudentName() +" not registered. Please try again");
 		}
-		finally
+	}
+	
+	public void updatePassword()
+	{
+		Scanner sc=new Scanner(System.in);
+		String userId,newPassword;
+		try
 		{
-			sc.close();
+			logger.info("------------------Update Password--------------------");
+			logger.info("Email");
+			userId=sc.next();
+			logger.info("New Password:");
+			newPassword=sc.next();
+			boolean isUpdated=userInterface.updatePassword(userId, newPassword);
+			if(isUpdated)
+				logger.info("Password updated successfully!");
+
+			else
+				logger.error("Something went wrong, please try again!");
+		}
+		catch(Exception ex)
+		{
+			logger.error("Error Occured "+ex.getMessage());
 		}
 	}
 }
