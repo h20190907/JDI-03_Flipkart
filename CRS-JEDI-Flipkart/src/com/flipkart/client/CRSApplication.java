@@ -124,7 +124,7 @@ public class CRSApplication {
 			sc.close();
 		}
 	}
-	public String mapValueToGender(int genderV)
+	public static String mapValueToGender(int genderV)
 	{
 		String gender="";
 		switch(genderV)

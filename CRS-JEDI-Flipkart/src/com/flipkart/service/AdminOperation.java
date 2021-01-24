@@ -11,8 +11,32 @@ import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.exception.CourseNotFoundException;
 
+/**
+ * 
+ * @author Anurag Behera, Rag Patel
+ * Implementations of Admin Operations
+ * 
+ */
 public class AdminOperation implements AdminInterface{
 
+	private static volatile AdminOperation instance = null;
+	
+	/**
+	 * Method to make AdminOperation Singleton
+	 * @return
+	 */
+	public static AdminOperation getInstance()
+	{
+		if(instance == null)
+		{
+			// This is a synchronized block, when multiple threads will access this instance
+			synchronized(AdminOperation.class){
+				instance = new AdminOperation();
+			}
+		}
+		return instance;
+	}
+	
 	private static Logger logger = Logger.getLogger(AdminOperation.class);
 	AdminDaoInterface adminDaoOperation = new AdminDaoOperation();
 	
@@ -27,9 +51,7 @@ public class AdminOperation implements AdminInterface{
 
 	/**
 	 * Method to add Course to Course Catalog
-	 * @param courseCode
-	 * @param courseName
-	 * @param instructor
+	 * @param course : Course object storing details of a course
 	 */
 	@Override
 	public void addCourse(Course course) {
@@ -42,8 +64,7 @@ public class AdminOperation implements AdminInterface{
 	 */
 	@Override
 	public List<Student> viewPendingAdmissions() {
-		adminDaoOperation.viewPendingAdmissions();
-		return null;
+		return adminDaoOperation.viewPendingAdmissions();
 	}
 	
 	/**
@@ -58,12 +79,8 @@ public class AdminOperation implements AdminInterface{
 	}
 
 	/**
-	 * Method to register a Professor
-	 * @param name
-	 * @param role
-	 * @param userId
-	 * @param password
-	 * @param department
+	 * Method to add Professor to DB
+	 * @param professor : Professor Object storing details of a professor
 	 */
 	@Override
 	public void addProfessor(Professor professor) {
@@ -72,7 +89,7 @@ public class AdminOperation implements AdminInterface{
 	}
 
 	/**
-	 * Method to assign a course to a Professor
+	 * Method to assign Course to a Professor
 	 * @param courseCode
 	 * @param userId
 	 * @throws CourseNotFoundException 
