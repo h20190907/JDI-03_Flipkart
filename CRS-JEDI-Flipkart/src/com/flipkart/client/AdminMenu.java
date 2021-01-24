@@ -160,7 +160,7 @@ public class AdminMenu {
 		List<Student> pendingStudentsList= adminOperation.viewPendingAdmissions();
 		
 		for(Student student : pendingStudentsList) {
-			logger.info(student.getStudentId());
+			logger.info(String.format("Id: %11s, Name: %11s", student.getStudentId(), student.getName()));
 		}
 		return pendingStudentsList.size();
 	}
@@ -216,11 +216,4 @@ public class AdminMenu {
 		adminOperation.addCourse(course);						
 
 	}
-
-	//TODO Remove the main. It's just for testing
-	public static void main(String args[]) {
-		AdminMenu adminMenu = new AdminMenu();
-		adminMenu.createMenu();
-	}
-
 }

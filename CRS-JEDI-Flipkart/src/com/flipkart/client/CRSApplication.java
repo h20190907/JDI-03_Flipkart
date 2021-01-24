@@ -29,7 +29,6 @@ public class CRSApplication {
 		Scanner sc = new Scanner(System.in);
 		CRSApplication crsApplication=new CRSApplication();
 		int userInput;	
-		boolean isRegistered;
 		//create the main menu
 		createMainMenu();
 		userInput=sc.nextInt();
@@ -95,7 +94,7 @@ public class CRSApplication {
 			userId=sc.next();
 			logger.info("Password:");
 			password=sc.next();
-			loggedin= userInterface.verifyCredentials(userId, password);
+			loggedin = userInterface.verifyCredentials(userId, password);
 			//2 cases
 			//true->role->student->approved
 			if(loggedin)
