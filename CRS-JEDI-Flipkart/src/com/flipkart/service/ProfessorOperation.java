@@ -12,6 +12,16 @@ import com.flipkart.dao.ProfessorDaoOperation;
 public class ProfessorOperation implements ProfessorInterface {
 	
 	private static volatile ProfessorOperation instance=null;
+	
+	private ProfessorOperation()
+	{
+
+	}
+	
+	/**
+	 * Method to make ProfessorOperation Singleton
+	 * @return
+	 */
 	public static ProfessorOperation getInstance()
 	{
 		if(instance==null)
@@ -26,7 +36,8 @@ public class ProfessorOperation implements ProfessorInterface {
 	
 	
 	
-	ProfessorDaoInterface professorDAOInterface=new ProfessorDaoOperation();
+	ProfessorDaoInterface professorDAOInterface=ProfessorDaoOperation.getInstance();
+	
 	@Override
 	public Grade addGrade(int profId, String studentId, String courseCode, int semester) {
 		// TODO Auto-generated method stub

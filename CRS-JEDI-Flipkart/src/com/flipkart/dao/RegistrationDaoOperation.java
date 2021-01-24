@@ -32,11 +32,9 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	private static Logger logger = Logger.getLogger(RegistrationDaoOperation.class);
 	private PreparedStatement stmt = null;
 	
+	private RegistrationDaoOperation() 
+	{}
 	
-	/**
-	 * getInstance() 
-	 * @return
-	 */
 	public static RegistrationDaoOperation getInstance()
 	{
 		if(instance==null)

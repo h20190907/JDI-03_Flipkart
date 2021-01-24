@@ -17,7 +17,13 @@ import com.flipkart.exception.CourseNotFoundException;
 public class RegistrationOperation implements RegistrationInterface {
     
 	private static volatile RegistrationOperation instance=null;
+	private RegistrationOperation()
+	{}
 	
+	/**
+	 * Method to make RegistrationOperation Singleton
+	 * @return
+	 */
 	public static RegistrationOperation getInstance()
 	{
 		if(instance==null)

@@ -3,6 +3,11 @@
  */
 package com.flipkart.dao;
 
+import java.sql.SQLException;
+
+import com.flipkart.bean.Student;
+import com.flipkart.exception.StudentNotRegisteredException;
+
 /**
  * @author Dilpreet Kaur
  *
@@ -19,6 +24,7 @@ public interface StudentDaoInterface {
 	 * @param address: student's complete address
 	 * @param country
 	 * @return true, if record is added in DB, else false.
+	 * @throws SQLException 
 	 */
-	public boolean addStudent(String name,String userID,String password,String gender,int batch,String branch,String address,String country);
+	public boolean addStudent(Student student) throws StudentNotRegisteredException;
 }

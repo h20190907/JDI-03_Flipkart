@@ -4,6 +4,7 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import com.flipkart.service.UserOperation;
+import com.flipkart.constant.Gender;
 import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentOperation;
@@ -19,7 +20,7 @@ public class CRSApplication {
 
 	private static Logger logger = Logger.getLogger(CRSApplication.class);
 	static boolean loggedin = false;
-	UserInterface userInterface = new UserOperation();
+	UserInterface userInterface =UserOperation.getInstance();
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -87,7 +88,8 @@ public class CRSApplication {
 	{
 		Scanner sc=new Scanner(System.in);
 		StudentInterface studentInterface=StudentOperation.getInstance();
-		String userId,name,password,address,country,branchName,gender;
+		String userId,name,password,address,country,branchName;
+		Gender gender;
 		int genderV, batch;
 		try
 		{
@@ -111,7 +113,7 @@ public class CRSApplication {
 			address=sc.nextLine();
 			logger.info("Country");
 			country=sc.next();
-			gender=mapValueToGender(genderV);
+			gender=Gender.getName(genderV);
 			studentInterface.register(name, userId, password, gender, batch, branchName, address, country);
 			
 		}
@@ -123,22 +125,5 @@ public class CRSApplication {
 		{
 			sc.close();
 		}
-	}
-	public String mapValueToGender(int genderV)
-	{
-		String gender="";
-		switch(genderV)
-		{
-		case 1:
-			gender= "Male";
-			break;
-		case 2:
-			gender= "Female";
-			break;
-		case 3:
-			gender= "Other";
-			break;
-		}
-		return gender;
 	}
 }

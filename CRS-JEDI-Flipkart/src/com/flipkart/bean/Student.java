@@ -3,6 +3,9 @@
  */
 package com.flipkart.bean;
 
+import com.flipkart.constant.Gender;
+import com.flipkart.constant.Role;
+
 /**
  * @author dilpreetkaur
  *
@@ -15,12 +18,13 @@ public class Student extends User {
 	
 	
 	// Parameterized Constructor
-	public Student(String userId, String name, String role, String password,String branchName, int studentId, int batch, boolean isAppproved) {
-		super(userId, name,  role, password);
+	public Student(String userId, String name, Role role, String password, Gender gender, String address,
+			String country,String branchName,int studentId,int batch,boolean isApproved) {
+		super(userId, name,  role, password,gender,address,country);
 		this.branchName = branchName;
 		this.studentId = studentId;
 		this.batch = batch;
-		this.isApproved = isAppproved;
+		this.isApproved = isApproved;
 	}
 	
 	public Student() {

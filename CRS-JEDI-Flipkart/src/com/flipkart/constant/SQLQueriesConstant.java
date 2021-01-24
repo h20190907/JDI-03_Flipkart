@@ -23,4 +23,5 @@ public class SQLQueriesConstant {
 	public static final String INSERT_PAYMENT = "insert into payment(studentId,modeofPayment,referenceId,amount) values(?,?,?,?);";
 	public static final String INSERT_NOTIFICATION = "insert into notification(notificationId,studentId,type,referenceId) values(?,?,?,?);";
 	
+	
 }

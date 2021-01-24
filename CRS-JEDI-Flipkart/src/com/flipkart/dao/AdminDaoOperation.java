@@ -14,14 +14,46 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.constant.Gender;
+import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.service.StudentOperation;
 import com.flipkart.utils.DBUtils;
 
+/**
+ * 
+ * @author Anurag Behera, Rag Patel
+ * Dao Class Operations for Admin
+ * 
+ */
 public class AdminDaoOperation implements AdminDaoInterface{
 
+	private static volatile AdminDaoOperation instance = null;
+	
+	private AdminDaoOperation()
+	{
+		
+	}
+	
+	/**
+	 * Method to make AdminDaoOperation Singleton
+	 * @return
+	 */
+	public static AdminDaoOperation getInstance()
+	{
+		if(instance == null)
+		{
+			// This is a synchronized block, when multiple threads will access this instance
+			synchronized(AdminDaoOperation.class){
+				instance = new AdminDaoOperation();
+			}
+		}
+		return instance;
+	}
+	
 	private static Logger logger = Logger.getLogger(AdminDaoOperation.class);
 	Connection connection = DBUtils.getConnection();
+	
 	/**
 	 * Delete Course using SQL commands
 	 * @param courseCode
@@ -35,8 +67,8 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setString(1,courseCode);
 			int row = statement.executeUpdate();
 			
-			logger.info(row + " deleted");
-			logger.info(courseCode + " deleted");
+			logger.info(row + " entries deleted");
+			logger.info("Course with Course ID : " + courseCode + " deleted");
 			
 		}catch(SQLException se) {
 			
@@ -51,9 +83,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 
 	/**
 	 * Add Course using SQL commands
-	 * @param courseCode
-	 * @param courseName
-	 * @param instructor
+	 * @param course
 	 */
 	@Override
 	public void addCourse(Course course) {
@@ -70,7 +100,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			int row = statement.executeUpdate();
 			
 			logger.info(row + " course added");
-			logger.info(course.getCourseCode() + " is added to Catalog"); 
+			logger.info("Course with Course ID : " + course.getCourseCode() + " is added to Catalogue"); 
 			
 		}catch(SQLException se) {
 			
@@ -104,26 +134,18 @@ public class AdminDaoOperation implements AdminDaoInterface{
 				user.setUserId(resultSet.getString(1));
 				user.setName(resultSet.getString(2));
 				user.setPassword(resultSet.getString(3));
-				user.setRole(resultSet.getString(4));
-				user.setRole(resultSet.getString(6));
-				user.setRole(resultSet.getString(7));
-				
-				if(resultSet.getString(5).equals("MALE")) {
-					user.setGender(Gender.MALE);
-				}	
-				else if(resultSet.getString(5).equals("FEMALE")) {
-					user.setGender(Gender.FEMALE);
-				}
-				else {
-					user.setGender(Gender.OTHER);
-				}
-				
+				user.setRole(Role.stringToName(resultSet.getString(4)));
+				user.setGender(Gender.stringToGender( resultSet.getString(5)));
+				user.setAddress(resultSet.getString(6));
+				user.setCountry(resultSet.getString(7));
+				user.setStudentId(resultSet.getInt(8));
 				userList.add(user);
 			}
 			
 			logger.info(userList.size() + " students have pending approval");
 			
 			return userList;
+			
 		}catch(SQLException se) {
 			
 			logger.error(se.getMessage());
@@ -148,8 +170,8 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setInt(1,studentId);
 			int row = statement.executeUpdate();
 			
-			logger.info(row + " Updated");
-			logger.info(studentId + "is Approved");
+			logger.info(row + " Approval status Updated");
+			logger.info("Student with Student Id : " + studentId + " is Approved");
 			
 		}catch(SQLException se) {
 			
@@ -163,14 +185,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	}
 
 	/**
-	 * 
-	 * @param userId
-	 * @param name
-	 * @param password
-	 * @param role
-	 * @param gender
-	 * @param address
-	 * @param country
+	 * @param user
 	 */
 	@Override
 	public void addUser(User user) {
@@ -183,14 +198,14 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setString(1, user.getUserId());
 			statement.setString(2, user.getName());
 			statement.setString(3, user.getPassword());
-			statement.setString(4, user.getRole());
+			statement.setString(4, user.getRole().toString());
 			statement.setString(5, user.getGender().toString());
 			statement.setString(6, user.getAddress());
 			statement.setString(7, user.getCountry());
 			int row = statement.executeUpdate();
 			
-			logger.info(row + " course added");
-			logger.info(user.getUserId() + " Added"); 
+			logger.info(row + " user added");
+			logger.info("User with User Id : " + user.getUserId() + " Added"); 
 			
 		}catch(SQLException se) {
 			
@@ -205,11 +220,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	
 	/**
 	 * Add professor using SQL commands
-	 * @param name
-	 * @param role
-	 * @param userId
-	 * @param password
-	 * @param department
+	 * @param professor
 	 */
 	@Override
 	public void addProfessor(Professor professor) {
@@ -225,8 +236,8 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setString(3, professor.getDesignation());
 			int row = statement.executeUpdate();
 			
-			logger.info(row + " course added");
-			logger.info(professor.getUserId() + " Added"); 
+			logger.info(row + " Professor added");
+			logger.info("Professor with Professor Id : " + professor.getUserId() + " Added"); 
 			
 		}catch(SQLException se) {
 			
@@ -258,7 +269,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			logger.info(row + " Updated");
 			
 			if(row == 1) {
-				logger.info(courseCode + "is assigned to " + professorId);
+				logger.info("Course : " + courseCode + " is assigned to " + professorId);
 			}
 			else {
 				logger.warn(courseCode + " not found");

@@ -1,10 +1,25 @@
 package com.flipkart.service;
 
+import org.apache.log4j.Logger;
+
+import com.flipkart.bean.Student;
+import com.flipkart.client.CRSApplication;
+import com.flipkart.constant.Gender;
+import com.flipkart.constant.Role;
+import com.flipkart.dao.StudentDaoInterface;
+import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.exception.StudentNotRegisteredException;
 
 public class StudentOperation implements StudentInterface {
 	
 	private static volatile StudentOperation instance=null;
+	private static Logger logger = Logger.getLogger(CRSApplication.class);
+	StudentDaoInterface studentDaoInterface=StudentDaoOperation.getInstance();
+
+	/**
+	 * Method to make StudentOperation Singleton
+	 * @return
+	 */
 	public static StudentOperation getInstance()
 	{
 		if(instance==null)
@@ -19,15 +34,17 @@ public class StudentOperation implements StudentInterface {
 	
 	
 	@Override
-	public void register(String name,String userID,String password,String gender,int batch,String branch,String address,String country) throws StudentNotRegisteredException{
+	public void register(String name,String userId,String password,Gender gender,int batch,String branch,String address,String country) throws StudentNotRegisteredException{
 		try
 		{
-			//call the DAO class
+			//call the DAO class, and add the student record to the DB
+			Student newStudent=new Student(userId,name,Role.STUDENT,password,gender,address,country,branch,0,batch,false);
+			studentDaoInterface.addStudent(newStudent);
 			
 		}
-		catch(Exception ex)
+		catch(StudentNotRegisteredException ex)
 		{
-			throw new StudentNotRegisteredException(name);
+			throw ex;
 
 		}
 	}

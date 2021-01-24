@@ -19,7 +19,7 @@ public class ProfessorMenu {
 	{
 		//Display the options available for the PRofessor
 		Scanner sc=new Scanner(System.in);
-		ProfessorInterface professorInterface=new ProfessorOperation();
+		ProfessorInterface professorInterface=ProfessorOperation.getInstance();
 		int input;
 		while(true)
 		{
