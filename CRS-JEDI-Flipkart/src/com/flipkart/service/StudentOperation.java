@@ -11,9 +11,23 @@ import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.exception.StudentNotRegisteredException;
 
 public class StudentOperation implements StudentInterface {
+	
 	private static volatile StudentOperation instance=null;
+<<<<<<< HEAD
 	private static Logger logger = Logger.getLogger(CRSApplication.class);
 	StudentDaoInterface studentDaoInterface=StudentDaoOperation.getInstance();
+=======
+	
+	private StudentOperation()
+	{
+		
+	}
+	
+	/**
+	 * Method to make StudentOperation Singleton
+	 * @return
+	 */
+>>>>>>> 374d9096410989d7ccb4497bd1596a91512e83d2
 	public static StudentOperation getInstance()
 	{
 		if(instance==null)
@@ -25,6 +39,8 @@ public class StudentOperation implements StudentInterface {
 		}
 		return instance;
 	}
+	
+	
 	@Override
 	public void register(String name,String userId,String password,Gender gender,int batch,String branch,String address,String country) throws StudentNotRegisteredException{
 		try

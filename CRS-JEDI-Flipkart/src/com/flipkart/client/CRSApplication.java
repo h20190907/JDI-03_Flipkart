@@ -20,7 +20,7 @@ public class CRSApplication {
 
 	private static Logger logger = Logger.getLogger(CRSApplication.class);
 	static boolean loggedin = false;
-	UserInterface userInterface = new UserOperation();
+	UserInterface userInterface =UserOperation.getInstance();
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -126,4 +126,24 @@ public class CRSApplication {
 			sc.close();
 		}
 	}
+<<<<<<< HEAD
+=======
+	public static String mapValueToGender(int genderV)
+	{
+		String gender="";
+		switch(genderV)
+		{
+		case 1:
+			gender= "Male";
+			break;
+		case 2:
+			gender= "Female";
+			break;
+		case 3:
+			gender= "Other";
+			break;
+		}
+		return gender;
+	}
+>>>>>>> 374d9096410989d7ccb4497bd1596a91512e83d2
 }

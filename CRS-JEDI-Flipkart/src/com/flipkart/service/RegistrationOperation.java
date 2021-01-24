@@ -2,7 +2,7 @@ package com.flipkart.service;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Notification;
@@ -15,9 +15,32 @@ import com.flipkart.exception.CourseNotFoundException;
  *
  */
 public class RegistrationOperation implements RegistrationInterface {
-
-	private static Logger logger = Logger.getLogger(RegistrationOperation.class);
-	RegistrationDaoInterface  registrationDaoInterface  = new RegistrationDaoOperation();
+    
+	private static volatile RegistrationOperation instance=null;
+	
+	private RegistrationOperation()
+	{
+		
+	}
+	
+	/**
+	 * Method to make RegistrationOperation Singleton
+	 * @return
+	 */
+	public static RegistrationOperation getInstance()
+	{
+		if(instance==null)
+		{
+			// This is a synchronized block, when multiple threads will access this instance
+			synchronized(RegistrationOperation.class){
+				instance=new RegistrationOperation();
+			}
+		}
+		return instance;
+	}
+	
+	
+	RegistrationDaoInterface  registrationDaoInterface  =RegistrationDaoOperation.getInstance();
 
 	/**
 	 * Register Courses selected by student

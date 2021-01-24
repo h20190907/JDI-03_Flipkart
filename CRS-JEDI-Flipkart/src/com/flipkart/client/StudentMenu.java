@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
+import com.flipkart.dao.RegistrationDaoOperation;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.RegistrationOperation;
@@ -23,7 +24,7 @@ public class StudentMenu {
 	
 	
 	Scanner sc = new Scanner(System.in);
-	RegistrationInterface registrationInterface = new RegistrationOperation();
+	RegistrationInterface registrationInterface =RegistrationOperation.getInstance();
 	
 	
 	/**

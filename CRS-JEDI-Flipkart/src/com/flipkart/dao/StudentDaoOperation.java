@@ -19,6 +19,19 @@ import com.flipkart.utils.DBUtils;
 public class StudentDaoOperation implements StudentDaoInterface {
 	
 	private static volatile StudentDaoOperation instance=null;
+<<<<<<< HEAD
+=======
+	
+	private StudentDaoOperation()
+	{
+		
+	}
+	
+	/**
+	 * Method to make StudentDaoOperation Singleton
+	 * @return
+	 */
+>>>>>>> 374d9096410989d7ccb4497bd1596a91512e83d2
 	public static StudentDaoOperation getInstance()
 	{
 		if(instance==null)
@@ -30,6 +43,11 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		}
 		return instance;
 	}
+<<<<<<< HEAD
+=======
+	
+	
+>>>>>>> 374d9096410989d7ccb4497bd1596a91512e83d2
 	/**
 	 * 
 	 * @param name

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-/**
- * 
- */
 package com.flipkart.client;
 
 import java.util.List;
@@ -9,26 +5,33 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminOperation;
 
 /**
+ * 
  * @author Anurag Behera, Rag Patel
- *
+ * Class that Display Admin Client Menu
+ * 
  */
 public class AdminMenu {
 
 	private static Logger logger = Logger.getLogger(AdminMenu.class);
 	
+	AdminInterface adminOperation =AdminOperation.getInstance();
+	Scanner scanner = new Scanner(System.in);
+	
 	/**
 	 * Method to Create Admin Menu
+	 * 
 	 */
-	public void createMenu() {
+	public void createMenu(){
 		
-		AdminInterface adminOperation = new AdminOperation();
-		Scanner scanner = new Scanner(System.in);
 		while(true) {
 			logger.info("*****************************");
 			logger.info("1. Add Course");
@@ -43,243 +46,170 @@ public class AdminMenu {
 			int choice = scanner.nextInt();
 			
 			switch(choice) {
-			case 1: {
-				
-				logger.info("Enter Course Code:\n");
-				String courseCode = scanner.nextLine();
-				
-				logger.info("Enter Course Name:\n");
-				String courseName = scanner.nextLine();
-				
-				logger.info("Enter Instructor Name:\n");
-				String instructorName = scanner.nextLine();
-				
-				//adminOperation.addCourse(courseCode, courseName, instructorName);						
-				
-				break;
-			}
-			
-			case 2:{
-				
-				logger.info("Enter Course Code:\n");
-				String courseCode = scanner.nextLine();
-				
-				adminOperation.deleteCourse(courseCode);
-				
+			case 1: 
+				addCourseToCatalogue();
 				break;
 				
-			}
-			
-			case 3:{
-				
-				logger.info("Enter Student's User ID:\n");
-				String studentUserIdApproval = scanner.nextLine();
-				
-				//adminOperation.approveStudent(studentUserIdApproval);
-				
-				break;
-			}
-			
-			case 4:{
-				
-				List<Student> pendingStudentsList= adminOperation.viewPendingAdmissions();
-				
-				for(Student student : pendingStudentsList) {
-					logger.info(student.getStudentId() + "\n");
-				}
-				
-				break;
-			}
-			
-			case 5:{
-				
-				logger.info("Enter Professor Name:\n");
-				String professorName = scanner.nextLine();
-				
-				logger.info("Enter Role:\n");
-				String role = scanner.nextLine();
-				
-				logger.info("Enter User Id:\n");
-				Integer userId = scanner.nextInt();
-				
-				logger.info("Enter Password:\n");
-				String password = scanner.nextLine();
-				
-				logger.info("Enter Department:\n");
-				String department = scanner.nextLine();
-				
-				//adminOperation.addProfessor(professorName, role, userId, password, department);
-				
+			case 2:
+				deleteCourse();
 				break;
 				
-			}
-			
-			case 6:{
-				
-				logger.info("Enter Course Code:\n");
-				String courseCode = scanner.nextLine();
-				
-				logger.info("Enter Professor's User Id:\n");
-				int userId = scanner.nextInt();
-				
-				//adminOperation.assignCourse(courseCode, userId);
-			
+			case 3:
+				approveStudent();
 				break;
-			}
 			
-			case 7:{
-				
+			case 4:
+				viewPendingAdmissions();
+				break;
+			
+			case 5:
+				addProfessor();
+				break;
+			
+			case 6:
+				assignCourseToProfessor();
+				break;
+			
+			case 7:
 				CRSApplication.loggedin  = false;
 				return;
-			}
+
 			default:
 				logger.warn("***** Wrong Choice *****");
 			}
 		}
-		
 	}
-
-}
-=======
-/**
- * 
- */
-package com.flipkart.client;
-
-import java.util.List;
-import java.util.Scanner;
-
-import org.apache.log4j.Logger;
-
-import com.flipkart.bean.Student;
-import com.flipkart.exception.UserNotFoundException;
-import com.flipkart.service.AdminInterface;
-import com.flipkart.service.AdminOperation;
-
-/**
- * @author Anurag Behera, Rag Patel
- *
- */
-public class AdminMenu {
-
-	private static Logger logger = Logger.getLogger(AdminMenu.class);
 	
 	/**
-	 * Method to Create Admin Menu
+	 * Method to assign Course to a Professor
 	 */
-	public void createMenu() {
+	private void assignCourseToProfessor() {
 		
-		AdminInterface adminOperation = new AdminOperation();
-		Scanner scanner = new Scanner(System.in);
-		while(true) {
-			logger.info("*****************************");
-			logger.info("1. Add Course");
-			logger.info("2. Delete Course");
-			logger.info("3. Approve Students");
-			logger.info("4. View Pending Admission");
-			logger.info("5. Add Professor");
-			logger.info("6. Assign Courses To Professor");
-			logger.info("7. Logout");
-			logger.info("*****************************");
+		logger.info("Enter Course Code:");
+		String courseCode = scanner.next();
+		
+		logger.info("Enter Professor's User Id:");
+		String userId = scanner.next();
+		
+		try {
 			
-			int choice = scanner.nextInt();
+		adminOperation.assignCourse(courseCode, userId);
+		
+		}
+		catch(Exception e) {
 			
-			switch(choice) {
-			case 1: {
-				
-				logger.info("Enter Course Code:\n");
-				String courseCode = scanner.nextLine();
-				
-				logger.info("Enter Course Name:\n");
-				String courseName = scanner.nextLine();
-				
-				logger.info("Enter Instructor Name:\n");
-				String instructorName = scanner.nextLine();
-				
-				adminOperation.addCourse(courseCode, courseName, instructorName);						
-				
-				break;
-			}
-			
-			case 2:{
-				
-				logger.info("Enter Course Code:\n");
-				String courseCode = scanner.nextLine();
-				
-				adminOperation.deleteCourse(courseCode);
-				
-				break;
-				
-			}
-			
-			case 3:{
-				
-				logger.info("Enter Student's User ID:\n");
-				String studentUserIdApproval = scanner.nextLine();
-				
-				adminOperation.approveStudent(studentUserIdApproval);
-				
-				break;
-			}
-			
-			case 4:{
-				
-				List<Student> pendingStudentsList= adminOperation.viewPendingAdmissions();
-				
-				for(Student student : pendingStudentsList) {
-					logger.info(student.getStudentId() + "\n");
-				}
-				
-				break;
-			}
-			
-			case 5:{
-				
-				logger.info("Enter Professor Name:\n");
-				String professorName = scanner.nextLine();
-				
-				logger.info("Enter Role:\n");
-				String role = scanner.nextLine();
-				
-				logger.info("Enter User Id:\n");
-				Integer userId = scanner.nextInt();
-				
-				logger.info("Enter Password:\n");
-				String password = scanner.nextLine();
-				
-				logger.info("Enter Department:\n");
-				String department = scanner.nextLine();
-				
-				adminOperation.addProfessor(professorName, role, userId, password, department);
-				
-				break;
-				
-			}
-			
-			case 6:{
-				
-				logger.info("Enter Course Code:\n");
-				String courseCode = scanner.nextLine();
-				
-				logger.info("Enter Professor's User Id:\n");
-				int userId = scanner.nextInt();
-				
-				adminOperation.assignCourse(courseCode, userId);
-			
-				break;
-			}
-			
-			case 7:{
-				
-				CRSApplication.loggedin  = false;
-				return;
-			}
-			default:
-				logger.warn("***** Wrong Choice *****");
-			}
+			logger.error(e.getMessage());
 		}
 		
 	}
 
+	/**
+	 * Method to add Professor to DB
+	 */
+	private void addProfessor() {
+		
+		Professor professor = new Professor();
+		
+		logger.info("Enter Professor Name:");
+		String professorName = scanner.next();
+		professor.setName(professorName);
+		
+		logger.info("Enter Department:");
+		String department = scanner.next();
+		professor.setDepartment(department);
+		
+		logger.info("Enter Designation:");
+		String designation = scanner.next();
+		professor.setDesignation(designation);
+		
+		logger.info("Enter User Id:");
+		String userId = scanner.next();
+		professor.setUserId(userId);
+		
+		logger.info("Enter Password:");
+		String password = scanner.next();
+		professor.setPassword(password);
+		
+		logger.info("Enter Gender: \t 1: Male \t 2.Female \t 3.Other ");
+		int gender = scanner.nextInt();
+		professor.setGender(CRSApplication.mapValueToGender(gender));
+		
+		logger.info("Enter Address:");
+		String address = scanner.next();
+		professor.setAddress(address);
+		
+		logger.info("Enter Country:");
+		String country = scanner.next();
+		professor.setCountry(country);
+		
+		professor.setRole("Professor");
+		
+		adminOperation.addProfessor(professor);
+		
+		
+	}
+
+	/**
+	 * Method to view Students who are yet to be approved
+	 */
+	private void viewPendingAdmissions() {
+		
+		List<Student> pendingStudentsList= adminOperation.viewPendingAdmissions();
+		
+		for(Student student : pendingStudentsList) {
+			logger.info(student.getStudentId());
+		}
+		
+		
+	}
+
+	/**
+	 * Method to approve a Student using Student's ID
+	 */
+	private void approveStudent() {
+		
+		viewPendingAdmissions();
+		
+		logger.info("Enter Student's User ID:");
+		int studentUserIdApproval = scanner.nextInt();
+		
+		adminOperation.approveStudent(studentUserIdApproval);
+		
+		
+	}
+
+	/**
+	 * Method to delete Course from catalogue
+	 */
+	private void deleteCourse() {
+
+		logger.info("Enter Course Code:");
+		String courseCode = scanner.next();
+		
+		adminOperation.deleteCourse(courseCode);
+		
+	}
+
+	/**
+	 * Method to add Course to catalogue
+	 */
+	private void addCourseToCatalogue() {
+		logger.info("Enter Course Code:");
+		String courseCode = scanner.next();
+		
+		logger.info("Enter Course Name:");
+		String courseName = scanner.next();
+		
+		Course course = new Course(courseCode, courseName, null, 10);
+		
+		adminOperation.addCourse(course);						
+
+	}
+
+	//TODO Remove the main. It's just for testing
+	public static void main(String args[]) {
+		AdminMenu adminMenu = new AdminMenu();
+		adminMenu.createMenu();
+	}
+
 }
->>>>>>> e0174fac82256d965d3132a6f2efa34fe6c91118

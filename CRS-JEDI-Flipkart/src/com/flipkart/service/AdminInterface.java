@@ -7,6 +7,12 @@ import com.flipkart.exception.CourseNotFoundException;
 
 import java.util.List;
 
+/**
+ * 
+ * @author Anurag Behera, Rag Patel
+ * Interface for Admin Operations
+ * 
+ */
 public interface AdminInterface {
 	
 	public void deleteCourse(String courseCode);
