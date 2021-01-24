@@ -17,12 +17,13 @@ import com.flipkart.exception.CourseNotFoundException;
 public class RegistrationOperation implements RegistrationInterface {
     
 	private static volatile RegistrationOperation instance=null;
+	
 	public static RegistrationOperation getInstance()
 	{
 		if(instance==null)
 		{
-			// This is a synchronized block, when multiple threads will access this instance
-			synchronized(RegistrationOperation.class){
+			synchronized(RegistrationOperation.class)
+			{
 				instance=new RegistrationOperation();
 			}
 		}
@@ -30,7 +31,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 	
 	
-	RegistrationDaoInterface  registrationDaoInterface  = new RegistrationDaoOperation();
+	RegistrationDaoInterface  registrationDaoInterface  = RegistrationDaoOperation.getInstance();
 
 	/**
 	 * Register Courses selected by student

@@ -6,15 +6,19 @@ public class Notification {
 	private int notificationId;
 	private int studentId;
 	private NotificationType type;
-	private int paymentId;
+	private String referenceId;
 	
+	public Notification(int notificationId,int studentId, NotificationType type,String referenceId)
+	{
+		this.studentId = studentId;
+		this.type = type;
+		this.setReferenceId(referenceId);
+	}
 	
 	public int getNotificationId() {
 		return notificationId;
 	}
-	public void setNotificationId(int notificationId) {
-		this.notificationId = notificationId;
-	}
+	
 	public int getStudentId() {
 		return studentId;
 	}
@@ -32,5 +36,13 @@ public class Notification {
 	}
 	public void setPaymentId(int paymentId) {
 		this.paymentId = paymentId;
+	}
+
+	public String getReferenceId() {
+		return referenceId;
+	}
+
+	public void setReferenceId(String referenceId) {
+		this.referenceId = referenceId;
 	}
 }

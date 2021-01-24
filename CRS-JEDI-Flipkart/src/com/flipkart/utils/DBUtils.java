@@ -16,8 +16,11 @@ public class DBUtils {
 		
         if (connection != null)
             return connection;
-        else {
-            try {
+        else 
+        {
+            try 
+            {
+            	
             	Properties prop = new Properties();
                 InputStream inputStream = DBUtils.class.getClassLoader().getResourceAsStream("./config.properties");
                 prop.load(inputStream);
@@ -27,13 +30,14 @@ public class DBUtils {
                 String password = prop.getProperty("password");
                 Class.forName(driver);
                 connection = DriverManager.getConnection(url, user, password);
-            } catch (ClassNotFoundException e) {
+                
+            }catch (ClassNotFoundException e) {
                 e.printStackTrace();
-            } catch (SQLException e) {
+            }catch (SQLException e) {
                 e.printStackTrace();
-            } catch (FileNotFoundException e) {
+            }catch (FileNotFoundException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
+            }catch (IOException e) {
                 e.printStackTrace();
             }
             return connection;
