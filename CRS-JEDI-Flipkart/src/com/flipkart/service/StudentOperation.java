@@ -3,6 +3,7 @@ package com.flipkart.service;
 import com.flipkart.exception.StudentNotRegisteredException;
 
 public class StudentOperation implements StudentInterface {
+	
 	private static volatile StudentOperation instance=null;
 	public static StudentOperation getInstance()
 	{
@@ -15,6 +16,8 @@ public class StudentOperation implements StudentInterface {
 		}
 		return instance;
 	}
+	
+	
 	@Override
 	public void register(String name,String userID,String password,String gender,int batch,String branch,String address,String country) throws StudentNotRegisteredException{
 		try

@@ -10,6 +10,22 @@ import com.flipkart.dao.ProfessorDaoInterface;
 import com.flipkart.dao.ProfessorDaoOperation;
 
 public class ProfessorOperation implements ProfessorInterface {
+	
+	private static volatile ProfessorOperation instance=null;
+	public static ProfessorOperation getInstance()
+	{
+		if(instance==null)
+		{
+			// This is a synchronized block, when multiple threads will access this instance
+			synchronized(ProfessorOperation.class){
+				instance=new ProfessorOperation();
+			}
+		}
+		return instance;
+	}
+	
+	
+	
 	ProfessorDaoInterface professorDAOInterface=new ProfessorDaoOperation();
 	@Override
 	public Grade addGrade(int profId, String studentId, String courseCode, int semester) {

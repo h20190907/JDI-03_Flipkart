@@ -23,7 +23,22 @@ import com.flipkart.utils.DBUtils;
  *
  */
 public class RegistrationDaoOperation implements RegistrationDaoInterface{
-
+    
+	
+	private static volatile RegistrationDaoOperation instance=null;
+	public static RegistrationDaoOperation getInstance()
+	{
+		if(instance==null)
+		{
+			// This is a synchronized block, when multiple threads will access this instance
+			synchronized(RegistrationDaoOperation.class){
+				instance=new RegistrationDaoOperation();
+			}
+		}
+		return instance;
+	}
+	
+	
 	private static Logger logger = Logger.getLogger(RegistrationDaoOperation.class);
 	private static Connection conn = DBUtils.getConnection();
 	private PreparedStatement stmt = null;

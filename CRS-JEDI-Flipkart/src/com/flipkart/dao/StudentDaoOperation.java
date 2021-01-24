@@ -10,6 +10,20 @@ package com.flipkart.dao;
  */
 public class StudentDaoOperation implements StudentDaoInterface {
 	
+	private static volatile StudentDaoOperation instance=null;
+	public static StudentDaoOperation getInstance()
+	{
+		if(instance==null)
+		{
+			// This is a synchronized block, when multiple threads will access this instance
+			synchronized(StudentDaoOperation.class){
+				instance=new StudentDaoOperation();
+			}
+		}
+		return instance;
+	}
+	
+	
 	/**
 	 * 
 	 * @param name
