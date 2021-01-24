@@ -17,7 +17,7 @@ import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.service.StudentOperation;
+import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.utils.DBUtils;
 
 /**
@@ -43,7 +43,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	{
 		if(instance == null)
 		{
-			// This is a synchronized block, when multiple threads will access this instance
 			synchronized(AdminDaoOperation.class){
 				instance = new AdminDaoOperation();
 			}
@@ -59,7 +58,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	 * @param courseCode
 	 */
 	@Override
-	public void deleteCourse(String courseCode) {
+	public void deleteCourse(String courseCode) throws CourseNotFoundException{
 		try {
 			String sql = SQLQueriesConstants.DELETE_COURSE_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -67,6 +66,10 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setString(1,courseCode);
 			int row = statement.executeUpdate();
 			
+			if(row == 0) {
+				logger.warn(courseCode + " not in catalog!");
+				throw new CourseNotFoundException(courseCode);
+			}
 			logger.info(row + " entries deleted");
 			logger.info("Course with Course ID : " + courseCode + " deleted");
 			
@@ -162,7 +165,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	 * @param studentId
 	 */
 	@Override
-	public void approveStudent(int studentId) {
+	public void approveStudent(int studentId) throws StudentNotFoundException {
 		try {
 			String sql = SQLQueriesConstants.APPROVE_STUDENT_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -170,8 +173,12 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setInt(1,studentId);
 			int row = statement.executeUpdate();
 			
-			logger.info(row + " Approval status Updated");
-			logger.info("Student with Student Id : " + studentId + " is Approved");
+			if(row == 0) {
+				logger.error("Student with Student Id : " + studentId + " not found");
+				throw new StudentNotFoundException(studentId);
+			}
+			logger.info(row + " approval status updated");
+			logger.info("Student with Student Id : " + studentId + " is approved");
 			
 		}catch(SQLException se) {
 			
@@ -287,5 +294,4 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		}
 		
 	}
-
 }

@@ -8,16 +8,18 @@ import java.util.List;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.StudentGrade;
+import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.exception.CourseNotFoundException;
 
 
 public interface RegistrationDaoInterface {
+	
 	/**
 	 * 
 	 * @param studentId
 	 * @param clist
 	 * @return
-	 * @throws CourseNotFoundException 
+	 * @throws CourseNotFoundException
 	 */
 	public boolean  registerCourses(int studentId,List<String>clist) throws CourseNotFoundException;
 	/**
@@ -59,12 +61,6 @@ public interface RegistrationDaoInterface {
 	 * @param studentId
 	 * @return
 	 */
-	public Notification payFee(int studentId);
-	/**
-	 * 
-	 * @param studentId
-	 * @return
-	 */
 	public double calculateFee(int studentId);
 	/**
 	 * 
@@ -78,4 +74,13 @@ public interface RegistrationDaoInterface {
 	 * @return
 	 */
 	public int numOfRegisteredCourses(int studentId);
+	
+	/**
+	 * 
+	 * @param studentId
+	 * @param mode
+	 * @param amount
+	 * @return
+	 */
+	Notification payFee(int studentId, ModeOfPayment mode, double amount);
 }

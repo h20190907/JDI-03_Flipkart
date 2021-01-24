@@ -11,6 +11,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminOperation;
@@ -95,10 +96,10 @@ public class AdminMenu {
 		
 		try {
 			
-		adminOperation.assignCourse(courseCode, userId);
+			adminOperation.assignCourse(courseCode, userId);
 		
 		}
-		catch(Exception e) {
+		catch(CourseNotFoundException e) {
 			
 			logger.error(e.getMessage());
 		}
@@ -154,15 +155,14 @@ public class AdminMenu {
 	/**
 	 * Method to view Students who are yet to be approved
 	 */
-	private void viewPendingAdmissions() {
+	private int viewPendingAdmissions() {
 		
 		List<Student> pendingStudentsList= adminOperation.viewPendingAdmissions();
 		
 		for(Student student : pendingStudentsList) {
 			logger.info(student.getStudentId());
 		}
-		
-		
+		return pendingStudentsList.size();
 	}
 
 	/**
@@ -170,25 +170,34 @@ public class AdminMenu {
 	 */
 	private void approveStudent() {
 		
-		viewPendingAdmissions();
+		if(viewPendingAdmissions() == 0) {
+			return;
+		}
 		
 		logger.info("Enter Student's User ID:");
 		int studentUserIdApproval = scanner.nextInt();
 		
-		adminOperation.approveStudent(studentUserIdApproval);
-		
-		
+		try {
+			adminOperation.approveStudent(studentUserIdApproval);
+		} catch (StudentNotFoundException e) {
+			logger.error(e.getMessage());
+		}
 	}
 
 	/**
 	 * Method to delete Course from catalogue
+	 * @throws CourseNotFoundException 
 	 */
 	private void deleteCourse() {
 
 		logger.info("Enter Course Code:");
 		String courseCode = scanner.next();
 		
-		adminOperation.deleteCourse(courseCode);
+		try {
+			adminOperation.deleteCourse(courseCode);
+		} catch (CourseNotFoundException e) {
+			logger.error(e.getMessage());
+		}
 		
 	}
 

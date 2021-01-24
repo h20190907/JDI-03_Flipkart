@@ -187,6 +187,7 @@ public class StudentMenu {
 	void make_payment(int studentId)
 	{
 		double fee = registrationInterface.calculateFee(studentId);
+
 		
 	}
 	

@@ -20,6 +20,8 @@ public class SQLQueriesConstant {
 	public static final String CALCULATE_FEES  = "select sum(courseFee) from course where courseCode in (select courseCode from registeredcourse where studentID = ?);";
 	public static final String VIEW_GRADE = "select course.courseCode,course.courseName,registeredcourse.grade from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?;";	
 	public static final String GET_SEATS = "select seats from course where courseCode = ?;";
+	public static final String INSERT_PAYMENT = "insert into payment(studentId,modeofPayment,referenceId,amount) values(?,?,?,?);";
+	public static final String INSERT_NOTIFICATION = "insert into notification(notificationId,studentId,type,referenceId) values(?,?,?,?);";
 	
 	
 }
