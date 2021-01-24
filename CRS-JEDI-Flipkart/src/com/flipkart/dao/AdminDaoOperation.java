@@ -28,6 +28,11 @@ public class AdminDaoOperation implements AdminDaoInterface{
 
 	private static volatile AdminDaoOperation instance = null;
 	
+	private AdminDaoOperation()
+	{
+		
+	}
+	
 	/**
 	 * Method to make AdminDaoOperation Singleton
 	 * @return

@@ -8,6 +8,16 @@ import com.flipkart.service.StudentOperation;
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	private static volatile ProfessorDaoOperation instance=null;
+	
+	private ProfessorDaoOperation()
+	{
+		
+	}
+	
+	/**
+	 * Method to make ProfessorDaoOperation Singleton
+	 * @return
+	 */
 	public static ProfessorDaoOperation getInstance()
 	{
 		if(instance==null)

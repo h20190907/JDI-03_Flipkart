@@ -26,6 +26,16 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
     
 	
 	private static volatile RegistrationDaoOperation instance=null;
+	
+	private RegistrationDaoOperation() 
+	{
+		
+	}
+	
+	/**
+	 * Method to make RegistrationDaoOperation Singleton
+	 * @return
+	 */
 	public static RegistrationDaoOperation getInstance()
 	{
 		if(instance==null)

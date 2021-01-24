@@ -5,6 +5,16 @@ import com.flipkart.exception.StudentNotRegisteredException;
 public class StudentOperation implements StudentInterface {
 	
 	private static volatile StudentOperation instance=null;
+	
+	private StudentOperation()
+	{
+		
+	}
+	
+	/**
+	 * Method to make StudentOperation Singleton
+	 * @return
+	 */
 	public static StudentOperation getInstance()
 	{
 		if(instance==null)

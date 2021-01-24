@@ -19,7 +19,7 @@ public class CRSApplication {
 
 	private static Logger logger = Logger.getLogger(CRSApplication.class);
 	static boolean loggedin = false;
-	UserInterface userInterface = new UserOperation();
+	UserInterface userInterface =UserOperation.getInstance();
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);

@@ -23,7 +23,7 @@ public class AdminMenu {
 
 	private static Logger logger = Logger.getLogger(AdminMenu.class);
 	
-	AdminInterface adminOperation = new AdminOperation();
+	AdminInterface adminOperation =AdminOperation.getInstance();
 	Scanner scanner = new Scanner(System.in);
 	
 	/**

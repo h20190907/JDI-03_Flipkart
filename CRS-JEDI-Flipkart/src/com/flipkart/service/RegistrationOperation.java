@@ -17,6 +17,16 @@ import com.flipkart.exception.CourseNotFoundException;
 public class RegistrationOperation implements RegistrationInterface {
     
 	private static volatile RegistrationOperation instance=null;
+	
+	private RegistrationOperation()
+	{
+		
+	}
+	
+	/**
+	 * Method to make RegistrationOperation Singleton
+	 * @return
+	 */
 	public static RegistrationOperation getInstance()
 	{
 		if(instance==null)
@@ -30,7 +40,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 	
 	
-	RegistrationDaoInterface  registrationDaoInterface  = new RegistrationDaoOperation();
+	RegistrationDaoInterface  registrationDaoInterface  =RegistrationDaoOperation.getInstance();
 
 	/**
 	 * Register Courses selected by student

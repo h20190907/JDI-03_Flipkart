@@ -21,6 +21,11 @@ public class AdminOperation implements AdminInterface{
 
 	private static volatile AdminOperation instance = null;
 	
+	private AdminOperation()
+	{
+		
+	}
+	
 	/**
 	 * Method to make AdminOperation Singleton
 	 * @return
@@ -37,8 +42,8 @@ public class AdminOperation implements AdminInterface{
 		return instance;
 	}
 	
-	private static Logger logger = Logger.getLogger(AdminOperation.class);
-	AdminDaoInterface adminDaoOperation = new AdminDaoOperation();
+
+	AdminDaoInterface adminDaoOperation =AdminDaoOperation.getInstance();
 	
 	/**
 	 * Method to Delete Course from Course Catalog
