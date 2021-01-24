@@ -16,6 +16,10 @@ public class StudentOperation implements StudentInterface {
 	private static Logger logger = Logger.getLogger(CRSApplication.class);
 	StudentDaoInterface studentDaoInterface=StudentDaoOperation.getInstance();
 
+	private StudentOperation()
+	{
+		
+	}
 	/**
 	 * Method to make StudentOperation Singleton
 	 * @return
@@ -48,5 +52,22 @@ public class StudentOperation implements StudentInterface {
 
 		}
 	}
+	
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	@Override
+	public int getStudentId(String userId) {
+		return studentDaoInterface.getStudentId(userId);
+	
+	}
+	
+	@Override
+	public boolean isApproved(int studentId) {
+		return studentDaoInterface.isApproved(studentId);
+	}
+
 
 }

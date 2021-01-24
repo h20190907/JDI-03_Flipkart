@@ -34,7 +34,7 @@ public class AdminMenu {
 	 */
 	public void createMenu(){
 		
-		while(true) {
+		while(CRSApplication.loggedin) {
 			logger.info("*****************************");
 			logger.info("1. Add Course");
 			logger.info("2. Delete Course");
@@ -73,7 +73,7 @@ public class AdminMenu {
 				break;
 			
 			case 7:
-				CRSApplication.loggedin  = false;
+				CRSApplication.loggedin = false;
 				return;
 
 			default:

@@ -1,11 +1,13 @@
 package com.flipkart.service;
 
+import com.flipkart.dao.UserDaoInterface;
+import com.flipkart.dao.UserDaoOperation;
 import com.flipkart.exception.UserNotFoundException;
 
 public class UserOperation implements UserInterface {
 	
 	private static volatile UserOperation instance=null;
-	
+	UserDaoInterface userDaoInterface= UserDaoOperation.getInstance();
 	private UserOperation()
 	{
 		
@@ -27,17 +29,41 @@ public class UserOperation implements UserInterface {
 		return instance;
 	}
 
+	/**
+	 * 
+	 * @param userID
+	 * @return
+	 */
 	@Override
-	public boolean updatePassword(int userID) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updatePassword(String userID,String newPassword) {
+		return userDaoInterface.updatePassword(userID, newPassword);
 	}
 
 	
 	
 	@Override
-	public boolean verifyCredentials(int userID, String password) throws UserNotFoundException {
-		return false;
+	public boolean verifyCredentials(String userID, String password) throws UserNotFoundException {
+		//DAO class
+		try
+		{
+			return userDaoInterface.verifyCredentials(userID, password);		
+		}
+		finally
+		{
+			
+		}
 	}
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	@Override
+	public String getRole(String userId) {
+		return userDaoInterface.getRole(userId);
+	}
+
+
+	
 
 }

@@ -27,4 +27,19 @@ public interface StudentDaoInterface {
 	 * @throws SQLException 
 	 */
 	public boolean addStudent(Student student) throws StudentNotRegisteredException;
+	
+	
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public int getStudentId(String userId);
+	
+	/**
+	 * 
+	 * @param studentId
+	 * @return
+	 */
+	public boolean isApproved(int studentId);
 }
