@@ -9,4 +9,5 @@ public class SQLQueriesConstants {
 	public static String ADD_USER_QUERY = "insert into User(userId, name, password, role, gender, address, country) values (?, ?, ?, ?, ?, ?, ?)";
 	public static String ADD_PROFESSOR_QUERY = "insert into Professor(userId, department, designation) values (?, ?, ?)";
 	public static String ASSIGN_COURSE_QUERY = "update Course set professorId = ? where courseCode = ?";
+	public static final String ADD_STUDENT="insert into student (userId,branchName,batch,isApproved) values (?,?,?,?)";
 }

@@ -183,7 +183,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setString(1, user.getUserId());
 			statement.setString(2, user.getName());
 			statement.setString(3, user.getPassword());
-			statement.setString(4, user.getRole());
+			statement.setString(4, user.getRole().toString());
 			statement.setString(5, user.getGender().toString());
 			statement.setString(6, user.getAddress());
 			statement.setString(7, user.getCountry());
