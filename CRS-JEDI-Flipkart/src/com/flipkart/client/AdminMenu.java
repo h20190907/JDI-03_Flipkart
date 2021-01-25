@@ -169,9 +169,12 @@ public class AdminMenu {
 	private int viewPendingAdmissions() {
 		
 		List<Student> pendingStudentsList= adminOperation.viewPendingAdmissions();
+		if(pendingStudentsList.size() == 0) {
+			return 0;
+		}
 		logger.info(String.format("%20s %20s %20s %7s", "UserId", "StudentId", "Name", "Gender"));
 		for(Student student : pendingStudentsList) {
-			logger.info(String.format("%20s %20d %20s %7s", student.getUserId(), student.getStudentId(), student.getName(), student.getRole().toString()));
+			logger.info(String.format("%20s %20d %20s %7s", student.getUserId(), student.getStudentId(), student.getName(), student.getGender().toString()));
 		}
 		return pendingStudentsList.size();
 	}
