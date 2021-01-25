@@ -22,9 +22,9 @@ import com.flipkart.service.AdminOperation;
  * Class that Display Admin Client Menu
  * 
  */
-public class AdminMenu {
+public class AdminCRSMenu {
 
-	private static Logger logger = Logger.getLogger(AdminMenu.class);
+	private static Logger logger = Logger.getLogger(AdminCRSMenu.class);
 	
 	AdminInterface adminOperation =AdminOperation.getInstance();
 	Scanner scanner = new Scanner(System.in);

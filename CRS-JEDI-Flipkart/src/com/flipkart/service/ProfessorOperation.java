@@ -1,22 +1,25 @@
 package com.flipkart.service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.constant.Grade;
+import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.dao.ProfessorDaoInterface;
 import com.flipkart.dao.ProfessorDaoOperation;
 import com.flipkart.exception.GradeNotAddedException;
-
+import com.flipkart.utils.DBUtils;
 
 public class ProfessorOperation implements ProfessorInterface {
 	
 	private static volatile ProfessorOperation instance=null;
 	ProfessorDaoInterface professorDAOInterface=ProfessorDaoOperation.getInstance();
-	private static Logger logger = Logger.getLogger(ProfessorOperation.class);
 	private ProfessorOperation()
 	{
 
@@ -77,14 +80,6 @@ public class ProfessorOperation implements ProfessorInterface {
 	public List<Course> getCourses(String profId) {
 		//call the DAO class
 		//get the courses for the professor
-		try
-		{
-			
-		}
-		catch(Exception ex)
-		{
-			throw ex;
-		}
 		List<Course> coursesOffered=new ArrayList<Course>();
 		coursesOffered=professorDAOInterface.getCoursesByProfessor(profId);
 		return coursesOffered;

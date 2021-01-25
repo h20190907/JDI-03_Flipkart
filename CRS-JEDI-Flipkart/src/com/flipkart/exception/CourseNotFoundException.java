@@ -14,7 +14,8 @@ public class CourseNotFoundException extends Exception{
 	}
 	
 	@Override
-	public String getMessage() {
-		return "courseCode: " + courseCode + " not found!";
+	public String getMessage() 
+	{
+		return "Course : " + courseCode + " not found!";
 	}
 }

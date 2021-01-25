@@ -18,9 +18,10 @@ public class CourseLimitExceedException extends Exception{
 	}
 
 
-	public int getNum()
+	@Override
+	public String getMessage() 
 	{
-		return num;
+		return "You have already registered for " + num + " courses";
 	}
 
 

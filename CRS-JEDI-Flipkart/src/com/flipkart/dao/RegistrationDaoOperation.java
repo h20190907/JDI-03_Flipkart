@@ -52,28 +52,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	}
 	
 	
-	/**
-	 * Method to register course in database, throws exception if  course not found.
-	 * @param studentId
-	 * @param courselist
-	 * @return
-	 * @throws CourseNotFoundException 
-	 * @throws SeatNotAvailableException 
-	 * @throws CourseLimitExceedException 
-	 */
-	@Override
-	public boolean registerCourses(int studentId, List<String> courselist) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException {
-		
-		boolean check = true;
-		
-		for (String courseCode : courselist)
-		{
-			check  = check & addCourse(courseCode, studentId);
-		}
-		
-		
-		return check;
-	}
 
 	/**
 	 * Method to add course in database
@@ -85,57 +63,34 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	 * @throws SeatNotAvailableException if seat is not available
 	 */
 	@Override
-	public boolean addCourse(String courseCode, int studentId) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException {
+	public boolean addCourse(String courseCode, int studentId) throws SQLException,CourseNotFoundException{
 		
 
 		Connection conn = DBUtils.getConnection();
 		
-		if (numOfRegisteredCourses(studentId) >= 6)
-		{	
-			throw new CourseLimitExceedException(6);
+
+		try 
+		{
+			stmt = conn.prepareStatement(SQLQueriesConstants.ADD_COURSE);
+			stmt.setInt(1, studentId);
+			stmt.setString(2, courseCode);
+
+			stmt.executeUpdate();
+			
+			stmt = conn.prepareStatement(SQLQueriesConstants.DECREMENT_COURSE_SEATS);
+			stmt.setString(1, courseCode);
+			stmt.executeUpdate();
+			return true;
 		}
-		else if (isRegistered(courseCode, studentId)) 
+		catch (SQLException e) 
 		{
-			return false;
+			throw new CourseNotFoundException(courseCode);
 
-		} 
-		else if (!seatAvailable(courseCode)) 
+		}
+		finally
 		{
-			throw new SeatNotAvailableException(courseCode);
-		} 
-		else 
-		{
-
-			try 
-			{
-				stmt = conn.prepareStatement(SQLQueriesConstants.ADD_COURSE);
-				stmt.setInt(1, studentId);
-				stmt.setString(2, courseCode);
-
-				stmt.executeUpdate();
-				
-				stmt = conn.prepareStatement(SQLQueriesConstants.DECREMENT_COURSE_SEATS);
-				stmt.setString(1, courseCode);
-				stmt.executeUpdate();
-				return true;
-			}
-			catch (SQLException e) 
-			{
-				throw new CourseNotFoundException(courseCode);
-
-			}
-			finally
-			{
-				try
-				{
-					stmt.close();
-					conn.close();
-				}
-				catch(SQLException e)
-				{
-					e.getErrorCode();
-				}
-			}
+			stmt.close();
+			conn.close();
 		}
 		
 	}
@@ -145,9 +100,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	 * Number of registered courses for a student
 	 * @param studentId
 	 * @return
+	 * @throws SQLException 
 	 */
 	@Override
-	public int numOfRegisteredCourses(int studentId) {
+	public int numOfRegisteredCourses(int studentId) throws SQLException{
 		
 		Connection conn = DBUtils.getConnection();
 		
@@ -176,15 +132,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		}
 		finally
 		{
-			try
-			{
-				stmt.close();
-				conn.close();
-			}
-			catch(SQLException e)
-			{
-				e.getErrorCode();
-			}
+			stmt.close();
+			conn.close();
 		}
 		
 		return count;
@@ -194,9 +143,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	 * Check if seat is available for that particular course
 	 * @param courseCode
 	 * @return
+	 * @throws SQLException 
 	 */
 	@Override
-	public boolean seatAvailable(String courseCode) {
+	public boolean seatAvailable(String courseCode) throws SQLException {
 
 		Connection conn = DBUtils.getConnection();
 		try 
@@ -214,16 +164,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		}
 		finally
 		{
-			try
-			{
-				
-				stmt.close();
-				conn.close();
-			}
-			catch(SQLException e)
-			{
-				e.getErrorCode();
-			}
+			stmt.close();
+			conn.close();
 		}
 		
 		return true;
@@ -240,7 +182,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	 * @throws CourseNotFoundException 
 	 */
 	@Override
-	public boolean dropCourse(String courseCode, int studentId) throws CourseNotFoundException{
+	public boolean dropCourse(String courseCode, int studentId) throws CourseNotFoundException,SQLException {
 	
 		Connection conn = DBUtils.getConnection();
 		
@@ -271,15 +213,9 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 			}
 			finally
 			{
-				try
-				{
-					stmt.close();
-					conn.close();
-				}
-				catch(SQLException e)
-				{
-					e.getErrorCode();
-				}
+	
+				stmt.close();
+				conn.close();
 			}
 			
 		}
@@ -294,8 +230,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	 * @param courseCode
 	 * @param studentId
 	 * @return
+	 * @throws SQLException 
 	 */
-	public boolean isRegistered(String courseCode, int studentId){
+	@Override
+	public boolean isRegistered(String courseCode, int studentId) throws SQLException{
 		
 		Connection conn = DBUtils.getConnection();
 		
@@ -319,15 +257,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		}
 		finally
 		{
-			try
-			{
-				stmt.close();
-				conn.close();
-			}
-			catch(SQLException e)
-			{
-				e.getErrorCode();
-			}
+			stmt.close();
+			conn.close();
 		}
 		
 		return check;
@@ -340,9 +271,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	 * @param mode - mode of payment
 	 * @param amount - amount to paid by student
 	 * @return
+	 * @throws SQLException 
 	 */
 	@Override
-	public Notification payFee(int studentId,ModeOfPayment mode,double amount) {
+	public Notification payFee(int studentId,ModeOfPayment mode,double amount) throws SQLException {
 		
 		
 		Connection conn = null;
@@ -380,22 +312,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		{
 			logger.info(e.getMessage());
 		}
-		catch(Exception e)
-		{
-			e.getMessage();
-		}
 		finally
 		{
-			try
-			{
-				stmt.close();
-				if(conn != null)
-					conn.close();
-			}
-			catch(SQLException e)
-			{
-				e.getErrorCode();
-			}
+			stmt.close();
+			conn.close();
 			
 		}
 		
@@ -407,10 +327,11 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	 * Method to retrieve fee for the selected courses from the database and calculate total fee
 	 * @param studentId
 	 * @return
+	 * @throws SQLException 
 	 */
 	
 	@Override
-	public double calculateFee(int studentId)
+	public double calculateFee(int studentId) throws SQLException
 	{
 		Connection conn = DBUtils.getConnection();
 		double fee = 0;
@@ -433,15 +354,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		}
 		finally
 		{
-			try
-			{
-				stmt.close();
-				conn.close();
-			}
-			catch(SQLException e)
-			{
-				e.getErrorCode();
-			}
+			stmt.close();
+			conn.close();
 		}
 		
 		return fee;
@@ -450,9 +364,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	/**
 	 * Method to view grade card of the student
 	 * @param studentId
+	 * @throws SQLException 
 	 */
 	@Override
-	public List<StudentGrade> viewGradeCard(int studentId) {
+	public List<StudentGrade> viewGradeCard(int studentId) throws SQLException {
 		
 		Connection conn = DBUtils.getConnection();
 		List<StudentGrade> grade_List = new ArrayList<>();
@@ -481,15 +396,9 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		}
 		finally
 		{
-			try
-			{
-				stmt.close();
-				conn.close();
-			}
-			catch(SQLException e)
-			{
-				e.getErrorCode();
-			}
+			stmt.close();
+			conn.close();
+			
 		}
 		
 		return grade_List;
@@ -499,9 +408,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	 * Method to get the list of courses available from course catalog 
 	 * @param studentId
 	 * @return list of courses
+	 * @throws SQLException 
 	 */
 	@Override
-	public List<Course> viewCourses(int studentId) {
+	public List<Course> viewCourses(int studentId) throws SQLException {
 		
 		List<Course> availableCourseList = new ArrayList<>();
 		Connection conn = DBUtils.getConnection();
@@ -531,16 +441,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		}
 		finally
 		{
-			try
-			{
-				stmt.close();
-				conn.close();
-				
-			}
-			catch(SQLException e)
-			{
-				e.getErrorCode();
-			}
+			stmt.close();
+			conn.close();
 		}
 		
 		return availableCourseList;
@@ -551,9 +453,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	 * Method to get the list of courses registered by the student
 	 * @param studentId
 	 * @return list of courses registered by student
+	 * @throws SQLException 
 	 */
 	@Override
-	public List<Course> viewRegisteredCourses(int studentId) {
+	public List<Course> viewRegisteredCourses(int studentId) throws SQLException {
 
 		Connection conn = DBUtils.getConnection();
 		List<Course> registeredCourseList = new ArrayList<>();
@@ -575,24 +478,65 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 			logger.info(e.getMessage());
 
 		} 
-		catch (Exception e) 
-		{
-			logger.info(e.getMessage());
-		}
 		finally
 		{
-			try
-			{
-				stmt.close();
-				conn.close();
-			}
-			catch(SQLException e)
-			{
-				e.getErrorCode();
-			}
+			stmt.close();
+			conn.close();
 		}
 		
 		return registeredCourseList;
+	}
+
+	@Override
+	public boolean getRegistrationStatus(int studentId) throws SQLException
+	{
+		Connection conn = DBUtils.getConnection();
+		boolean status = false;
+		try 
+		{
+			stmt = conn.prepareStatement(SQLQueriesConstants.GET_REGISTRATION_STATUS);
+			stmt.setInt(1, studentId);
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			status = rs.getBoolean(1);
+
+		} 
+		catch (SQLException e) 
+		{
+			logger.info(e.getMessage());
+
+		} 
+		finally
+		{
+			stmt.close();
+			conn.close();
+		}
+
+		return status;
+	}
+
+	@Override
+	public void setRegistrationStatus(int studentId) throws SQLException
+	{
+		Connection conn = DBUtils.getConnection();
+		try 
+		{
+			stmt = conn.prepareStatement(SQLQueriesConstants.SET_REGISTRATION_STATUS);
+			stmt.setInt(1, studentId);
+			stmt.executeUpdate();
+
+		} 
+		catch (SQLException e) 
+		{
+			logger.info(e.getMessage());
+
+		} 
+		finally
+		{
+			stmt.close();
+			conn.close();
+		}
+
 	}
 
 }

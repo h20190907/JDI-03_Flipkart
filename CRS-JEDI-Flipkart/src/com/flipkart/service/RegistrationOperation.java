@@ -1,5 +1,6 @@
 package com.flipkart.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -44,22 +45,6 @@ public class RegistrationOperation implements RegistrationInterface {
 	RegistrationDaoInterface  registrationDaoInterface  = RegistrationDaoOperation.getInstance();
 
 	/**
-	 * Method to register course selected by student
-	 * @param studentId 
-	 * @param clist  --> list of courses selected by student
-	 * @return 
-	 * @throws CourseNotFoundException 
-	 * @throws SeatNotAvailableException 
-	 * @throws CourseLimitExceedException 
-	 */
-	
-	@Override
-	public boolean registerCourses(int studentId, List<String> courseList) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException{
-
-		return registrationDaoInterface.registerCourses(studentId, courseList);
-	}
-
-	/**
 	 * Method to add Course selected by student 
 	 * @param courseCode : code for selected course
 	 * @param studentId
@@ -69,7 +54,21 @@ public class RegistrationOperation implements RegistrationInterface {
 	 * @throws CourseLimitExceedException 
 	 */
 	@Override
-	public boolean addCourse(String courseCode, int studentId) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException {
+	public boolean addCourse(String courseCode, int studentId) throws CourseNotFoundException, CourseLimitExceedException,SeatNotAvailableException,SQLException{
+		
+		
+		if (registrationDaoInterface.numOfRegisteredCourses(studentId) >= 6)
+		{	
+			throw new CourseLimitExceedException(6);
+		}
+		else if (registrationDaoInterface.isRegistered(courseCode, studentId)) 
+		{
+			return false;
+		} 
+		else if (!registrationDaoInterface.seatAvailable(courseCode)) 
+		{
+			throw new SeatNotAvailableException(courseCode);
+		} 
 		
 		return registrationDaoInterface.addCourse(courseCode, studentId);
 		
@@ -81,9 +80,10 @@ public class RegistrationOperation implements RegistrationInterface {
 	 * @param studentId
 	 * @return
 	 * @throws CourseNotFoundException 
+	 * @throws SQLException 
 	 */
 	@Override
-	public boolean dropCourse(String courseCode, int studentId) throws CourseNotFoundException {
+	public boolean dropCourse(String courseCode, int studentId) throws CourseNotFoundException, SQLException {
 		
 		return registrationDaoInterface.dropCourse(courseCode, studentId);
 		
@@ -93,10 +93,11 @@ public class RegistrationOperation implements RegistrationInterface {
 	 * Method for Fee Calculation for selected courses
 	 * @param studentId 
 	 * @return
+	 * @throws SQLException 
 	 */
 	
 	@Override
-	public double calculateFee(int studentId)
+	public double calculateFee(int studentId) throws SQLException
 	{
 		return registrationDaoInterface.calculateFee(studentId);
 	}
@@ -106,9 +107,10 @@ public class RegistrationOperation implements RegistrationInterface {
 	 * @param studentId
 	 * @param mode - mode of payment
 	 * @param amount - amount to be paid by student
+	 * @throws SQLException 
 	 */
 	@Override
-	public Notification payFee(int studentId, ModeOfPayment mode, double amount) 
+	public Notification payFee(int studentId, ModeOfPayment mode, double amount) throws SQLException 
 	{
 		return registrationDaoInterface.payFee(studentId, mode, amount);
 		
@@ -118,9 +120,10 @@ public class RegistrationOperation implements RegistrationInterface {
 	 * Method to view grade card for students
 	 * @param studentId
 	 * @return
+	 * @throws SQLException 
 	 */
 	@Override
-	public List<StudentGrade> viewGradeCard(int studentId) {
+	public List<StudentGrade> viewGradeCard(int studentId) throws SQLException {
 		return registrationDaoInterface.viewGradeCard(studentId);
 	}
 
@@ -128,18 +131,21 @@ public class RegistrationOperation implements RegistrationInterface {
 	 * Method to view the list of available courses
 	 * The list will not display the courses registered by student
 	 * @param studentId
+	 * @throws SQLException 
 	 */
 	@Override
-	public List<Course> viewCourses(int studentId) {
+	public List<Course> viewCourses(int studentId) throws SQLException {
 		return registrationDaoInterface.viewCourses(studentId);
 	}
 
 	/**
 	 * Method to view the list of courses registered by the student
 	 * @param studentId
+	 * @throws SQLException 
 	 */
 	@Override
-	public List<Course> viewRegisteredCourses(int studentId) {
+	public List<Course> viewRegisteredCourses(int studentId) throws SQLException {
 		return registrationDaoInterface.viewRegisteredCourses(studentId);
 	}
+	
 }

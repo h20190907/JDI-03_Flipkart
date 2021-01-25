@@ -3,6 +3,7 @@
  */
 package com.flipkart.client;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.Scanner;
 
@@ -24,15 +25,12 @@ import com.flipkart.service.RegistrationOperation;
 /**
  *  The class displays the menu for student client
  */
-public class StudentMenu {
-	private static Logger logger = Logger.getLogger(StudentMenu.class);
-	
-	
+public class StudentCRSMenu {
+	private static Logger logger = Logger.getLogger(StudentCRSMenu.class);
 	Scanner sc = new Scanner(System.in);
-	RegistrationInterface registrationInterface =RegistrationOperation.getInstance();
+	RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
 	ProfessorInterface professorInterface = ProfessorOperation.getInstance();
-	
-	
+	private boolean is_registered;
 	/**
 	 * Student Menu for course registration, addition, removal and fee payment 
 	 * @param sid  student id 
@@ -40,6 +38,7 @@ public class StudentMenu {
 	public void create_menu(int studentId)
 	{
 
+		is_registered = getRegistrationStatus(studentId);
 		while (CRSApplication.loggedin) 
 		{
 			logger.info("*****************************");
@@ -60,11 +59,17 @@ public class StudentMenu {
 						registerCourses(studentId);
 						break;
 				case 2: 
-						addCourse(studentId);
+						if(is_registered)
+							addCourse(studentId);
+						else
+							logger.info("Please complete registration");
 						break;
 
 				case 3:
-						dropCourse(studentId);
+						if(is_registered)
+							dropCourse(studentId);
+						else
+							logger.info("Please complete registration");
 						break;
 
 				case 4:
@@ -96,29 +101,35 @@ public class StudentMenu {
 	 * Select course 
 	 * @param studentId
 	 */
-	void registerCourses(int studentId)
+	public void registerCourses(int studentId)
 	{
-	
-		if(!viewCourse(studentId))
-			return;
-		List<String> courselist = new ArrayList<>();
-		for (int i = 0; i < 6; i++) 
-		{
-			logger.info("Select Course : "  + (i+1));
-			courselist.add(sc.next());
-		}
-		
-		try
-		{
-			registrationInterface.registerCourses(studentId, courselist);
-			logger.info("Registration Successful");
-		}
-		catch(CourseNotFoundException | SeatNotAvailableException  | CourseLimitExceedException e)
-		{
-			logger.info("Registration Unsuccessful");
-		}
-		
-		
+			if(is_registered)
+			{
+				logger.info(" Registration is already completed");
+				return;
+			}
+			
+			int count = 0;
+			while(count < 6)
+			{
+				try
+				{
+					logger.info("Enter Course Code : " + (count+1));
+					String courseCode = sc.next();
+					if(registrationInterface.addCourse(courseCode,studentId))
+					{
+						logger.info("Course " + courseCode + " registered sucessfully.");
+						count++;
+					}
+				}	
+				catch(CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException | SQLException e)
+				{
+					logger.info(e.getMessage());
+				}
+			}
+			
+		    logger.info("Registration Successful");	
+		    is_registered = true;
 		
 	}
 	
@@ -131,8 +142,6 @@ public class StudentMenu {
 		if(!viewCourse(studentId))
 			return;
 
-		logger.info("Enter the Course Code : ");
-		
 		try
 		{
 			String courseCode = sc.next();
@@ -145,26 +154,25 @@ public class StudentMenu {
 				logger.info(" You have already registered for Course : " + courseCode);
 			}
 		}
-		catch(CourseNotFoundException e)
+		catch(CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException | SQLException e)
 		{
-			logger.info(e.getCourseCode() + " course not found");
-		}
-		catch(SeatNotAvailableException e)
-		{
-			logger.info( "Seats are not available in : " + e.getCourseCode());
-		}
-		catch(CourseLimitExceedException e)
-		{
-			logger.info("You have already registered for " +e.getNum() + " courses");
+			logger.info(e.getMessage());
 		}
 		
 	}
+	
+	boolean getRegistrationStatus(int studentId)
+	{
+		
+	}
+	
 	/**
 	 * Drop Course
 	 * @param studentId
 	 */
 	void dropCourse(int studentId)
 	{
+		
 		if(!viewRegisteredCourse(studentId))
 			return;
 		
@@ -242,6 +250,8 @@ public class StudentMenu {
 	 */
 	void viewGradeCard(int studentId)
 	{
+		
+		
 		List<StudentGrade> grade_card = registrationInterface.viewGradeCard(studentId);
 		logger.info(String.format("%20s %20s %20s","COURSE CODE", "COURSE NAME", "GRADE"));
 		
@@ -264,6 +274,7 @@ public class StudentMenu {
 	
 	void make_payment(int studentId)
 	{
+		
 		double fee = registrationInterface.calculateFee(studentId);
 
 		if(fee == 0.0)

@@ -104,11 +104,11 @@ public class CRSApplication {
 				switch(userRole)
 				{
 				case ADMIN:
-					AdminMenu adminMenu=new AdminMenu();
+					AdminCRSMenu adminMenu=new AdminCRSMenu();
 					adminMenu.createMenu();
 					break;
 				case PROFESSOR:
-					ProfessorMenu professorMenu=new ProfessorMenu();
+					ProfessorCRSMenu professorMenu=new ProfessorCRSMenu();
 					professorMenu.createMenu(userId);
 					
 					break;
