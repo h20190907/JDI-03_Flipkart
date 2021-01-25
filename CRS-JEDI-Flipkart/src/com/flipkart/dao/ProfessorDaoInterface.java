@@ -2,6 +2,7 @@ package com.flipkart.dao;
 
 import java.util.*;
 import com.flipkart.bean.Course;
+import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.bean.Student;
 
 public interface ProfessorDaoInterface {
@@ -18,7 +19,7 @@ public interface ProfessorDaoInterface {
 	 * @param: courseCode: course code of the professor
 	 * @return: return the enrolled students for the corresponding professor and course code.
 	 */
-	public List<Student> getEnrolledStudents(String profId, String courseCode);
+	public List<EnrolledStudent> getEnrolledStudents(String profId);
 	
 	/**
 	 * @param: profId: professor id 

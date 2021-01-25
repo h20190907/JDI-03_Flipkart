@@ -1,11 +1,13 @@
 package com.flipkart.client;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
@@ -44,8 +46,7 @@ public class ProfessorMenu {
 					break;
 				case 2:
 					//view all the enrolled students for the course
-					String courseCode=sc.next();
-					professorInterface.viewEnrolledStudents(profId, courseCode);
+					viewEnrolledStudents(profId);
 					break;
 					
 				case 3:
@@ -63,6 +64,26 @@ public class ProfessorMenu {
 		
 		
 	}
+	
+	
+	public void viewEnrolledStudents(String profId)
+	{
+		try
+		{
+			List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
+			enrolledStudents=professorInterface.viewEnrolledStudents(profId);
+			logger.info(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","Student ID" ));
+			for(EnrolledStudent obj: enrolledStudents)
+			{
+				logger.info(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
+			}
+			
+		}
+		catch(Exception ex)
+		{
+			logger.error(ex.getMessage()+"Something went wrong, please try again later!");
+		}
+	}
 
 
 	
@@ -71,7 +92,7 @@ public class ProfessorMenu {
 		try
 		{
 			List<Course> coursesEnrolled=professorInterface.getCourses(profId);
-			logger.info(String.format("%20s %20s %20s","COURSE CODE","COURSE CODE","No. of Students  enrolled" ));
+			logger.info(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","No. of Students  enrolled" ));
 			for(Course obj: coursesEnrolled)
 			{
 				logger.info(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),10- obj.getSeats()));
