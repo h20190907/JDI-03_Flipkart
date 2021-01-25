@@ -49,7 +49,6 @@ public class StudentOperation implements StudentInterface {
 		catch(StudentNotRegisteredException ex)
 		{
 			throw ex;
-
 		}
 	}
 	

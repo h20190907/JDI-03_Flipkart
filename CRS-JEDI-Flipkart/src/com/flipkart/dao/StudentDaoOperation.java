@@ -92,6 +92,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			try {
 				connection.close();
 			} catch (SQLException e) {
+				System.out.println(e.getMessage()+"SQL error");
 				e.printStackTrace();
 			}
 		}

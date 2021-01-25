@@ -33,4 +33,5 @@ public class SQLQueriesConstants {
 	public static final String INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId) values(?,?,?);";
 	public static final String GET_NOTIFICATION = "select * from notification where referenceId = ?;";
 	public static final String ADD_GRADE="update registeredcourse set Grade=? where courseCode=? and studentId=?";
+	public static final String GET_COURSES="select * from course where professorId=?";
 }
