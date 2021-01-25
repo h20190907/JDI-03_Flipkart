@@ -105,8 +105,12 @@ public class AdminOperation implements AdminInterface{
 	 * @throws StudentNotFoundException 
 	 */
 	@Override
-	public void approveStudent(int studentId) throws StudentNotFoundException {
-		//TODO display viewPendingAdmissions
+	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundException {
+		
+		if(!AdminValidator.isValidUnapprovedStudent(studentId, studentList)) {
+			logger.error("studentId: " + studentId + " is already approvet/not-present!");
+			throw new StudentNotFoundException(studentId);
+		}
 		try {
 			adminDaoOperation.approveStudent(studentId);
 		}
@@ -138,6 +142,7 @@ public class AdminOperation implements AdminInterface{
 	 */
 	@Override
 	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException{
+		
 		try {
 			adminDaoOperation.assignCourse(courseCode, professorId);
 		}
@@ -153,6 +158,7 @@ public class AdminOperation implements AdminInterface{
 	 */
 	@Override
 	public List<Course> viewCourses(int catalogId) {
+		
 		return adminDaoOperation.viewCourses(catalogId);
 	}
 }

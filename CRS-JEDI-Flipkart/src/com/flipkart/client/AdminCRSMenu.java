@@ -166,17 +166,17 @@ public class AdminCRSMenu {
 	/**
 	 * Method to view Students who are yet to be approved
 	 */
-	private int viewPendingAdmissions() {
+	private List<Student> viewPendingAdmissions() {
 		
 		List<Student> pendingStudentsList= adminOperation.viewPendingAdmissions();
 		if(pendingStudentsList.size() == 0) {
-			return 0;
+			return pendingStudentsList;
 		}
 		logger.info(String.format("%20s | %20s | %20s | %20s", "UserId", "StudentId", "Name", "Gender"));
 		for(Student student : pendingStudentsList) {
 			logger.info(String.format("%20s | %20d | %20s | %20s", student.getUserId(), student.getStudentId(), student.getName(), student.getGender().toString()));
 		}
-		return pendingStudentsList.size();
+		return pendingStudentsList;
 	}
 
 	/**
@@ -184,7 +184,8 @@ public class AdminCRSMenu {
 	 */
 	private void approveStudent() {
 		
-		if(viewPendingAdmissions() == 0) {
+		List<Student> studentList = viewPendingAdmissions();
+		if(studentList.size() == 0) {
 			return;
 		}
 		
@@ -192,7 +193,7 @@ public class AdminCRSMenu {
 		int studentUserIdApproval = scanner.nextInt();
 		
 		try {
-			adminOperation.approveStudent(studentUserIdApproval);
+			adminOperation.approveStudent(studentUserIdApproval, studentList);
 		} catch (StudentNotFoundException e) {
 			logger.error(e.getMessage());
 		}
