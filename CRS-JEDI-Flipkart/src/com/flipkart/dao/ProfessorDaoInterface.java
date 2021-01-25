@@ -26,4 +26,12 @@ public interface ProfessorDaoInterface {
 	 * @return: returns the status after adding the grade
 	 */
 	public Boolean addGrade(int studentId,String courseCode,String grade);
+
+
+	/**
+	 * Get professor name by id
+	 * @param profId
+	 * @return
+	 */
+	public String getProfessorById(String profId);
 }

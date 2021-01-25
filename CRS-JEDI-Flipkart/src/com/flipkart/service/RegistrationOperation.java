@@ -15,7 +15,8 @@ import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.SeatNotAvailableException;
 
 /**
- *
+ * @author JDI-03
+ *	The Registration Operation provides the business logic for student registration.
  */
 public class RegistrationOperation implements RegistrationInterface {
     

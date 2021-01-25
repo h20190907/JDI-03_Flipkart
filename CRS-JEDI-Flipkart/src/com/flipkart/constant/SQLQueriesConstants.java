@@ -15,6 +15,7 @@ public class SQLQueriesConstants {
 	public static final String IS_APPROVED="select isApproved from student where studentId = ? ";
 	public static final String GET_STUDENT_ID="select studentId from student where userId = ? ";
 	public static final String UPDATE_PASSWORD="update user set password=? where userId = ? ";
+	public static final String GET_PROF_NAME = "select name from user where userId = ?";
 	
 	
 	// Student Query

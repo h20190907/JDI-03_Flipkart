@@ -26,7 +26,8 @@ import com.flipkart.utils.DBUtils;
 
 
 /**
- *	This class communicates with the database	 
+ * @author JDI-03
+ *	This class communicates with the database.
  *
  */
 public class RegistrationDaoOperation implements RegistrationDaoInterface{
@@ -52,7 +53,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	
 	
 	/**
-	 * Method to register course in database, throws exception if not registered.
+	 * Method to register course in database, throws exception if  course not found.
 	 * @param studentId
 	 * @param courselist
 	 * @return
@@ -190,7 +191,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	}
 
 	/**
-	 * 
+	 * Check if seat is available for that particular course
 	 * @param courseCode
 	 * @return
 	 */
@@ -286,6 +287,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		return false;
 		
 	}
+	
 	
 	/**
 	 * Method checks if the student is registered for that course
@@ -402,7 +404,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	
 	
 	/**
-	 * Method to retrieve fee for the selected courses from the database and calcualte total fee
+	 * Method to retrieve fee for the selected courses from the database and calculate total fee
 	 * @param studentId
 	 * @return
 	 */

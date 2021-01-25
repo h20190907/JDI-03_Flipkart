@@ -15,6 +15,8 @@ import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.exception.CourseLimitExceedException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.SeatNotAvailableException;
+import com.flipkart.service.ProfessorInterface;
+import com.flipkart.service.ProfessorOperation;
 import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.RegistrationOperation;
 
@@ -28,6 +30,7 @@ public class StudentMenu {
 	
 	Scanner sc = new Scanner(System.in);
 	RegistrationInterface registrationInterface =RegistrationOperation.getInstance();
+	ProfessorInterface professorInterface = ProfessorOperation.getInstance();
 	
 	
 	/**
@@ -89,6 +92,10 @@ public class StudentMenu {
 	}
 	
 
+	/**
+	 * Select course 
+	 * @param studentId
+	 */
 	void registerCourses(int studentId)
 	{
 	
@@ -115,7 +122,10 @@ public class StudentMenu {
 		
 	}
 	
-
+	/**
+	 * Add course
+	 * @param studentId
+	 */
 	void addCourse(int studentId)	
 	{
 		if(!viewCourse(studentId))
@@ -149,7 +159,10 @@ public class StudentMenu {
 		}
 		
 	}
-	
+	/**
+	 * Drop Course
+	 * @param studentId
+	 */
 	void dropCourse(int studentId)
 	{
 		if(!viewRegisteredCourse(studentId))
@@ -170,7 +183,11 @@ public class StudentMenu {
 		}
 	}
 	
-	
+	/**
+	 * View Course
+	 * @param studentId
+	 * @return true if any course is available, false otherwise
+	 */
 	boolean viewCourse(int studentId)
 	{
 		List<Course> course_available = registrationInterface.viewCourses(studentId);
@@ -185,13 +202,18 @@ public class StudentMenu {
 		logger.info(String.format("%20s %20s %20s %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR", "SEATS"));
 		for(Course obj : course_available)
 		{
-			logger.info(String.format("%20s %20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),"INSTRUCTOR", obj.getSeats()));
+			logger.info(String.format("%20s %20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getInstructorId(), obj.getSeats()));
 		}
 		
 		return true;
 
 	}
 	
+	/**
+	 * View Registered Course
+	 * @param studentId
+	 * @return true if any course is registered, false otherwise
+	 */
 	boolean viewRegisteredCourse(int studentId)
 	{
 		List<Course> course_registered = registrationInterface.viewRegisteredCourses(studentId);
@@ -208,12 +230,16 @@ public class StudentMenu {
 		{
 			 
 			
-			logger.info(String.format("%20s %20s %20s ",obj.getCourseCode(), obj.getCourseName(),"INSTRUCTOR"));
+			logger.info(String.format("%20s %20s %20s ",obj.getCourseCode(), obj.getCourseName(),professorInterface.getProfessorById(obj.getInstructorId())));
 		}
 		
 		return true;
 	}
 	
+	/**
+	 * View grade card for particular student  
+	 * @param studentId
+	 */
 	void viewGradeCard(int studentId)
 	{
 		List<StudentGrade> grade_card = registrationInterface.viewGradeCard(studentId);
@@ -231,13 +257,18 @@ public class StudentMenu {
 		}
 	}
 	
+	/**
+	 * Make Payment for selected courses. Student is provided with an option to pay the fees and select the mode of payment.
+	 * @param studentId
+	 */
+	
 	void make_payment(int studentId)
 	{
 		double fee = registrationInterface.calculateFee(studentId);
 
 		if(fee == 0.0)
 		{
-			logger.info("You have not for any registered courses yet");
+			logger.info("You have not  registered for any courses yet");
 		}
 		else
 		{

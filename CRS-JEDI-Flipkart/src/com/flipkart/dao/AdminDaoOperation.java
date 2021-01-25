@@ -21,8 +21,7 @@ import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.utils.DBUtils;
 
 /**
- * 
- * @author Anurag Behera, Rag Patel
+ * @author JDI-03
  * Dao Class Operations for Admin
  * 
  */
@@ -116,7 +115,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 	}
 
-	//TODO Complete Pending Admissions
 	/**
 	 * Fetch Students yet to approved using SQL commands
 	 * @return
@@ -191,7 +189,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 	}
 
-	/**
+	/**Method to add user using SQL commands
 	 * @param user
 	 */
 	@Override
