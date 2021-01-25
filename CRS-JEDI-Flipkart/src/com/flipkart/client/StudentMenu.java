@@ -89,6 +89,10 @@ public class StudentMenu {
 	}
 	
 
+	/**
+	 * Select course 
+	 * @param studentId
+	 */
 	void registerCourses(int studentId)
 	{
 	
@@ -115,7 +119,10 @@ public class StudentMenu {
 		
 	}
 	
-
+	/**
+	 * Add course
+	 * @param studentId
+	 */
 	void addCourse(int studentId)	
 	{
 		if(!viewCourse(studentId))
@@ -149,7 +156,10 @@ public class StudentMenu {
 		}
 		
 	}
-	
+	/**
+	 * Drop Course
+	 * @param studentId
+	 */
 	void dropCourse(int studentId)
 	{
 		if(!viewRegisteredCourse(studentId))
@@ -170,7 +180,11 @@ public class StudentMenu {
 		}
 	}
 	
-	
+	/**
+	 * View Course
+	 * @param studentId
+	 * @return true if any course is available, false otherwise
+	 */
 	boolean viewCourse(int studentId)
 	{
 		List<Course> course_available = registrationInterface.viewCourses(studentId);
@@ -192,6 +206,11 @@ public class StudentMenu {
 
 	}
 	
+	/**
+	 * View Registered Course
+	 * @param studentId
+	 * @return true if any course is registered, false otherwise
+	 */
 	boolean viewRegisteredCourse(int studentId)
 	{
 		List<Course> course_registered = registrationInterface.viewRegisteredCourses(studentId);
@@ -214,6 +233,10 @@ public class StudentMenu {
 		return true;
 	}
 	
+	/**
+	 * View grade card for particular student  
+	 * @param studentId
+	 */
 	void viewGradeCard(int studentId)
 	{
 		List<StudentGrade> grade_card = registrationInterface.viewGradeCard(studentId);
@@ -231,13 +254,18 @@ public class StudentMenu {
 		}
 	}
 	
+	/**
+	 * Make Payment for selected courses. Student is provided with an option to pay the fees and select the mode of payment.
+	 * @param studentId
+	 */
+	
 	void make_payment(int studentId)
 	{
 		double fee = registrationInterface.calculateFee(studentId);
 
 		if(fee == 0.0)
 		{
-			logger.info("You have not for any registered courses yet");
+			logger.info("You have not  registered for any courses yet");
 		}
 		else
 		{
