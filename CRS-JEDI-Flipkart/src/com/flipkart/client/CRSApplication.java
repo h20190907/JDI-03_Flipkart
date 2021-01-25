@@ -109,6 +109,7 @@ public class CRSApplication {
 					break;
 				case PROFESSOR:
 					ProfessorMenu professorMenu=new ProfessorMenu();
+					professorMenu.createMenu(userId);
 					
 					break;
 				case STUDENT:

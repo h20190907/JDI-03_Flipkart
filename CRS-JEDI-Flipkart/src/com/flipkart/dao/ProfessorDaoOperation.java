@@ -1,14 +1,22 @@
 package com.flipkart.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
+
+import org.apache.log4j.Logger;
+
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.service.StudentOperation;
+import com.flipkart.utils.DBUtils;
 
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	private static volatile ProfessorDaoOperation instance=null;
-	
+	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
 	private ProfessorDaoOperation()
 	{
 		
@@ -36,7 +44,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	 * @return: courses for the corresponding professor
 	 */
 	@Override
-	public List<Course> getCoursesByProfessor(int profId) {
+	public List<Course> getCoursesByProfessor(String profId) {
 		return null;
 	}
 
@@ -46,7 +54,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	 * @return: return the enrolled students for the corresponding professor and course code.
 	 */
 	@Override
-	public List<Student> getEnrolledStudents(int profId, String courseCode) {
+	public List<Student> getEnrolledStudents(String profId, String courseCode) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -56,7 +64,35 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	 * @param: courseCode: courseCode 
 	 */
 	
-	public Boolean addGrade(String studentId,String courseCode) {
+	public Boolean addGrade(int studentId,String courseCode,String grade) {
+		Connection connection=DBUtils.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.ADD_GRADE);
+			
+			statement.setString(1, grade);
+			statement.setString(2, courseCode);
+			statement.setInt(3, studentId);
+			
+			int row = statement.executeUpdate();
+			
+			if(row==1)
+				return true;
+			else
+				return false;
+		}
+		catch(SQLException e)
+		{
+			logger.error(e.getMessage());
+		}
+		finally
+		{
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return false;
 	}
 }

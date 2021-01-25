@@ -8,11 +8,12 @@ import com.flipkart.bean.Student;
 import com.flipkart.constant.Grade;
 import com.flipkart.dao.ProfessorDaoInterface;
 import com.flipkart.dao.ProfessorDaoOperation;
+import com.flipkart.exception.GradeNotAddedException;
 
 public class ProfessorOperation implements ProfessorInterface {
 	
 	private static volatile ProfessorOperation instance=null;
-	
+	ProfessorDaoInterface professorDAOInterface=ProfessorDaoOperation.getInstance();
 	private ProfessorOperation()
 	{
 
@@ -36,12 +37,19 @@ public class ProfessorOperation implements ProfessorInterface {
 	
 	
 	
-	ProfessorDaoInterface professorDAOInterface=ProfessorDaoOperation.getInstance();
+
 	
 	@Override
-	public Grade addGrade(int profId, String studentId, String courseCode, int semester) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean addGrade(int studentId,String courseCode,String grade) throws GradeNotAddedException {
+		try
+		{
+			professorDAOInterface.addGrade(studentId, courseCode, grade);
+		}
+		catch(Exception ex)
+		{
+			throw new GradeNotAddedException(studentId);
+		}
+		return true;
 	}
 	
 	
@@ -51,7 +59,7 @@ public class ProfessorOperation implements ProfessorInterface {
 	 * @return view enrolled students for the course
 	 */
 	@Override
-	public List<Student> viewEnrolledStudents(int profId, String courseCode) {
+	public List<Student> viewEnrolledStudents(String profId, String courseCode) {
 		// call the DAO class
 		return null;
 	}
@@ -63,7 +71,7 @@ public class ProfessorOperation implements ProfessorInterface {
 	 * @return the list of courses the professor is teaching
 	 */
 	@Override
-	public List<Course> getCourses(int profId) {
+	public List<Course> getCourses(String profId) {
 		//call the DAO class
 		//get the courses for the professor
 		List<Course> coursesOffered=new ArrayList<Course>();
