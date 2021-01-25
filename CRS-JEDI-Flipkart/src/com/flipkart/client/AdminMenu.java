@@ -213,7 +213,7 @@ public class AdminMenu {
 		String courseCode = scanner.next();
 		
 		logger.info("Enter Course Name:");
-		String courseName = scanner.next();
+		String courseName = scanner.nextLine();
 		
 		Course course = new Course(courseCode, courseName, null, 10);
 		

@@ -46,7 +46,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	/**
 	 * Method to register course selected by student
 	 * @param studentId 
-	 * @param clist  --> list of courses selected by student
+	 * @param courseList : list of courses selected by student
 	 * @return 
 	 * @throws CourseNotFoundException 
 	 * @throws SeatNotAvailableException 

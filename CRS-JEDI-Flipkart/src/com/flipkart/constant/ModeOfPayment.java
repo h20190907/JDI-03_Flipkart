@@ -1,5 +1,10 @@
 package com.flipkart.constant;
 
+/**
+ * 
+ * @author JEDI-03
+ *
+ */
 public enum ModeOfPayment {
 	
 	CREDIT_CARD,NET_BANKING,DEBIT_CARD;

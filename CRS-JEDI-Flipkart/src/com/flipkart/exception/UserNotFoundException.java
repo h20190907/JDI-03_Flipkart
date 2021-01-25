@@ -13,7 +13,7 @@ public class UserNotFoundException extends Exception {
 
 	/**
 	 * 
-	 * @param userName
+	 * @param userId
 	 */
 	public UserNotFoundException(String userId) {
 		this.userId = userId;

@@ -48,7 +48,6 @@ public interface AdminInterface {
 	/**
 	 * Method to assign Course to a Professor
 	 * @param courseCode
-	 * @param userId
 	 * @throws CourseNotFoundException 
 	 */
 	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException ;

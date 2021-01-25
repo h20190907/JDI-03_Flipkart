@@ -19,7 +19,7 @@ public interface RegistrationInterface {
 	/**
 	 *  Method to register course selected by student
 	 * @param studentId
-	 * @param clist
+	 * @param courselist
 	 * @return
 	 * @throws CourseNotFoundException 
 	 * @throws SeatNotAvailableException 

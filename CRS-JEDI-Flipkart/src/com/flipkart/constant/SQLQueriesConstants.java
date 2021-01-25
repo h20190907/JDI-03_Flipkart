@@ -1,4 +1,9 @@
 package com.flipkart.constant;
+/**
+ * 
+ * @author JEDI-03
+ *
+ */
 
 public class SQLQueriesConstants {
 

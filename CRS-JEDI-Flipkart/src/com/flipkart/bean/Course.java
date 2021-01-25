@@ -1,5 +1,10 @@
 package com.flipkart.bean;
 
+/**
+ * 
+ * @author JEDI-03
+ *
+ */
 public class Course {
 	//TODO: add constructor 
 	private String courseCode;

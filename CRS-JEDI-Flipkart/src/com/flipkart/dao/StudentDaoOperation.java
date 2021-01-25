@@ -18,7 +18,7 @@ import com.flipkart.service.StudentOperation;
 import com.flipkart.utils.DBUtils;
 
 /**
- * @author dilpreet kaur
+ * @author JEDI-03
  *
  */
 public class StudentDaoOperation implements StudentDaoInterface {
@@ -44,16 +44,9 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
 	/**
 	 * 
-	 * @param name
-	 * @param userID: student's email address
-	 * @param password
-	 * @param gender
-	 * @param batch
-	 * @param branch
-	 * @param address: student's complete address
-	 * @param country
+	 * @param student: student object
+	 * @throws StudentNotRegisteredException
 	 * @return true, if record is added in DB, else false.
-	 * @throws SQLException 
 	 */
 	@Override
 	public boolean addStudent(Student student) throws StudentNotRegisteredException{

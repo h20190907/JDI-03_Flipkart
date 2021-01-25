@@ -85,13 +85,14 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	 */
 	@Override
 	public List<Student> getEnrolledStudents(String profId, String courseCode) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	/**
 	 * @param: studentId: student id for the student
 	 * @param: courseCode: courseCode 
+	 * @param: grade
+	 * 
 	 */
 	
 	public Boolean addGrade(int studentId,String courseCode,String grade) {
