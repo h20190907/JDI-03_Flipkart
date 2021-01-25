@@ -30,6 +30,8 @@ public class ProfessorMenu {
 		while(CRSApplication.loggedin)
 		{
 			logger.info("*****************************");
+			logger.info("**********Professor Menu*********");
+			logger.info("*****************************");
 			logger.info("1. View Courses");
 			logger.info("2. View Enrolled Students");
 			logger.info("3. Add grade");

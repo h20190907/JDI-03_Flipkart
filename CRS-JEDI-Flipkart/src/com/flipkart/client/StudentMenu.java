@@ -43,6 +43,8 @@ public class StudentMenu {
 		while (CRSApplication.loggedin) 
 		{
 			logger.info("*****************************");
+			logger.info("**********Student Menu*********");
+			logger.info("*****************************");
 			logger.info("1. Course Registration");
 			logger.info("2. Add Course");
 			logger.info("3. Drop Course");
@@ -96,6 +98,7 @@ public class StudentMenu {
 	 * Select course 
 	 * @param studentId
 	 */
+	//TODO: add access specifiers
 	void registerCourses(int studentId)
 	{
 	

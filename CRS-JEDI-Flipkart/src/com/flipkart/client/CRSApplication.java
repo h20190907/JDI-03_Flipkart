@@ -99,6 +99,7 @@ public class CRSApplication {
 			//true->role->student->approved
 			if(loggedin)
 			{
+				//logger.info("Welcome "+userId);
 				String role=userInterface.getRole(userId);
 				Role userRole=Role.stringToName(role);
 				switch(userRole)
