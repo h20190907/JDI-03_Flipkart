@@ -10,6 +10,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundException;
 
 /**
@@ -99,9 +100,14 @@ public class AdminOperation implements AdminInterface{
 	 * @param professor : Professor Object storing details of a professor
 	 */
 	@Override
-	public void addProfessor(Professor professor) {
+	public void addProfessor(Professor professor) throws ProfessorNotAddedException {
 		
-		adminDaoOperation.addProfessor(professor);
+		try {
+			adminDaoOperation.addProfessor(professor);
+		}
+		catch(ProfessorNotAddedException e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -119,5 +125,4 @@ public class AdminOperation implements AdminInterface{
 			throw e;
 		}
 	}
-
 }

@@ -10,7 +10,9 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundException;
+import com.flipkart.exception.UserNotAddedException;
 
 /**
  * @author JD1-03
@@ -44,11 +46,11 @@ public interface AdminDaoInterface {
 	 * Add professor using SQL commands
 	 * @param professor
 	 */
-	public void addProfessor(Professor professor);
+	public void addProfessor(Professor professor) throws ProfessorNotAddedException;
 	/**Method to add user using SQL commands
 	 * @param user
 	 */
-	public void addUser(User user);	
+	public void addUser(User user) throws UserNotAddedException;	
 	/**
 	 * Assign courses to Professor using SQL commands
 	 * @param courseCode

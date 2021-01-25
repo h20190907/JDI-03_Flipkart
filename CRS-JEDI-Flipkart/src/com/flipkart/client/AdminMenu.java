@@ -11,6 +11,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.service.AdminInterface;
@@ -147,9 +148,12 @@ public class AdminMenu {
 		
 		professor.setRole(Role.stringToName("Professor"));
 		
-		adminOperation.addProfessor(professor);
-		
-		
+		try {
+			adminOperation.addProfessor(professor);
+		} catch (ProfessorNotAddedException e) {
+			logger.error(e.getMessage());
+		}
+
 	}
 
 	/**

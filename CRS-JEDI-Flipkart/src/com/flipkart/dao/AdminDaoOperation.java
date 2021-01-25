@@ -17,7 +17,9 @@ import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundException;
+import com.flipkart.exception.UserNotAddedException;
 import com.flipkart.utils.DBUtils;
 
 /**
@@ -66,7 +68,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			int row = statement.executeUpdate();
 			
 			if(row == 0) {
-				logger.warn(courseCode + " not in catalog!");
+				logger.error(courseCode + " not in catalog!");
 				throw new CourseNotFoundException(courseCode);
 			}
 			logger.info(row + " entries deleted");
@@ -97,7 +99,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setString(1, course.getCourseCode());
 			statement.setString(2, course.getCourseName());
 			
-			//TODO Course Catalog ID default is set to 1
 			statement.setString(3, "1");
 			int row = statement.executeUpdate();
 			
@@ -171,11 +172,12 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setInt(1,studentId);
 			int row = statement.executeUpdate();
 			
+			logger.info(row + " approval status updated");
 			if(row == 0) {
 				logger.error("Student with Student Id : " + studentId + " not found");
 				throw new StudentNotFoundException(studentId);
 			}
-			logger.info(row + " approval status updated");
+			
 			logger.info("Student with Student Id : " + studentId + " is approved");
 			
 		}catch(SQLException se) {
@@ -193,7 +195,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	 * @param user
 	 */
 	@Override
-	public void addUser(User user) {
+	public void addUser(User user) throws UserNotAddedException{
 		
 		try {
 			
@@ -208,7 +210,10 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setString(6, user.getAddress());
 			statement.setString(7, user.getCountry());
 			int row = statement.executeUpdate();
-			
+			if(row == 0) {
+				logger.error("userId: " + user.getUserId() + " not added!");
+				throw new UserNotAddedException(user.getUserId()); 
+			}
 			logger.info(row + " user added");
 			logger.info("User with User Id : " + user.getUserId() + " Added"); 
 			
@@ -220,19 +225,22 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			
 			logger.error(e.getMessage());
 		}
-		
 	}
-	
+
 	/**
 	 * Add professor using SQL commands
 	 * @param professor
 	 */
 	@Override
-	public void addProfessor(Professor professor) {
+	public void addProfessor(Professor professor) throws ProfessorNotAddedException{
 		try {
 			
-			this.addUser(professor);
-			
+			try {
+				this.addUser(professor);
+			}catch (UserNotAddedException e) {
+				logger.error(e.getMessage());
+				throw new ProfessorNotAddedException(professor.getUserId());
+			}
 			String sql = SQLQueriesConstants.ADD_PROFESSOR_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
@@ -240,8 +248,12 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setString(2, professor.getDepartment());
 			statement.setString(3, professor.getDesignation());
 			int row = statement.executeUpdate();
-			
+
 			logger.info(row + " Professor added");
+			if(row == 0) {
+				logger.error("professorId: " + professor.getUserId() + " not added!");
+				throw new ProfessorNotAddedException(professor.getUserId());
+			}
 			logger.info("Professor with Professor Id : " + professor.getUserId() + " Added"); 
 			
 		}catch(SQLException se) {
@@ -251,9 +263,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		}catch(Exception e) {
 			
 			logger.error(e.getMessage());
-		}
-		
-		
+		}	
 	}
 	
 	/**
@@ -272,16 +282,12 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			int row = statement.executeUpdate();
 			
 			logger.info(row + " Updated");
-			
-			if(row == 1) {
-				logger.info("Course : " + courseCode + " is assigned to " + professorId);
-			}
-			else {
-				logger.warn(courseCode + " not found");
+			if(row == 0) {
+				logger.error(courseCode + " not found");
 				throw new CourseNotFoundException(courseCode);
 			}
-			
-			
+			logger.info("Course : " + courseCode + " is assigned to " + professorId);
+		
 		}catch(SQLException se) {
 			
 			logger.error(se.getMessage());
@@ -290,6 +296,5 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			
 			logger.error(e.getMessage());
 		}
-		
 	}
 }

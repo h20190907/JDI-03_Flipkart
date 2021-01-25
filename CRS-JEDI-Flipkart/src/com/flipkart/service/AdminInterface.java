@@ -4,6 +4,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundException;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public interface AdminInterface {
 	 * Method to add Professor to DB
 	 * @param professor : Professor Object storing details of a professor
 	 */
-	public void addProfessor(Professor professor);	
+	public void addProfessor(Professor professor) throws ProfessorNotAddedException;	
 	/**
 	 * Method to assign Course to a Professor
 	 * @param courseCode
