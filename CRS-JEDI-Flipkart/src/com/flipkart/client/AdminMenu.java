@@ -10,6 +10,7 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
+import com.flipkart.exception.CourseFoundException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundException;
@@ -55,13 +56,12 @@ public class AdminMenu {
 			case 1:
 				viewCoursesInCatalogue();
 				break;
+				
 			case 2:
-				viewCoursesInCatalogue();
 				addCourseToCatalogue();
 				break;
 				
 			case 3:
-				viewCoursesInCatalogue();
 				deleteCourse();
 				break;
 				
@@ -172,9 +172,9 @@ public class AdminMenu {
 		if(pendingStudentsList.size() == 0) {
 			return 0;
 		}
-		logger.info(String.format("%20s %20s %20s %7s", "UserId", "StudentId", "Name", "Gender"));
+		logger.info(String.format("%20s | %20s | %20s | %20s", "UserId", "StudentId", "Name", "Gender"));
 		for(Student student : pendingStudentsList) {
-			logger.info(String.format("%20s %20d %20s %7s", student.getUserId(), student.getStudentId(), student.getName(), student.getGender().toString()));
+			logger.info(String.format("%20s | %20d | %20s | %20s", student.getUserId(), student.getStudentId(), student.getName(), student.getGender().toString()));
 		}
 		return pendingStudentsList.size();
 	}
@@ -203,22 +203,22 @@ public class AdminMenu {
 	 * @throws CourseNotFoundException 
 	 */
 	private void deleteCourse() {
-
+		List<Course> courseList = viewCoursesInCatalogue();
 		logger.info("Enter Course Code:");
 		String courseCode = scanner.next();
 		
 		try {
-			adminOperation.deleteCourse(courseCode);
+			adminOperation.deleteCourse(courseCode, courseList);
 		} catch (CourseNotFoundException e) {
 			logger.error(e.getMessage());
 		}
-		
 	}
-
+	
 	/**
 	 * Method to add Course to catalogue
 	 */
 	private void addCourseToCatalogue() {
+		List<Course> courseList = viewCoursesInCatalogue();
 		logger.info("Enter Course Code:");
 		String courseCode = scanner.next();
 		
@@ -227,21 +227,27 @@ public class AdminMenu {
 		
 		Course course = new Course(courseCode, courseName, null, 10);
 		
-		adminOperation.addCourse(course);						
+		try {
+			adminOperation.addCourse(course, courseList);
+		} catch (CourseFoundException e) {
+			logger.error(e.getMessage());
+		}						
 
 	}
+	
 	/**
 	 * Method to display courses in catalogue
 	 */
-	private void viewCoursesInCatalogue() {
+	private List<Course> viewCoursesInCatalogue() {
 		List<Course> courseList = adminOperation.viewCourses(1);
 		if(courseList.size() == 0) {
 			logger.info("No course in the catalogue!");
-			return;
+			return courseList;
 		}
-		logger.info(String.format("%20s %20s %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
+		logger.info(String.format("%20s | %20s | %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
 		for(Course course : courseList) {
-			logger.info(String.format("%20s %20s %20s", course.getCourseCode(), course.getCourseName(), course.getInstructorId()));
+			logger.info(String.format("%20s | %20s | %20s", course.getCourseCode(), course.getCourseName(), course.getInstructorId()));
 		}
+		return courseList;
 	}
 }

@@ -16,6 +16,7 @@ import com.flipkart.bean.User;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.exception.CourseFoundException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundException;
@@ -103,6 +104,10 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			int row = statement.executeUpdate();
 			
 			logger.info(row + " course added");
+			if(row == 0) {
+				logger.error("courseCode: " + course.getCourseCode() + "not added to catalogue!");
+				throw new CourseFoundException(course.getCourseCode());
+			}
 			logger.info("Course with Course ID : " + course.getCourseCode() + " is added to Catalogue"); 
 			
 		}catch(SQLException se) {
@@ -234,13 +239,15 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	@Override
 	public void addProfessor(Professor professor) throws ProfessorNotAddedException{
 		try {
+			this.addUser(professor);
+		}catch (UserNotAddedException e) {
+			logger.error(e.getMessage());
+			throw new ProfessorNotAddedException(professor.getUserId());
+		}
+		
+		try {
 			
-			try {
-				this.addUser(professor);
-			}catch (UserNotAddedException e) {
-				logger.error(e.getMessage());
-				throw new ProfessorNotAddedException(professor.getUserId());
-			}
+			
 			String sql = SQLQueriesConstants.ADD_PROFESSOR_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
 			

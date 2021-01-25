@@ -9,6 +9,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
+import com.flipkart.exception.CourseFoundException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundException;
@@ -31,7 +32,7 @@ public interface AdminDaoInterface {
 	 * Add Course using SQL commands
 	 * @param course
 	 */
-	public void addCourse(Course course);
+	public void addCourse(Course course) throws CourseFoundException;
 	/**
 	 * Fetch Students yet to approved using SQL commands
 	 * @return
