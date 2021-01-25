@@ -40,7 +40,7 @@ public interface AdminInterface {
 	 * @param studentId
 	 * @throws StudentNotFoundException 
 	 */
-	public void approveStudent(int studentId) throws StudentNotFoundException;
+	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundException;
 	/**
 	 * Method to add Professor to DB
 	 * @param professor : Professor Object storing details of a professor

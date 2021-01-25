@@ -6,6 +6,7 @@ package com.flipkart.validator;
 import java.util.List;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Student;
 
 /**
  * @author Rag_Patel
@@ -38,6 +39,21 @@ public class AdminValidator {
 		for(Course course : courseList) {
 			if(dropCourseCode.equalsIgnoreCase(course.getCourseCode())) {
 				return true; 
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Method to validate if studentId is still unapproved
+	 * @param studentId
+	 * @param studentList
+	 * @return
+	 */
+	public static boolean isValidUnapprovedStudent(int studentId, List<Student> studentList) {
+		for(Student student : studentList) {
+			if(studentId == student.getStudentId()) {
+				return true;
 			}
 		}
 		return false;
