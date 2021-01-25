@@ -2,6 +2,12 @@ package com.flipkart.bean;
 
 import com.flipkart.constant.NotificationType;
 
+/**
+ * 
+ * @author JEDI-03
+ * sends the notification for different events
+ *
+ */
 public class Notification {
 	private int notificationId;
 	private int studentId;

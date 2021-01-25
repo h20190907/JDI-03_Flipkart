@@ -16,8 +16,11 @@ import com.flipkart.bean.User;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.exception.CourseFoundException;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundException;
+import com.flipkart.exception.UserNotAddedException;
 import com.flipkart.utils.DBUtils;
 
 /**
@@ -60,13 +63,14 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	public void deleteCourse(String courseCode) throws CourseNotFoundException{
 		try {
 			String sql = SQLQueriesConstants.DELETE_COURSE_QUERY;
+			//statement=null;
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
 			statement.setString(1,courseCode);
 			int row = statement.executeUpdate();
 			
 			if(row == 0) {
-				logger.warn(courseCode + " not in catalog!");
+				logger.error(courseCode + " not in catalog!");
 				throw new CourseNotFoundException(courseCode);
 			}
 			logger.info(row + " entries deleted");
@@ -97,11 +101,14 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setString(1, course.getCourseCode());
 			statement.setString(2, course.getCourseName());
 			
-			//TODO Course Catalog ID default is set to 1
-			statement.setString(3, "1");
+			statement.setInt(3, 1);
 			int row = statement.executeUpdate();
 			
 			logger.info(row + " course added");
+			if(row == 0) {
+				logger.error("courseCode: " + course.getCourseCode() + "not added to catalogue!");
+				throw new CourseFoundException(course.getCourseCode());
+			}
 			logger.info("Course with Course ID : " + course.getCourseCode() + " is added to Catalogue"); 
 			
 		}catch(SQLException se) {
@@ -171,11 +178,12 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setInt(1,studentId);
 			int row = statement.executeUpdate();
 			
+			logger.info(row + " approval status updated");
 			if(row == 0) {
 				logger.error("Student with Student Id : " + studentId + " not found");
 				throw new StudentNotFoundException(studentId);
 			}
-			logger.info(row + " approval status updated");
+			
 			logger.info("Student with Student Id : " + studentId + " is approved");
 			
 		}catch(SQLException se) {
@@ -193,7 +201,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	 * @param user
 	 */
 	@Override
-	public void addUser(User user) {
+	public void addUser(User user) throws UserNotAddedException{
 		
 		try {
 			
@@ -208,7 +216,10 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setString(6, user.getAddress());
 			statement.setString(7, user.getCountry());
 			int row = statement.executeUpdate();
-			
+			if(row == 0) {
+				logger.error("userId: " + user.getUserId() + " not added!");
+				throw new UserNotAddedException(user.getUserId()); 
+			}
 			logger.info(row + " user added");
 			logger.info("User with User Id : " + user.getUserId() + " Added"); 
 			
@@ -220,18 +231,23 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			
 			logger.error(e.getMessage());
 		}
-		
 	}
-	
+
 	/**
 	 * Add professor using SQL commands
 	 * @param professor
 	 */
 	@Override
-	public void addProfessor(Professor professor) {
+	public void addProfessor(Professor professor) throws ProfessorNotAddedException{
+		try {
+			this.addUser(professor);
+		}catch (UserNotAddedException e) {
+			logger.error(e.getMessage());
+			throw new ProfessorNotAddedException(professor.getUserId());
+		}
+		
 		try {
 			
-			this.addUser(professor);
 			
 			String sql = SQLQueriesConstants.ADD_PROFESSOR_QUERY;
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -240,8 +256,12 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setString(2, professor.getDepartment());
 			statement.setString(3, professor.getDesignation());
 			int row = statement.executeUpdate();
-			
+
 			logger.info(row + " Professor added");
+			if(row == 0) {
+				logger.error("professorId: " + professor.getUserId() + " not added!");
+				throw new ProfessorNotAddedException(professor.getUserId());
+			}
 			logger.info("Professor with Professor Id : " + professor.getUserId() + " Added"); 
 			
 		}catch(SQLException se) {
@@ -251,9 +271,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		}catch(Exception e) {
 			
 			logger.error(e.getMessage());
-		}
-		
-		
+		}	
 	}
 	
 	/**
@@ -272,15 +290,47 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			int row = statement.executeUpdate();
 			
 			logger.info(row + " Updated");
-			
-			if(row == 1) {
-				logger.info("Course : " + courseCode + " is assigned to " + professorId);
-			}
-			else {
-				logger.warn(courseCode + " not found");
+			if(row == 0) {
+				logger.error(courseCode + " not found");
 				throw new CourseNotFoundException(courseCode);
 			}
+			logger.info("Course : " + courseCode + " is assigned to " + professorId);
+		
+		}catch(SQLException se) {
 			
+			logger.error(se.getMessage());
+			
+		}catch(Exception e) {
+			
+			logger.error(e.getMessage());
+		}
+	}
+	
+	/**
+	 * View courses in the catalog
+	 * @return List of courses in catalog
+	 * @return List of courses in the catalog
+	 */
+	public List<Course> viewCourses(int catalogId) {
+		List<Course> courseList = new ArrayList<>();
+		try {
+			
+			String sql = SQLQueriesConstants.VIEW_COURSE_QUERY;
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, catalogId);
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+				Course course = new Course();
+				course.setCourseCode(resultSet.getString(1));
+				course.setCourseName(resultSet.getString(2));
+				course.setInstructorId(resultSet.getString(3));
+				courseList.add(course);
+			}
+			
+			logger.info(courseList.size() + " courses in catalogId: " + catalogId);
+			
+			return courseList;
 			
 		}catch(SQLException se) {
 			
@@ -290,6 +340,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			
 			logger.error(e.getMessage());
 		}
-		
+		return null; 
 	}
 }

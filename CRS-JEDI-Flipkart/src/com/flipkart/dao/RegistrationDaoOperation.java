@@ -62,10 +62,11 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	 * @throws CourseLimitExceedException if course limit exceeded
 	 * @throws SeatNotAvailableException if seat is not available
 	 */
+	//TODD: remove if else
+	
 	@Override
 	public boolean addCourse(String courseCode, int studentId) throws SQLException,CourseNotFoundException{
 		
-
 		Connection conn = DBUtils.getConnection();
 		
 
@@ -85,7 +86,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		catch (SQLException e) 
 		{
 			throw new CourseNotFoundException(courseCode);
-
 		}
 		finally
 		{
@@ -315,8 +315,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 		finally
 		{
 			stmt.close();
-			conn.close();
-			
+			conn.close();	
 		}
 		
 		return notify;

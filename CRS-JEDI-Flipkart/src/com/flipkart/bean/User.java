@@ -4,7 +4,11 @@ package com.flipkart.bean;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 
-// User bean class	
+/**
+ * 
+ * @author JEDI-03
+ *
+ */
 public abstract class User {
 	private String userId;
 	private String name;

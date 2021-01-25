@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Grade;
 import com.flipkart.constant.SQLQueriesConstants;
@@ -65,9 +66,17 @@ public class ProfessorOperation implements ProfessorInterface {
 	 * @return view enrolled students for the course
 	 */
 	@Override
-	public List<Student> viewEnrolledStudents(String profId, String courseCode) {
-		// call the DAO class
-		return null;
+	public List<EnrolledStudent> viewEnrolledStudents(String profId) throws SQLException{
+		List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
+		try
+		{
+			enrolledStudents=professorDAOInterface.getEnrolledStudents(profId);
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
+		return enrolledStudents;
 	}
 
 	
@@ -81,7 +90,14 @@ public class ProfessorOperation implements ProfessorInterface {
 		//call the DAO class
 		//get the courses for the professor
 		List<Course> coursesOffered=new ArrayList<Course>();
-		coursesOffered=professorDAOInterface.getCoursesByProfessor(profId);
+		try
+		{
+			coursesOffered=professorDAOInterface.getCoursesByProfessor(profId);
+		}
+		catch(Exception ex)
+		{
+			throw ex;
+		}
 		return coursesOffered;
 	}
 	

@@ -8,7 +8,7 @@ package com.flipkart.exception;
  *
  */
 public class StudentNotFoundException extends Exception {
-	int studentId;
+	private int studentId;
 	
 	public StudentNotFoundException(int studentId) {
 		this.studentId = studentId;

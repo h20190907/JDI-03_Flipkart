@@ -1,5 +1,10 @@
 package com.flipkart.bean;
 
+/**
+ * 
+ * @author JEDI-03
+ *
+ */
 public class Course {
 	//TODO: add constructor 
 	private String courseCode;
@@ -7,6 +12,9 @@ public class Course {
 	private String instructorId;
 	private int seats = 10;
 	
+	public Course() {
+		
+	}
 	public Course(String courseCode, String courseName, String instructorId, int seats) 
 	{
 		super();

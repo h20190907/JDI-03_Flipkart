@@ -15,16 +15,9 @@ import com.flipkart.exception.StudentNotRegisteredException;
 public interface StudentDaoInterface {
 	/**
 	 * 
-	 * @param name
-	 * @param userID: student's email address
-	 * @param password
-	 * @param gender
-	 * @param batch
-	 * @param branch
-	 * @param address: student's complete address
-	 * @param country
-	 * @return true, if record is added in DB, else false.
-	 * @throws SQLException 
+	 * @param student: student object containing all the fields
+	 * @return true if student is added, else false
+	 * @throws StudentNotRegisteredException
 	 */
 	public boolean addStudent(Student student) throws StudentNotRegisteredException;
 	

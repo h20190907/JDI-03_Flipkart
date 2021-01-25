@@ -99,6 +99,7 @@ public class CRSApplication {
 			//true->role->student->approved
 			if(loggedin)
 			{
+				//logger.info("Welcome "+userId);
 				String role=userInterface.getRole(userId);
 				Role userRole=Role.stringToName(role);
 				switch(userRole)
@@ -118,7 +119,7 @@ public class CRSApplication {
 					boolean isApproved=studentInterface.isApproved(studentId);
 					if(isApproved)
 					{
-						StudentMenu studentMenu=new StudentMenu();
+						StudentCRSMenu studentMenu=new StudentCRSMenu();
 						studentMenu.create_menu(studentId);
 						
 					}

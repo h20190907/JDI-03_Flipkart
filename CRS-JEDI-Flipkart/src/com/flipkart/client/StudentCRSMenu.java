@@ -42,6 +42,8 @@ public class StudentCRSMenu {
 		while (CRSApplication.loggedin) 
 		{
 			logger.info("*****************************");
+			logger.info("**********Student Menu*********");
+			logger.info("*****************************");
 			logger.info("1. Course Registration");
 			logger.info("2. Add Course");
 			logger.info("3. Drop Course");
@@ -101,7 +103,7 @@ public class StudentCRSMenu {
 	 * Select course 
 	 * @param studentId
 	 */
-	public void registerCourses(int studentId)
+	void registerCourses(int studentId)
 	{
 			if(is_registered)
 			{

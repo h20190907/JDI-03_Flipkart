@@ -10,9 +10,10 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
+import com.flipkart.exception.CourseFoundException;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundException;
-import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminOperation;
 
@@ -37,43 +38,50 @@ public class AdminCRSMenu {
 		
 		while(CRSApplication.loggedin) {
 			logger.info("*****************************");
-			logger.info("1. Add Course");
-			logger.info("2. Delete Course");
-			logger.info("3. Approve Students");
-			logger.info("4. View Pending Admission");
-			logger.info("5. Add Professor");
-			logger.info("6. Assign Courses To Professor");
-			logger.info("7. Logout");
+			logger.info("**********Admin Menu*********");
+			logger.info("*****************************");
+			logger.info("1. View course in catalog");
+			logger.info("2. Add Course to catalog");
+			logger.info("3. Delete Course from catalog");
+			logger.info("4. Approve Students");
+			logger.info("5. View Pending Admission");
+			logger.info("6. Add Professor");
+			logger.info("7. Assign Courses To Professor");
+			logger.info("8. Logout");
 			logger.info("*****************************");
 			
 			int choice = scanner.nextInt();
 			
 			switch(choice) {
-			case 1: 
-				addCourseToCatalogue();
+			case 1:
+				viewCoursesInCatalogue();
 				break;
 				
 			case 2:
-				deleteCourse();
+				addCourseToCatalogue();
 				break;
 				
 			case 3:
+				deleteCourse();
+				break;
+				
+			case 4:
 				approveStudent();
 				break;
 			
-			case 4:
+			case 5:
 				viewPendingAdmissions();
 				break;
 			
-			case 5:
+			case 6:
 				addProfessor();
 				break;
 			
-			case 6:
+			case 7:
 				assignCourseToProfessor();
 				break;
 			
-			case 7:
+			case 8:
 				CRSApplication.loggedin = false;
 				return;
 
@@ -147,9 +155,12 @@ public class AdminCRSMenu {
 		
 		professor.setRole(Role.stringToName("Professor"));
 		
-		adminOperation.addProfessor(professor);
-		
-		
+		try {
+			adminOperation.addProfessor(professor);
+		} catch (ProfessorNotAddedException e) {
+			logger.error(e.getMessage());
+		}
+
 	}
 
 	/**
@@ -158,9 +169,12 @@ public class AdminCRSMenu {
 	private int viewPendingAdmissions() {
 		
 		List<Student> pendingStudentsList= adminOperation.viewPendingAdmissions();
-		logger.info(String.format("%20s  %20s", "Id", "Name"));
+		if(pendingStudentsList.size() == 0) {
+			return 0;
+		}
+		logger.info(String.format("%20s | %20s | %20s | %20s", "UserId", "StudentId", "Name", "Gender"));
 		for(Student student : pendingStudentsList) {
-			logger.info(String.format("%20s  %20s", student.getStudentId(), student.getName()));
+			logger.info(String.format("%20s | %20d | %20s | %20s", student.getUserId(), student.getStudentId(), student.getName(), student.getGender().toString()));
 		}
 		return pendingStudentsList.size();
 	}
@@ -189,31 +203,53 @@ public class AdminCRSMenu {
 	 * @throws CourseNotFoundException 
 	 */
 	private void deleteCourse() {
-
+		List<Course> courseList = viewCoursesInCatalogue();
 		logger.info("Enter Course Code:");
 		String courseCode = scanner.next();
 		
 		try {
-			adminOperation.deleteCourse(courseCode);
+			adminOperation.deleteCourse(courseCode, courseList);
 		} catch (CourseNotFoundException e) {
 			logger.error(e.getMessage());
 		}
-		
 	}
-
+	
 	/**
 	 * Method to add Course to catalogue
 	 */
 	private void addCourseToCatalogue() {
+		List<Course> courseList = viewCoursesInCatalogue();
+
+		scanner.nextLine();
 		logger.info("Enter Course Code:");
-		String courseCode = scanner.next();
+		String courseCode = scanner.nextLine();
 		
 		logger.info("Enter Course Name:");
 		String courseName = scanner.next();
 		
 		Course course = new Course(courseCode, courseName, null, 10);
 		
-		adminOperation.addCourse(course);						
+		try {
+			adminOperation.addCourse(course, courseList);
+		} catch (CourseFoundException e) {
+			logger.error(e.getMessage());
+		}						
 
+	}
+	
+	/**
+	 * Method to display courses in catalogue
+	 */
+	private List<Course> viewCoursesInCatalogue() {
+		List<Course> courseList = adminOperation.viewCourses(1);
+		if(courseList.size() == 0) {
+			logger.info("No course in the catalogue!");
+			return courseList;
+		}
+		logger.info(String.format("%20s | %20s | %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
+		for(Course course : courseList) {
+			logger.info(String.format("%20s | %20s | %20s", course.getCourseCode(), course.getCourseName(), course.getInstructorId()));
+		}
+		return courseList;
 	}
 }
