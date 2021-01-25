@@ -99,7 +99,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setString(1, course.getCourseCode());
 			statement.setString(2, course.getCourseName());
 			
-			statement.setString(3, "1");
+			statement.setInt(3, 1);
 			int row = statement.executeUpdate();
 			
 			logger.info(row + " course added");
@@ -296,5 +296,42 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			
 			logger.error(e.getMessage());
 		}
+	}
+	
+	/**
+	 * View courses in the catalog
+	 * @return List of courses in catalog
+	 * @return List of courses in the catalog
+	 */
+	public List<Course> viewCourses(int catalogId) {
+		List<Course> courseList = new ArrayList<>();
+		try {
+			
+			String sql = SQLQueriesConstants.VIEW_COURSE_QUERY;
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, catalogId);
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+				Course course = new Course();
+				course.setCourseCode(resultSet.getString(1));
+				course.setCourseName(resultSet.getString(2));
+				course.setInstructorId(resultSet.getString(3));
+				courseList.add(course);
+			}
+			
+			logger.info(courseList.size() + " courses in catalogId: " + catalogId);
+			
+			return courseList;
+			
+		}catch(SQLException se) {
+			
+			logger.error(se.getMessage());
+			
+		}catch(Exception e) {
+			
+			logger.error(e.getMessage());
+		}
+		return null; 
 	}
 }

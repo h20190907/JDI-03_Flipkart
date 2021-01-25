@@ -124,4 +124,14 @@ public class AdminOperation implements AdminInterface{
 			throw e;
 		}
 	}
+	
+	/**
+	 * Method to get list of courses in catalog
+	 * @param catalogId
+	 * @return List of courses in catalog
+	 */
+	@Override
+	public List<Course> viewCourses(int catalogId) {
+		return adminDaoOperation.viewCourses(catalogId);
+	}
 }

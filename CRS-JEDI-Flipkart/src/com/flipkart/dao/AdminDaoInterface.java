@@ -57,4 +57,10 @@ public interface AdminDaoInterface {
 	 * @param professorId
 	 */
 	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException;
+	/**
+	 * View courses in the catalog
+	 * @param Catalog ID
+	 * @return List of courses in the catalog
+	 */
+	public List<Course> viewCourses(int catalogId);
 }
