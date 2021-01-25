@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
+import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
 
@@ -15,13 +16,14 @@ public class ProfessorMenu {
 	 * returns displays all the options for the professor, and provides navigation
 	 */
 	private static Logger logger = Logger.getLogger(StudentMenu.class);
-	public void createMenu(int profId)
+	ProfessorInterface professorInterface=ProfessorOperation.getInstance();
+	public void createMenu(String profId)
 	{
 		//Display the options available for the PRofessor
 		Scanner sc=new Scanner(System.in);
-		ProfessorInterface professorInterface=ProfessorOperation.getInstance();
+		
 		int input;
-		while(true)
+		while(CRSApplication.loggedin)
 		{
 			logger.info("*****************************");
 			logger.info("1. View Courses");
@@ -46,9 +48,7 @@ public class ProfessorMenu {
 					
 				case 3:
 					//add grade for a student
-					String studentId=sc.next();
-					String profCourseCode=sc.next();
-					professorInterface.addGrade(profId, studentId, profCourseCode, input);
+					addGrade();
 					break;
 				case 4:
 					//logout from the system
@@ -62,4 +62,31 @@ public class ProfessorMenu {
 		
 	}
 
+
+
+public void addGrade()
+{
+	Scanner sc=new Scanner(System.in);
+	int studentId;
+	String courseCode,grade;
+	try
+	{
+		logger.info("----------------Add Grade--------------");
+		logger.info("Enter student id");
+		studentId=sc.nextInt();
+		logger.info("Enter course code");
+		courseCode=sc.next();
+		logger.info("Enter grade");
+		grade=sc.next();
+		professorInterface.addGrade(studentId, courseCode, grade);
+		logger.info("Grade added successfully for "+studentId);
+		
+	}
+	catch(GradeNotAddedException ex)
+	{
+		logger.error("Grade cannot be added for"+ex.getStudentId());
+		
+	}
+
+}
 }
