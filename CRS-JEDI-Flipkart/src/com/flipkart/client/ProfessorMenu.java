@@ -1,9 +1,11 @@
 package com.flipkart.client;
 
+import java.util.List;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
+import com.flipkart.bean.Course;
 import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
@@ -38,7 +40,7 @@ public class ProfessorMenu {
 			{
 				case 1:
 					//view all the courses taught by the professor
-					professorInterface.getCourses(profId);
+					getCourses(profId);
 					break;
 				case 2:
 					//view all the enrolled students for the course
@@ -63,30 +65,47 @@ public class ProfessorMenu {
 	}
 
 
-
-public void addGrade()
-{
-	Scanner sc=new Scanner(System.in);
-	int studentId;
-	String courseCode,grade;
-	try
+	
+	public void getCourses(String profId)
 	{
-		logger.info("----------------Add Grade--------------");
-		logger.info("Enter student id");
-		studentId=sc.nextInt();
-		logger.info("Enter course code");
-		courseCode=sc.next();
-		logger.info("Enter grade");
-		grade=sc.next();
-		professorInterface.addGrade(studentId, courseCode, grade);
-		logger.info("Grade added successfully for "+studentId);
-		
+		try
+		{
+			List<Course> coursesEnrolled=professorInterface.getCourses(profId);
+			logger.info(String.format("%20s %20s %20s","COURSE CODE","COURSE CODE","No. of Students  enrolled" ));
+			for(Course obj: coursesEnrolled)
+			{
+				logger.info(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),10- obj.getSeats()));
+			}		
+		}
+		catch(Exception ex)
+		{
+			logger.error("Something went wrong!"+ex.getMessage());
+		}
 	}
-	catch(GradeNotAddedException ex)
+	
+	public void addGrade()
 	{
-		logger.error("Grade cannot be added for"+ex.getStudentId());
-		
+		Scanner sc=new Scanner(System.in);
+		int studentId;
+		String courseCode,grade;
+		try
+		{
+			logger.info("----------------Add Grade--------------");
+			logger.info("Enter student id");
+			studentId=sc.nextInt();
+			logger.info("Enter course code");
+			courseCode=sc.next();
+			logger.info("Enter grade");
+			grade=sc.next();
+			professorInterface.addGrade(studentId, courseCode, grade);
+			logger.info("Grade added successfully for "+studentId);
+			
+		}
+		catch(GradeNotAddedException ex)
+		{
+			logger.error("Grade cannot be added for"+ex.getStudentId());
+			
+		}
+	
 	}
-
-}
 }
