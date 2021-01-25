@@ -1,9 +1,11 @@
 package com.flipkart.client;
 
+import java.util.List;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
+import com.flipkart.bean.Course;
 import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
@@ -38,7 +40,7 @@ public class ProfessorMenu {
 			{
 				case 1:
 					//view all the courses taught by the professor
-					professorInterface.getCourses(profId);
+					getCourses(profId);
 					break;
 				case 2:
 					//view all the enrolled students for the course
@@ -63,6 +65,23 @@ public class ProfessorMenu {
 	}
 
 
+	
+public void getCourses(String profId)
+{
+	try
+	{
+		List<Course> coursesEnrolled=professorInterface.getCourses(profId);
+		logger.info(String.format("%20s %20s %20s","COURSE CODE","COURSE CODE","No. of Students  enrolled" ));
+		for(Course obj: coursesEnrolled)
+		{
+			logger.info(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),10- obj.getSeats()));
+		}		
+	}
+	catch(Exception ex)
+	{
+		logger.error("Something went wrong!"+ex.getMessage());
+	}
+}
 
 public void addGrade()
 {

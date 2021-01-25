@@ -15,11 +15,11 @@ public enum Role {
 	{
 		Role userRole=null;
 		
-		if(role.equals("ADMIN"))//admin==ADMIN
+		if(role.equalsIgnoreCase("ADMIN"))//admin==ADMIN
 			userRole=Role.ADMIN;
-		else if(role.equals("PROFESSOR"))
+		else if(role.equalsIgnoreCase("PROFESSOR"))
 			userRole=Role.PROFESSOR;
-		else if(role.equals("STUDENT"))
+		else if(role.equalsIgnoreCase("STUDENT"))
 			userRole=Role.STUDENT;
 		//System.out.println(userRole+"role in role class");
 		return userRole;
