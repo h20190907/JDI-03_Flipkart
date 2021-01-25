@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -46,7 +47,35 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	 */
 	@Override
 	public List<Course> getCoursesByProfessor(String profId) {
-		return null;
+		Connection connection=DBUtils.getConnection();
+		List<Course> courseList=new ArrayList<Course>();
+		try {
+			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_COURSES);
+			
+			statement.setString(1, profId);
+			
+			ResultSet results=statement.executeQuery();
+			while(results.next())
+			{
+				//Course(String courseCode, String courseName, String instructorId, int seats) 
+				courseList.add(new Course(results.getString("courseCode"),results.getString("courseName"),results.getString("professorId"),results.getInt("seats")));
+			}
+		}
+		catch(SQLException e)
+		{
+			logger.error(e.getMessage());
+		}
+		finally
+		{
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return courseList;
+		
 	}
 
 	/**
