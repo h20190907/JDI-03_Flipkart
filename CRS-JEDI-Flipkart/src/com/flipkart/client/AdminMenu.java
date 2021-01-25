@@ -38,7 +38,7 @@ public class AdminMenu {
 		
 		while(CRSApplication.loggedin) {
 			logger.info("*****************************");
-			logger.info("**********Admin-Menu*********");
+			logger.info("**********Admin Menu*********");
 			logger.info("*****************************");
 			logger.info("1. View course in catalog");
 			logger.info("2. Add Course to catalog");
@@ -219,8 +219,10 @@ public class AdminMenu {
 	 */
 	private void addCourseToCatalogue() {
 		List<Course> courseList = viewCoursesInCatalogue();
+
+		scanner.nextLine();
 		logger.info("Enter Course Code:");
-		String courseCode = scanner.next();
+		String courseCode = scanner.nextLine();
 		
 		logger.info("Enter Course Name:");
 		String courseName = scanner.next();

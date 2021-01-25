@@ -63,6 +63,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	public void deleteCourse(String courseCode) throws CourseNotFoundException{
 		try {
 			String sql = SQLQueriesConstants.DELETE_COURSE_QUERY;
+			//statement=null;
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
 			statement.setString(1,courseCode);

@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.service.StudentOperation;
@@ -82,10 +83,36 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	 * @param: profId: professor id 
 	 * @param: courseCode: course code of the professor
 	 * @return: return the enrolled students for the corresponding professor and course code.
-	 */
+	 **/
 	@Override
-	public List<Student> getEnrolledStudents(String profId, String courseCode) {
-		return null;
+	public List<EnrolledStudent> getEnrolledStudents(String profId) {
+		Connection connection=DBUtils.getConnection();
+		List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
+		try {
+			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_ENROLLED_STUDENTS);
+			statement.setString(1, profId);
+			
+			ResultSet results = statement.executeQuery();
+			while(results.next())
+			{
+				//public EnrolledStudent(String courseCode, String courseName, int studentId) 
+				enrolledStudents.add(new EnrolledStudent(results.getString("courseCode"),results.getString("courseName"),results.getInt("studentId")));
+			}
+		}
+		catch(SQLException e)
+		{
+			logger.error(e.getMessage());
+		}
+		finally
+		{
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return enrolledStudents;
 	}
 	
 	/**
