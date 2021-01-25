@@ -12,7 +12,7 @@ public class Course {
 		super();
 		this.courseCode = courseCode;
 		this.courseName = courseName;
-		this.instructorId = instructorId;
+		this.setInstructorId(instructorId);
 		this.seats = seats;
 	}
 	public String getCourseCode() {
@@ -27,16 +27,18 @@ public class Course {
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
-	public String getInstructor() {
-		return instructorId;
-	}
-	public void setInstructor(String instructor) {
-		this.instructorId = instructor;
-	}
+	
+	
 	public int getSeats() {
 		return seats;
 	}
 	public void setSeats(int seats) {
 		this.seats = seats;
+	}
+	public String getInstructorId() {
+		return instructorId;
+	}
+	public void setInstructorId(String instructorId) {
+		this.instructorId = instructorId;
 	}
 }

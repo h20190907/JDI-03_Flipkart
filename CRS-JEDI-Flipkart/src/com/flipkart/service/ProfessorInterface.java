@@ -16,4 +16,10 @@ public interface ProfessorInterface {
 	 * @return the list of courses the professor is teaching
 	 */
 	public List<Course> getCourses(String profId);
+	/**
+	 * get the professor name with ID
+	 * @param profId
+	 * @return
+	 */
+	public String getProfessorById(String profId);
 }

@@ -2,6 +2,7 @@ package com.flipkart.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -94,5 +95,45 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			}
 		}
 		return false;
+	}
+	
+
+	/**
+	 * Get professor name by id
+	 * @param profId
+	 * @return
+	 */
+	@Override
+	public String getProfessorById(String profId)
+	{
+		String prof_Name = null;
+		Connection connection=DBUtils.getConnection();
+		try 
+		{
+			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_PROF_NAME);
+			
+			statement.setString(1, profId);
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			
+			prof_Name = rs.getString(1);
+			
+		}
+		catch(SQLException e)
+		{
+			logger.error(e.getMessage());
+		}
+		finally
+		{
+			try 
+			{
+				connection.close();
+			} catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return prof_Name;
 	}
 }

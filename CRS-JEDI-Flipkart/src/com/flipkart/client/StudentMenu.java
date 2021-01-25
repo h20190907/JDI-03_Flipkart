@@ -15,6 +15,8 @@ import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.exception.CourseLimitExceedException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.SeatNotAvailableException;
+import com.flipkart.service.ProfessorInterface;
+import com.flipkart.service.ProfessorOperation;
 import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.RegistrationOperation;
 
@@ -28,6 +30,7 @@ public class StudentMenu {
 	
 	Scanner sc = new Scanner(System.in);
 	RegistrationInterface registrationInterface =RegistrationOperation.getInstance();
+	ProfessorInterface professorInterface = ProfessorOperation.getInstance();
 	
 	
 	/**
@@ -199,7 +202,7 @@ public class StudentMenu {
 		logger.info(String.format("%20s %20s %20s %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR", "SEATS"));
 		for(Course obj : course_available)
 		{
-			logger.info(String.format("%20s %20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),"INSTRUCTOR", obj.getSeats()));
+			logger.info(String.format("%20s %20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getInstructorId(), obj.getSeats()));
 		}
 		
 		return true;
@@ -227,7 +230,7 @@ public class StudentMenu {
 		{
 			 
 			
-			logger.info(String.format("%20s %20s %20s ",obj.getCourseCode(), obj.getCourseName(),"INSTRUCTOR"));
+			logger.info(String.format("%20s %20s %20s ",obj.getCourseCode(), obj.getCourseName(),professorInterface.getProfessorById(obj.getInstructorId())));
 		}
 		
 		return true;
