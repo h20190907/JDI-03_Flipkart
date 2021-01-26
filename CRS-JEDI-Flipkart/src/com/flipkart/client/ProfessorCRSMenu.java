@@ -12,14 +12,14 @@ import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
 
-public class ProfessorMenu {
+public class ProfessorCRSMenu {
 
 	/**
 	 * 
 	 * @param profId: professor id obtained after logging into the system
 	 * returns displays all the options for the professor, and provides navigation
 	 */
-	private static Logger logger = Logger.getLogger(StudentMenu.class);
+	private static Logger logger = Logger.getLogger(ProfessorCRSMenu.class);
 	ProfessorInterface professorInterface=ProfessorOperation.getInstance();
 	public void createMenu(String profId)
 	{
@@ -70,6 +70,8 @@ public class ProfessorMenu {
 	
 	public void viewEnrolledStudents(String profId)
 	{
+		List<Course> coursesEnrolled=professorInterface.getCourses(profId);
+		logger.info(String.format("%20s %20s %20s","COURSE CODE","COURSE CODE","Students  enrolled" ));
 		try
 		{
 			List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();

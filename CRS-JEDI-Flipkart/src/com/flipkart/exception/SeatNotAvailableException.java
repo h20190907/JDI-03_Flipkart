@@ -10,12 +10,11 @@ public class SeatNotAvailableException extends Exception{
 	}
 
 
-	public String getCourseCode()
-	{
-		return courseCode;
+
+	@Override
+	public String getMessage() {
+		return  "Seats are not available in : " + courseCode;
 	}
-
-
 
 
 }

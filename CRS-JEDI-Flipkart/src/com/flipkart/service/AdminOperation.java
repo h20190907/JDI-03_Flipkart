@@ -9,9 +9,11 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
+import com.flipkart.exception.CourseFoundException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundException;
+import com.flipkart.validator.AdminValidator;
 
 /**
  * 
@@ -21,6 +23,7 @@ import com.flipkart.exception.StudentNotFoundException;
  */
 public class AdminOperation implements AdminInterface{
 
+	private static Logger logger = Logger.getLogger(AdminOperation.class);
 	private static volatile AdminOperation instance = null;
 	
 	private AdminOperation()
@@ -49,12 +52,17 @@ public class AdminOperation implements AdminInterface{
 	/**
 	 * Method to Delete Course from Course Catalog
 	 * @param courseCode
+	 * @param courseList : Courses available in the catalog
 	 * @throws CourseNotFoundException 
 	 */
 	@Override
-	public void deleteCourse(String courseCode) throws CourseNotFoundException {
+	public void deleteCourse(String dropCourseCode, List<Course> courseList) throws CourseNotFoundException {
+		if(!AdminValidator.isValidDropCourse(dropCourseCode, courseList)) {
+			logger.error("courseCode: " + dropCourseCode + " not present in catalog!");
+			throw new CourseNotFoundException(dropCourseCode);
+		}
 		try {
-			adminDaoOperation.deleteCourse(courseCode);
+			adminDaoOperation.deleteCourse(dropCourseCode);
 		}
 		catch(CourseNotFoundException e) {
 			throw e;
@@ -64,10 +72,22 @@ public class AdminOperation implements AdminInterface{
 	/**
 	 * Method to add Course to Course Catalog
 	 * @param course : Course object storing details of a course
+	 * @param courseList : Courses available in catalog
+	 * @throws CourseFoundException
 	 */
 	@Override
-	public void addCourse(Course course) {
-		adminDaoOperation.addCourse(course);
+	public void addCourse(Course newCourse, List<Course> courseList) throws CourseFoundException {
+		
+		if(!AdminValidator.isValidNewCourse(newCourse, courseList)) {
+			logger.error("courseCode: " + newCourse.getCourseCode() + " already present in catalog!");
+			throw new CourseFoundException(newCourse.getCourseCode());
+		}
+		try {
+			adminDaoOperation.addCourse(newCourse);
+		}
+		catch(CourseFoundException e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -85,8 +105,12 @@ public class AdminOperation implements AdminInterface{
 	 * @throws StudentNotFoundException 
 	 */
 	@Override
-	public void approveStudent(int studentId) throws StudentNotFoundException {
-		//TODO display viewPendingAdmissions
+	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundException {
+		
+		if(!AdminValidator.isValidUnapprovedStudent(studentId, studentList)) {
+			logger.error("studentId: " + studentId + " is already approvet/not-present!");
+			throw new StudentNotFoundException(studentId);
+		}
 		try {
 			adminDaoOperation.approveStudent(studentId);
 		}
@@ -98,6 +122,7 @@ public class AdminOperation implements AdminInterface{
 	/**
 	 * Method to add Professor to DB
 	 * @param professor : Professor Object storing details of a professor
+	 * @throws ProfessorNotAddedException
 	 */
 	@Override
 	public void addProfessor(Professor professor) throws ProfessorNotAddedException {
@@ -117,6 +142,7 @@ public class AdminOperation implements AdminInterface{
 	 */
 	@Override
 	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException{
+		
 		try {
 			adminDaoOperation.assignCourse(courseCode, professorId);
 		}
@@ -132,6 +158,7 @@ public class AdminOperation implements AdminInterface{
 	 */
 	@Override
 	public List<Course> viewCourses(int catalogId) {
+		
 		return adminDaoOperation.viewCourses(catalogId);
 	}
 }

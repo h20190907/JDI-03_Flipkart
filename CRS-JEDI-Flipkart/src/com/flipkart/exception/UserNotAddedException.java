@@ -5,7 +5,7 @@ package com.flipkart.exception;
  *
  */
 public class UserNotAddedException extends Exception{
-	String userId;
+	private String userId;
 	
 	public UserNotAddedException(String userId) {
 		this.userId = userId;

@@ -10,6 +10,7 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
+import com.flipkart.exception.CourseFoundException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundException;
@@ -22,9 +23,9 @@ import com.flipkart.service.AdminOperation;
  * Class that Display Admin Client Menu
  * 
  */
-public class AdminMenu {
+public class AdminCRSMenu {
 
-	private static Logger logger = Logger.getLogger(AdminMenu.class);
+	private static Logger logger = Logger.getLogger(AdminCRSMenu.class);
 	
 	AdminInterface adminOperation =AdminOperation.getInstance();
 	Scanner scanner = new Scanner(System.in);
@@ -55,13 +56,12 @@ public class AdminMenu {
 			case 1:
 				viewCoursesInCatalogue();
 				break;
+				
 			case 2:
-				viewCoursesInCatalogue();
 				addCourseToCatalogue();
 				break;
 				
 			case 3:
-				viewCoursesInCatalogue();
 				deleteCourse();
 				break;
 				
@@ -166,17 +166,17 @@ public class AdminMenu {
 	/**
 	 * Method to view Students who are yet to be approved
 	 */
-	private int viewPendingAdmissions() {
+	private List<Student> viewPendingAdmissions() {
 		
 		List<Student> pendingStudentsList= adminOperation.viewPendingAdmissions();
 		if(pendingStudentsList.size() == 0) {
-			return 0;
+			return pendingStudentsList;
 		}
-		logger.info(String.format("%20s %20s %20s %7s", "UserId", "StudentId", "Name", "Gender"));
+		logger.info(String.format("%20s | %20s | %20s | %20s", "UserId", "StudentId", "Name", "Gender"));
 		for(Student student : pendingStudentsList) {
-			logger.info(String.format("%20s %20d %20s %7s", student.getUserId(), student.getStudentId(), student.getName(), student.getGender().toString()));
+			logger.info(String.format("%20s | %20d | %20s | %20s", student.getUserId(), student.getStudentId(), student.getName(), student.getGender().toString()));
 		}
-		return pendingStudentsList.size();
+		return pendingStudentsList;
 	}
 
 	/**
@@ -184,7 +184,8 @@ public class AdminMenu {
 	 */
 	private void approveStudent() {
 		
-		if(viewPendingAdmissions() == 0) {
+		List<Student> studentList = viewPendingAdmissions();
+		if(studentList.size() == 0) {
 			return;
 		}
 		
@@ -192,7 +193,7 @@ public class AdminMenu {
 		int studentUserIdApproval = scanner.nextInt();
 		
 		try {
-			adminOperation.approveStudent(studentUserIdApproval);
+			adminOperation.approveStudent(studentUserIdApproval, studentList);
 		} catch (StudentNotFoundException e) {
 			logger.error(e.getMessage());
 		}
@@ -203,22 +204,23 @@ public class AdminMenu {
 	 * @throws CourseNotFoundException 
 	 */
 	private void deleteCourse() {
-
+		List<Course> courseList = viewCoursesInCatalogue();
 		logger.info("Enter Course Code:");
 		String courseCode = scanner.next();
 		
 		try {
-			adminOperation.deleteCourse(courseCode);
+			adminOperation.deleteCourse(courseCode, courseList);
 		} catch (CourseNotFoundException e) {
 			logger.error(e.getMessage());
 		}
-		
 	}
-
+	
 	/**
 	 * Method to add Course to catalogue
 	 */
 	private void addCourseToCatalogue() {
+		List<Course> courseList = viewCoursesInCatalogue();
+
 		scanner.nextLine();
 		logger.info("Enter Course Code:");
 		String courseCode = scanner.nextLine();
@@ -228,21 +230,27 @@ public class AdminMenu {
 		
 		Course course = new Course(courseCode, courseName, null, 10);
 		
-		adminOperation.addCourse(course);						
+		try {
+			adminOperation.addCourse(course, courseList);
+		} catch (CourseFoundException e) {
+			logger.error(e.getMessage());
+		}						
 
 	}
+	
 	/**
 	 * Method to display courses in catalogue
 	 */
-	private void viewCoursesInCatalogue() {
+	private List<Course> viewCoursesInCatalogue() {
 		List<Course> courseList = adminOperation.viewCourses(1);
 		if(courseList.size() == 0) {
 			logger.info("No course in the catalogue!");
-			return;
+			return courseList;
 		}
-		logger.info(String.format("%20s %20s %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
+		logger.info(String.format("%20s | %20s | %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
 		for(Course course : courseList) {
-			logger.info(String.format("%20s %20s %20s", course.getCourseCode(), course.getCourseName(), course.getInstructorId()));
+			logger.info(String.format("%20s | %20s | %20s", course.getCourseCode(), course.getCourseName(), course.getInstructorId()));
 		}
+		return courseList;
 	}
 }

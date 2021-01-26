@@ -58,7 +58,6 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			ResultSet results=statement.executeQuery();
 			while(results.next())
 			{
-				//Course(String courseCode, String courseName, String instructorId, int seats) 
 				courseList.add(new Course(results.getString("courseCode"),results.getString("courseName"),results.getString("professorId"),results.getInt("seats")));
 			}
 		}
