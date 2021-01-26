@@ -10,9 +10,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.ModeOfPayment;
-import com.flipkart.exception.CourseLimitExceedException;
 import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.SeatNotAvailableException;
 
 /**
  * @author JDI-03
@@ -29,7 +27,7 @@ public interface RegistrationDaoInterface {
 	 * @throws CourseNotFoundException
 	 * @throws SQLException 
 	 */
-	public boolean addCourse(String courseCode, int studentId) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException, SQLException;
+	public boolean addCourse(String courseCode, int studentId) throws SQLException;
 	/**
 	 * Drop Course selected by student
 	 * @param courseCode
@@ -38,7 +36,7 @@ public interface RegistrationDaoInterface {
 	 * @throws CourseNotFoundException 
 	 * @throws SQLException 
 	 */
-	public boolean dropCourse(String courseCode, int studentId) throws CourseNotFoundException, SQLException;
+	public boolean dropCourse(String courseCode, int studentId) throws SQLException;
 	/**
 	 * Method to get the list of courses available from course catalog 
 	 * @param studentId
@@ -101,14 +99,14 @@ public interface RegistrationDaoInterface {
 	 */
 	public boolean isRegistered(String courseCode, int studentId) throws SQLException;
 	/**
-	 * 
+	 *  Method to get student registration status
 	 * @param studentId
 	 * @return
 	 * @throws SQLException
 	 */
 	public boolean getRegistrationStatus(int studentId) throws SQLException;
 	/**
-	 * 
+	 *  Method to set student registration status
 	 * @param studentId
 	 * @throws SQLException
 	 */

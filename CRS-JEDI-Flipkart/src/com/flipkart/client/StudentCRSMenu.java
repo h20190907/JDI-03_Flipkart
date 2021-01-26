@@ -60,18 +60,14 @@ public class StudentCRSMenu {
 				case 1: 
 						registerCourses(studentId);
 						break;
+						
 				case 2: 
-						if(is_registered)
-							addCourse(studentId);
-						else
-							logger.info("Please complete registration");
+						addCourse(studentId);
 						break;
 
 				case 3:
-						if(is_registered)
-							dropCourse(studentId);
-						else
-							logger.info("Please complete registration");
+						
+						dropCourse(studentId);
 						break;
 
 				case 4:
@@ -89,9 +85,11 @@ public class StudentCRSMenu {
 				case 7:
 						make_payment(studentId);
 						break;
+						
 				case 8: 
 						CRSApplication.loggedin = false;
 						return;
+						
 				default:
 						logger.warn("***** Wrong Choice *****");
 			}
@@ -103,7 +101,7 @@ public class StudentCRSMenu {
 	 * Select course 
 	 * @param studentId
 	 */
-	void registerCourses(int studentId)
+	private void registerCourses(int studentId)
 	{
 			if(is_registered)
 			{
@@ -116,12 +114,22 @@ public class StudentCRSMenu {
 			{
 				try
 				{
+					List<Course> courseList=viewCourse(studentId);
+					
+					if(courseList==null)
+						return;
+					
 					logger.info("Enter Course Code : " + (count+1));
 					String courseCode = sc.next();
-					if(registrationInterface.addCourse(courseCode,studentId))
+					
+					if(registrationInterface.addCourse(courseCode,studentId,courseList))
 					{
 						logger.info("Course " + courseCode + " registered sucessfully.");
 						count++;
+					}
+					else
+					{
+						logger.info(" You have already registered for Course : " + courseCode);
 					}
 				}	
 				catch(CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException | SQLException e)
@@ -132,6 +140,15 @@ public class StudentCRSMenu {
 			
 		    logger.info("Registration Successful");	
 		    is_registered = true;
+		    
+		    try 
+		    {
+				registrationInterface.setRegistrationStatus(studentId);
+			} 
+		    catch (SQLException e) 
+		    {
+				logger.info(e.getMessage());
+			}
 		
 	}
 	
@@ -139,58 +156,91 @@ public class StudentCRSMenu {
 	 * Add course
 	 * @param studentId
 	 */
-	void addCourse(int studentId)	
+	private void addCourse(int studentId)	
 	{
-		if(!viewCourse(studentId))
-			return;
+		if(is_registered)
+		{
+			List<Course> availableCourseList=viewCourse(studentId);
+			
+			if(availableCourseList==null)
+				return;
+	
+			try
+			{
+				logger.info("Enter Course Code : " );
+				String courseCode = sc.next();
+				if(registrationInterface.addCourse(courseCode, studentId,availableCourseList))
+				{
+					logger.info(" You have successfully registered for Course : " + courseCode);
+				}
+				else
+				{
+					logger.info(" You have already registered for Course : " + courseCode);
+				}
+			}
+			catch(CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException | SQLException e)
+			{
+				logger.info(e.getMessage());
+			}
+		}
+		else 
+		{
+			logger.info("Please complete registration");
+		}
 
-		try
-		{
-			String courseCode = sc.next();
-			if(registrationInterface.addCourse(courseCode, studentId))
-			{
-				logger.info(" You have successfully registered for Course : " + courseCode);
-			}
-			else
-			{
-				logger.info(" You have already registered for Course : " + courseCode);
-			}
-		}
-		catch(CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException | SQLException e)
-		{
-			logger.info(e.getMessage());
-		}
 		
 	}
 	
-	boolean getRegistrationStatus(int studentId)
+	private boolean getRegistrationStatus(int studentId)
 	{
-		
+		try 
+		{
+			return registrationInterface.getRegistrationStatus(studentId);
+		} 
+		catch (SQLException e)
+		{
+			logger.info(e.getMessage());
+		}
+		return false;
 	}
 	
 	/**
 	 * Drop Course
 	 * @param studentId
 	 */
-	void dropCourse(int studentId)
+	private void dropCourse(int studentId)
 	{
-		
-		if(!viewRegisteredCourse(studentId))
-			return;
-		
-		logger.info("Enter the Course Code : ");
-		String courseCode = sc.next();
-		
-		try
+		if(is_registered)
 		{
-			registrationInterface.dropCourse(courseCode, studentId);
-			logger.info("You have successfully dropped Course : " + courseCode);
+			List<Course> registeredCourseList=viewRegisteredCourse(studentId);
 			
+			if(registeredCourseList==null)
+				return;
+			
+			logger.info("Enter the Course Code : ");
+			String courseCode = sc.next();
+			
+			try
+			{
+				registrationInterface.dropCourse(courseCode, studentId,registeredCourseList);
+				logger.info("You have successfully dropped Course : " + courseCode);
+				
+			}
+			catch(CourseNotFoundException e)
+			{
+				logger.info("You have not registered for course : " + e.getCourseCode());
+			} 
+			catch (SQLException e) 
+			{
+
+                logger.info(e.getMessage());
+			}
 		}
-		catch(CourseNotFoundException e)
+		else
 		{
-			logger.info("You have not registered for course : " + e.getCourseCode());
+			logger.info("Please complete registration");
 		}
+
 	}
 	
 	/**
@@ -198,24 +248,34 @@ public class StudentCRSMenu {
 	 * @param studentId
 	 * @return true if any course is available, false otherwise
 	 */
-	boolean viewCourse(int studentId)
+	private List<Course> viewCourse(int studentId)
 	{
-		List<Course> course_available = registrationInterface.viewCourses(studentId);
-		
+		List<Course> course_available=null;
+		try 
+		{
+			course_available = registrationInterface.viewCourses(studentId);
+		}
+		catch (SQLException e) 
+		{
+
+            logger.info(e.getMessage());
+		}
+	
+	
 		if(course_available.isEmpty())
 		{
 			logger.info("NO COURSE AVAILABLE");
-			return false;
+			return null;
 		}
 		
 
-		logger.info(String.format("%20s %20s %20s %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR", "SEATS"));
+		logger.info(String.format("%-20s %-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR", "SEATS"));
 		for(Course obj : course_available)
 		{
-			logger.info(String.format("%20s %20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getInstructorId(), obj.getSeats()));
+			logger.info(String.format("%-20s %-20s %-20s %-20s",obj.getCourseCode(), obj.getCourseName(),obj.getInstructorId(), obj.getSeats()));
 		}
 		
-		return true;
+		return course_available;
 
 	}
 	
@@ -224,38 +284,57 @@ public class StudentCRSMenu {
 	 * @param studentId
 	 * @return true if any course is registered, false otherwise
 	 */
-	boolean viewRegisteredCourse(int studentId)
+	private List<Course> viewRegisteredCourse(int studentId)
 	{
-		List<Course> course_registered = registrationInterface.viewRegisteredCourses(studentId);
+		List<Course> course_registered=null;
+		try 
+		{
+			course_registered = registrationInterface.viewRegisteredCourses(studentId);
+		} 
+		catch (SQLException e) 
+		{
+
+            logger.info(e.getMessage());
+		}
 		
 		if(course_registered.isEmpty())
 		{
 			logger.info("You haven't registered for any course");
-			return false;
+			return null;
 		}
 		
-		logger.info(String.format("%20s %20s %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
+		logger.info(String.format("%-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
 		
 		for(Course obj : course_registered)
 		{
 			 
 			
-			logger.info(String.format("%20s %20s %20s ",obj.getCourseCode(), obj.getCourseName(),professorInterface.getProfessorById(obj.getInstructorId())));
+			logger.info(String.format("%-20s %-20s %-20s ",obj.getCourseCode(), obj.getCourseName(),professorInterface.getProfessorById(obj.getInstructorId())));
 		}
 		
-		return true;
+		return course_registered;
 	}
 	
 	/**
 	 * View grade card for particular student  
 	 * @param studentId
 	 */
-	void viewGradeCard(int studentId)
+	private void viewGradeCard(int studentId)
 	{
 		
 		
-		List<StudentGrade> grade_card = registrationInterface.viewGradeCard(studentId);
-		logger.info(String.format("%20s %20s %20s","COURSE CODE", "COURSE NAME", "GRADE"));
+		List<StudentGrade> grade_card=null;
+		try 
+		{
+			grade_card = registrationInterface.viewGradeCard(studentId);
+		} 
+		catch (SQLException e) 
+		{
+
+            logger.info(e.getMessage());
+		}
+		
+		logger.info(String.format("%-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "GRADE"));
 		
 		if(grade_card.isEmpty())
 		{
@@ -265,7 +344,7 @@ public class StudentCRSMenu {
 		
 		for(StudentGrade obj : grade_card)
 		{
-			logger.info(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getGrade()));
+			logger.info(String.format("%-20s %-20s %-20s",obj.getCourseCode(), obj.getCourseName(),obj.getGrade()));
 		}
 	}
 	
@@ -274,10 +353,19 @@ public class StudentCRSMenu {
 	 * @param studentId
 	 */
 	
-	void make_payment(int studentId)
+	private void make_payment(int studentId)
 	{
 		
-		double fee = registrationInterface.calculateFee(studentId);
+		double fee =0.0;
+		try
+		{
+			registrationInterface.calculateFee(studentId);
+		} 
+		catch (SQLException e) 
+		{
+
+            logger.info(e.getMessage());
+		}
 
 		if(fee == 0.0)
 		{
@@ -306,7 +394,17 @@ public class StudentCRSMenu {
 					logger.info("Invalid Input");
 				else
 				{
-					Notification notify = registrationInterface.payFee(studentId, mode,fee);
+					Notification notify=null;
+					try 
+					{
+						notify = registrationInterface.payFee(studentId, mode,fee);
+					}
+					catch (SQLException e) 
+					{
+
+			            logger.info(e.getMessage());
+					}
+					
 					logger.info("Your Payment is successful");
 					logger.info("Your transaction id : " + notify.getReferenceId());
 				}
@@ -319,3 +417,5 @@ public class StudentCRSMenu {
 	
 	
 }
+
+

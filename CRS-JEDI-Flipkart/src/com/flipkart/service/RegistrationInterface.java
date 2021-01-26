@@ -21,22 +21,24 @@ public interface RegistrationInterface {
 	 * Method to add Course selected by student 
 	 * @param courseCode
 	 * @param studentId
+	 * @param courseList 
 	 * @return
 	 * @throws CourseNotFoundException
 	 * @throws SeatNotAvailableException 
 	 * @throws CourseLimitExceedException 
 	 * @throws SQLException 
 	 */
-	public boolean addCourse(String courseCode, int studentId) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException, SQLException ;
+	public boolean addCourse(String courseCode, int studentId, List<Course> courseList) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException, SQLException ;
 	/**
 	 *  Method to drop Course selected by student
 	 * @param courseCode
 	 * @param studentId
+	 * @param registeredCourseList 
 	 * @return
 	 * @throws CourseNotFoundException
 	 * @throws SQLException 
 	 */
-	public boolean dropCourse(String courseCode, int studentId) throws CourseNotFoundException, SQLException;
+	public boolean dropCourse(String courseCode, int studentId, List<Course> registeredCourseList) throws CourseNotFoundException, SQLException;
 	/**
 	 *  Method to view the list of available courses
 	 * @param studentId
@@ -75,4 +77,19 @@ public interface RegistrationInterface {
 	 * @throws SQLException 
 	 */
 	public Notification payFee(int studentId, ModeOfPayment mode, double amount) throws SQLException;
+	
+	/**
+	 *  Method to check student registration status
+	 * @param studentId
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean getRegistrationStatus(int studentId) throws SQLException;
+	/**
+	 *  Method to set student registration status
+	 * @param studentId
+	 * @throws SQLException
+	 */
+	public void setRegistrationStatus(int studentId) throws SQLException;
+	
 }
