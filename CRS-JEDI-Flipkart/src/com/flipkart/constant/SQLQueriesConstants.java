@@ -2,7 +2,7 @@ package com.flipkart.constant;
 /**
  * 
  * @author JEDI-03
- *
+ * Class storing SQL Queries
  */
 
 public class SQLQueriesConstants {

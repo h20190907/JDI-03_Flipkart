@@ -14,8 +14,19 @@ import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.service.NotificationOperation;
 import com.flipkart.utils.DBUtils;
 
+/**
+ * 
+ * @author JEDI-03
+ * Class to implement Notification Dao Operations
+ * Used for adding the notification to the database
+ *
+ */
 public class NotificationDaoOperation implements NotificationDaoInterface{
 	private static volatile NotificationDaoOperation instance=null;
+	
+	/**
+	 * Default Constructor
+	 */
 	private NotificationDaoOperation()
 	{
 
@@ -36,6 +47,14 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 		}
 		return instance;
 	}
+	
+	/**
+	 * Send Notification using SQL commands
+	 * @param type: type of the notification to be sent
+	 * @param studentId: student to be notified
+	 * @return notification id for the record added in the database
+	 * @throws SQLException
+	 */
 	@Override
 	public int sendNotification(NotificationType type, int studentId,ModeOfPayment modeOfPayment) throws SQLException{
 		int notificationId=0;
@@ -68,7 +87,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 	}
 
 	/**
-	 * 
+	 * Perform Payment actions using SQL commands
 	 * @param studentId: Id of the student for which the payment is done
 	 * @param modeOfPayment: mode of payment used, defined in enum
 	 * @return: reference id of the transaction

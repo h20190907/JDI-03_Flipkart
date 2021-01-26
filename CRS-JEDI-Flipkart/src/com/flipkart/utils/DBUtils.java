@@ -8,8 +8,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * Class for connection with DataBase
+ */
 public class DBUtils {
 	
+	/**
+	 * Method to connect with SQL DataBase
+	 * @return Connection object
+	 */
 	public static Connection getConnection() {
 		Connection connection = null;
         if (connection != null)

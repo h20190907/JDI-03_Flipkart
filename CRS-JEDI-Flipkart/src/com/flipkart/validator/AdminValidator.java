@@ -10,7 +10,7 @@ import com.flipkart.bean.Student;
 
 /**
  * @author Rag_Patel
- *
+ * Class for Admin Validator 
  */
 public class AdminValidator {
 	
@@ -18,7 +18,7 @@ public class AdminValidator {
 	 * Method to validate if newCourse is not already present in catalog
 	 * @param newCourse
 	 * @param courseList
-	 * @return
+	 * @return if newCourse is not already present in catalog
 	 */
 	public static boolean isValidNewCourse(Course newCourse, List<Course> courseList) {
 		for(Course course : courseList) {
@@ -33,7 +33,7 @@ public class AdminValidator {
 	 * Method to validate if dropCourse is already present in catalog
 	 * @param dropCourseCode
 	 * @param courseList
-	 * @return
+	 * @return if dropCourse is already present in catalog
 	 */
 	public static boolean isValidDropCourse(String dropCourseCode, List<Course> courseList) {
 		for(Course course : courseList) {
@@ -48,7 +48,7 @@ public class AdminValidator {
 	 * Method to validate if studentId is still unapproved
 	 * @param studentId
 	 * @param studentList
-	 * @return
+	 * @return if studentId is still unapproved
 	 */
 	public static boolean isValidUnapprovedStudent(int studentId, List<Student> studentList) {
 		for(Student student : studentList) {

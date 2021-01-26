@@ -16,10 +16,20 @@ import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.service.StudentOperation;
 import com.flipkart.utils.DBUtils;
 
+/**
+ * 
+ * @author JEDI-03
+ * Class to implement Professor Dao Operations
+ *
+ */
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	private static volatile ProfessorDaoOperation instance=null;
 	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
+	
+	/**
+	 * Default Constructor
+	 */
 	private ProfessorDaoOperation()
 	{
 		
@@ -43,8 +53,9 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	
 	
 	/**
-	 * @param: profID (professor id for which courses have to be fetched)
-	 * @return: courses for the corresponding professor
+	 * Method to get Courses by Professor Id using SQL Commands
+	 * @param userId, prof id of the professor
+	 * @return get the courses offered by the professor.
 	 */
 	@Override
 	public List<Course> getCoursesByProfessor(String profId) {
@@ -79,10 +90,11 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	}
 
 	/**
+	 * Method to view list of enrolled Students using SQL Commands
 	 * @param: profId: professor id 
 	 * @param: courseCode: course code of the professor
 	 * @return: return the enrolled students for the corresponding professor and course code.
-	 **/
+	 */
 	@Override
 	public List<EnrolledStudent> getEnrolledStudents(String profId) {
 		Connection connection=DBUtils.getConnection();
@@ -115,12 +127,11 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	}
 	
 	/**
-	 * @param: studentId: student id for the student
-	 * @param: courseCode: courseCode 
-	 * @param: grade
-	 * 
+	 * Method to Grade a student using SQL Commands
+	 * @param: profId: professor id 
+	 * @param: courseCode: course code for the corresponding 
+	 * @return: returns the status after adding the grade
 	 */
-	
 	public Boolean addGrade(int studentId,String courseCode,String grade) {
 		Connection connection=DBUtils.getConnection();
 		try {
@@ -155,7 +166,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	
 
 	/**
-	 * Get professor name by id
+	 * Method to Get professor name by id
 	 * @param profId
 	 * @return
 	 */

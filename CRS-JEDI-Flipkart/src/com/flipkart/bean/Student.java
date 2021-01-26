@@ -7,8 +7,10 @@ import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 
 /**
- * @author dilpreetkaur
- *
+ * 
+ * @author JEDI-03
+ * Student Class
+ * 
  */
 public class Student extends User {
 	private String branchName;
@@ -17,7 +19,20 @@ public class Student extends User {
 	private boolean isApproved;
 	
 	
-	// Parameterized Constructor
+	/**
+	 * Parameterized Constructor
+	 * @param userId
+	 * @param name
+	 * @param role
+	 * @param password
+	 * @param gender
+	 * @param address
+	 * @param country
+	 * @param branchName
+	 * @param studentId
+	 * @param batch
+	 * @param isApproved
+	 */
 	public Student(String userId, String name, Role role, String password, Gender gender, String address,
 			String country,String branchName,int studentId,int batch,boolean isApproved) {
 		super(userId, name,  role, password,gender,address,country);
@@ -27,32 +42,73 @@ public class Student extends User {
 		this.isApproved = isApproved;
 	}
 	
+	/**
+	 * Default Constructor
+	 */
 	public Student() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
+	/**
+	 * Method to get Branch Name of Student
+	 * @return Branch Name
+	 */
 	public String getBranchName() {
 		return branchName;
 	}
+	
+	/**
+	 * Method to set Branch Name of Student
+	 * @param branchName
+	 */
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;
 	}
+	
+	/**
+	 * Method to get Student Id
+	 * @return Student Id
+	 */
 	public int getStudentId() {
 		return studentId;
 	}
+	
+	/**
+	 * Method to set Student Id
+	 * @param studentId
+	 */
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
 	}
+	
+	/**
+	 * Method to get Batch of student
+	 * @return Batch
+	 */
 	public int getBatch() {
 		return batch;
 	}
+	
+	/**
+	 * Method to set Batch of student
+	 * @param batch
+	 */
 	public void setBatch(int batch) {
 		this.batch = batch;
 	}
+	
+	/**
+	 * Method to check approval status of student
+	 * @return Approval Status
+	 */
 	public boolean isApproved() {
 		return isApproved;
 	}
 
+	/**
+	 * Method to set approval status of student
+	 * @return Approval Status
+	 */
 	public void setApproved(boolean isApproved) {
 		this.isApproved = isApproved;
 	}

@@ -23,7 +23,10 @@ import com.flipkart.service.RegistrationOperation;
 
 
 /**
+ * 
+ * @author JEDI-03
  *  The class displays the menu for student client
+ *  
  */
 public class StudentCRSMenu {
 	private static Logger logger = Logger.getLogger(StudentCRSMenu.class);
@@ -31,9 +34,10 @@ public class StudentCRSMenu {
 	RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
 	ProfessorInterface professorInterface = ProfessorOperation.getInstance();
 	private boolean is_registered;
+	
 	/**
-	 * Student Menu for course registration, addition, removal and fee payment 
-	 * @param sid  student id 
+	 * Method to generate Student Menu for course registration, addition, removal and fee payment 
+	 * @param studentId student id 
 	 */
 	public void create_menu(int studentId)
 	{

@@ -3,6 +3,7 @@ package com.flipkart.constant;
 /**
  * 
  * @author JEDI-03
+ * Enumeration class for Role Types
  *
  */
 public enum Role {
@@ -16,6 +17,11 @@ public enum Role {
 		return name; 
 	}*/
 	
+	/**
+	 * Method to get Role object from String
+	 * @param role
+	 * @return Role object
+	 */
 	public static Role stringToName(String role)
 	{
 		Role userRole=null;

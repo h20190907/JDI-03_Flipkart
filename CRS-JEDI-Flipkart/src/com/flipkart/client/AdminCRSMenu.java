@@ -19,8 +19,8 @@ import com.flipkart.service.AdminOperation;
 
 /**
  * 
- * @author Anurag Behera, Rag Patel
- * Class that Display Admin Client Menu
+ * @author JEDI-03
+ * Class that display Admin Client Menu
  * 
  */
 public class AdminCRSMenu {
@@ -32,7 +32,6 @@ public class AdminCRSMenu {
 	
 	/**
 	 * Method to Create Admin Menu
-	 * 
 	 */
 	public void createMenu(){
 		

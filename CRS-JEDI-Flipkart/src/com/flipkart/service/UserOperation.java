@@ -30,8 +30,9 @@ public class UserOperation implements UserInterface {
 	}
 
 	/**
-	 * 
+	 * Method to update password of a user
 	 * @param userID
+	 * @param newPassword
 	 * @return
 	 */
 	@Override
@@ -40,7 +41,11 @@ public class UserOperation implements UserInterface {
 	}
 
 	
-	
+	/**
+	 * Method to verify User credentials
+	 * @param userID
+	 * @param password
+	 */
 	@Override
 	public boolean verifyCredentials(String userID, String password) throws UserNotFoundException {
 		//DAO class
@@ -54,9 +59,9 @@ public class UserOperation implements UserInterface {
 		}
 	}
 	/**
-	 * 
+	 * Method to get role of a specific User
 	 * @param userId
-	 * @return
+	 * @return Role of the User
 	 */
 	@Override
 	public String getRole(String userId) {
