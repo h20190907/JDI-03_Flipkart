@@ -13,7 +13,7 @@ public class SeatNotAvailableException extends Exception{
 
 	@Override
 	public String getMessage() {
-		return  "Seats are not available in : " + courseCode;
+		return  "Seats are not available in course : " + courseCode;
 	}
 
 

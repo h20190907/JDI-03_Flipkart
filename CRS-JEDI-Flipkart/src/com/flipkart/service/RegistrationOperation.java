@@ -65,14 +65,15 @@ public class RegistrationOperation implements RegistrationInterface {
 		{
 			return false;
 		} 
-		else if(!StudentValidator.isValidCourseCode(courseCode, availableCourseList))
-		{
-			throw new CourseNotFoundException(courseCode);
-		}
 		else if (!registrationDaoInterface.seatAvailable(courseCode)) 
 		{
 			throw new SeatNotAvailableException(courseCode);
 		} 
+		else if(!StudentValidator.isValidCourseCode(courseCode, availableCourseList))
+		{
+			throw new CourseNotFoundException(courseCode);
+		}
+		
 		  
 
 		return registrationDaoInterface.addCourse(courseCode, studentId);
