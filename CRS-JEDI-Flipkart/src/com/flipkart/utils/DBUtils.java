@@ -29,16 +29,11 @@ public class DBUtils {
             	Properties prop = new Properties();
                 InputStream inputStream = DBUtils.class.getClassLoader().getResourceAsStream("./config.properties");
                 prop.load(inputStream);
-                String driver = prop.getProperty("driver");
                 String url = prop.getProperty("url");
                 String user = prop.getProperty("user");
                 String password = prop.getProperty("password");
-                Class.forName(driver);
-                connection = DriverManager.getConnection(url, user, password);
+                connection = DriverManager.getConnection(url,user,password);
                 
-            }
-            catch (ClassNotFoundException e){
-                e.printStackTrace();
             }
             catch (SQLException e) {
                 e.printStackTrace();
