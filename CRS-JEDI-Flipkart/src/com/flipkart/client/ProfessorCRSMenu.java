@@ -12,15 +12,23 @@ import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
 
+/**
+ * 
+ * @author JEDI-03
+ * Class that display Professor Client Menu
+ * 
+ */
 public class ProfessorCRSMenu {
 
+	
+	private static Logger logger = Logger.getLogger(ProfessorCRSMenu.class);
+	ProfessorInterface professorInterface=ProfessorOperation.getInstance();
+	
 	/**
-	 * 
+	 * Method to create Professor menu
 	 * @param profId: professor id obtained after logging into the system
 	 * returns displays all the options for the professor, and provides navigation
 	 */
-	private static Logger logger = Logger.getLogger(ProfessorCRSMenu.class);
-	ProfessorInterface professorInterface=ProfessorOperation.getInstance();
 	public void createMenu(String profId)
 	{
 		//Display the options available for the PRofessor
@@ -67,7 +75,10 @@ public class ProfessorCRSMenu {
 		
 	}
 	
-	
+	/**
+	 * Method to view enrolled Students in courses
+	 * @param profId
+	 */
 	public void viewEnrolledStudents(String profId)
 	{
 		List<Course> coursesEnrolled=professorInterface.getCourses(profId);
@@ -89,8 +100,10 @@ public class ProfessorCRSMenu {
 		}
 	}
 
-
-	
+	/**
+	 * Method to get list of all Courses Professor has to teach
+	 * @param profId
+	 */
 	public void getCourses(String profId)
 	{
 		try
@@ -108,6 +121,9 @@ public class ProfessorCRSMenu {
 		}
 	}
 	
+	/**
+	 * Method to help Professor grade a student
+	 */
 	public void addGrade()
 	{
 		Scanner sc=new Scanner(System.in);

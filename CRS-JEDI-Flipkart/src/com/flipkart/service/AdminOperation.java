@@ -92,7 +92,7 @@ public class AdminOperation implements AdminInterface{
 
 	/**
 	 * Method to view Students yet to be approved by Admin
-	 * @return List of Students
+	 * @return List of Students with pending admissions
 	 */
 	@Override
 	public List<Student> viewPendingAdmissions() {

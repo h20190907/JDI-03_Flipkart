@@ -8,8 +8,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * Class for connection with DataBase
+ */
 public class DBUtils {
 	
+	/**
+	 * Method to connect with SQL DataBase
+	 * @return Connection object
+	 */
 	public static Connection getConnection() {
 		Connection connection = null;
         if (connection != null)
@@ -22,16 +29,11 @@ public class DBUtils {
             	Properties prop = new Properties();
                 InputStream inputStream = DBUtils.class.getClassLoader().getResourceAsStream("./config.properties");
                 prop.load(inputStream);
-                String driver = prop.getProperty("driver");
                 String url = prop.getProperty("url");
                 String user = prop.getProperty("user");
                 String password = prop.getProperty("password");
-                Class.forName(driver);
-                connection = DriverManager.getConnection(url, user, password);
+                connection = DriverManager.getConnection(url,user,password);
                 
-            }
-            catch (ClassNotFoundException e){
-                e.printStackTrace();
             }
             catch (SQLException e) {
                 e.printStackTrace();

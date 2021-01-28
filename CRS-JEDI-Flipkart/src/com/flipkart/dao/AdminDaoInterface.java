@@ -25,12 +25,14 @@ public interface AdminDaoInterface {
 	/**
 	 * Delete Course using SQL commands
 	 * @param courseCode
+	 * @throws CourseNotFoundException
 	 */
 	public void deleteCourse(String courseCode) throws CourseNotFoundException;
 
 	/**
 	 * Add Course using SQL commands
 	 * @param course
+	 * @throws CourseFoundException
 	 */
 	public void addCourse(Course course) throws CourseFoundException;
 	/**
@@ -38,24 +40,33 @@ public interface AdminDaoInterface {
 	 * @return
 	 */
 	public List<Student> viewPendingAdmissions();
+	
 	/**
 	 * Approve Student using SQL commands
 	 * @param studentId
+	 * @throws StudentNotFoundException
 	 */
 	public void approveStudent(int studentId) throws StudentNotFoundException;
+	
 	/**
 	 * Add professor using SQL commands
 	 * @param professor
+	 * @throws ProfessorNotAddedException
 	 */
 	public void addProfessor(Professor professor) throws ProfessorNotAddedException;
-	/**Method to add user using SQL commands
+	
+	/**
+	 * Method to add user using SQL commands
 	 * @param user
+	 * @throws UserNotAddedException
 	 */
-	public void addUser(User user) throws UserNotAddedException;	
+	public void addUser(User user) throws UserNotAddedException;
+	
 	/**
 	 * Assign courses to Professor using SQL commands
 	 * @param courseCode
 	 * @param professorId
+	 * @throws CourseNotFoundException
 	 */
 	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException;
 	/**

@@ -7,6 +7,9 @@ import com.flipkart.exception.CourseLimitExceedException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.SeatNotAvailableException;
 
+/**
+ * Class for Student Validator 
+ */
 public class StudentValidator {
 
 	/**
@@ -14,7 +17,7 @@ public class StudentValidator {
 	 * @param courseCode
 	 * @param studentId
 	 * @param registeredCourseList  
-	 * @return
+	 * @return Student Registration Status
 	 * @throws CourseNotFoundException
 	 */
 	public static boolean isRegistered(String courseCode,int studentId,List<Course>registeredCourseList) throws CourseNotFoundException
@@ -35,7 +38,7 @@ public class StudentValidator {
 	 * Method to validate if couseCode is valid or not
 	 * @param courseCode
 	 * @param availableCourseList
-	 * @return
+	 * @return couseCode is valid or not
 	 */
 	public static boolean isValidCourseCode(String courseCode,List<Course>availableCourseList) 
 	{

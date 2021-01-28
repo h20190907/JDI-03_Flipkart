@@ -3,12 +3,18 @@ package com.flipkart.constant;
 /**
  * 
  * @author JEDI-03
+ * Enumeration class for Mode of Payments
  *
  */
 public enum ModeOfPayment {
 	
 	CREDIT_CARD,NET_BANKING,DEBIT_CARD;
 	
+	/**
+	 * Method to get Mode of Payment
+	 * @param value
+	 * @return Mode of Payment
+	 */
 	public static ModeOfPayment getModeofPayment(int value)
 	{
 		switch(value)

@@ -13,10 +13,11 @@ import com.flipkart.service.StudentOperation;
 import com.flipkart.service.UserInterface;
 
 /**
+ * 
+ * @author JEDI-03
  * This class is used as the main entry point of the application
- * Main menu to login, register are displayed
- * @author dilpreetkaur 
- *
+ * In main menu to login, register are displayed
+ * 
  */
 public class CRSApplication {
 
@@ -68,6 +69,9 @@ public class CRSApplication {
 		}
 	}
 	
+	/**
+	 * Method to Create Main Menu
+	 */
 	public static void createMainMenu()
 	{
 		logger.info("----------Welcome to Course Management System---------");
@@ -78,6 +82,9 @@ public class CRSApplication {
 		logger.info("Enter user input");
 	}
 	
+	/**
+	 * Method for Login functionality
+	 */
 	public void loginUser()
 	{
 		//multiple exceptions are possible
@@ -145,6 +152,9 @@ public class CRSApplication {
 		}	
 	}
 	
+	/**
+	 * Method to help Student register themselves, pending admin approval
+	 */
 	public void registerStudent()
 	{
 		Scanner sc=new Scanner(System.in);
@@ -184,6 +194,9 @@ public class CRSApplication {
 		}
 	}
 	
+	/**
+	 * Method to update password of User
+	 */
 	public void updatePassword()
 	{
 		Scanner sc=new Scanner(System.in);

@@ -32,6 +32,9 @@ public class AdminDaoOperation implements AdminDaoInterface{
 
 	private static volatile AdminDaoOperation instance = null;
 	
+	/**
+	 * Default Constructor
+	 */
 	private AdminDaoOperation()
 	{
 		
@@ -58,6 +61,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	/**
 	 * Delete Course using SQL commands
 	 * @param courseCode
+	 * @throws CourseNotFoundException
 	 */
 	@Override
 	public void deleteCourse(String courseCode) throws CourseNotFoundException{
@@ -90,9 +94,10 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	/**
 	 * Add Course using SQL commands
 	 * @param course
+	 * @throws CourseFoundException
 	 */
 	@Override
-	public void addCourse(Course course) {
+	public void addCourse(Course course) throws CourseFoundException{
 		try {
 			
 			String sql = SQLQueriesConstants.ADD_COURSE_QUERY;
@@ -168,6 +173,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	/**
 	 * Approve Student using SQL commands
 	 * @param studentId
+	 * @throws StudentNotFoundException
 	 */
 	@Override
 	public void approveStudent(int studentId) throws StudentNotFoundException {
@@ -197,8 +203,10 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 	}
 
-	/**Method to add user using SQL commands
+	/**
+	 * Method to add user using SQL commands
 	 * @param user
+	 * @throws UserNotAddedException
 	 */
 	@Override
 	public void addUser(User user) throws UserNotAddedException{
@@ -236,6 +244,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	/**
 	 * Add professor using SQL commands
 	 * @param professor
+	 * @throws ProfessorNotAddedException
 	 */
 	@Override
 	public void addProfessor(Professor professor) throws ProfessorNotAddedException{
@@ -278,6 +287,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	 * Assign courses to Professor using SQL commands
 	 * @param courseCode
 	 * @param professorId
+	 * @throws CourseNotFoundException
 	 */
 	@Override
 	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException{

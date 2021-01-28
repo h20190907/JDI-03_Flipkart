@@ -32,7 +32,7 @@ public interface AdminInterface {
 	public void addCourse(Course course, List<Course> courseList) throws CourseFoundException;
 	/**
 	 * Method to view Students yet to be approved by Admin
-	 * @return List of Students
+	 * @return List of Students with pending admissions
 	 */
 	public List<Student> viewPendingAdmissions();
 	/**
