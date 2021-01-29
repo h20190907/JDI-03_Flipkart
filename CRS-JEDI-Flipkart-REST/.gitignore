@@ -1,1 +1,9 @@
 /build/
+/.metadata/
+/bin/
+/.settings/
+/libs/
+.classpath
+contact.log
+src/config.properties
+src/com/flipkart/utils/DBUtils.java
