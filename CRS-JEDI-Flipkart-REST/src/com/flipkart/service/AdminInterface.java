@@ -51,7 +51,7 @@ public interface AdminInterface {
 	 * @param courseCode
 	 * @throws CourseNotFoundException 
 	 */
-	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException ;
+	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException;
 	/**
 	 * Method to get list of courses in catalog
 	 * @param catalogId
