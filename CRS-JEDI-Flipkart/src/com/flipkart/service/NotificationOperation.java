@@ -42,15 +42,16 @@ public class NotificationOperation implements NotificationInterface {
 	}
 	
 	@Override
-	public int sendNotification(NotificationType type, int studentId,ModeOfPayment modeOfPayment) {
+	public int sendNotification(NotificationType type, int studentId,ModeOfPayment modeOfPayment,double amount) {
 		int notificationId=0;
 		try
 		{
-			notificationId=notificationDaoInterface.sendNotification(type, studentId,modeOfPayment);
+			notificationId=notificationDaoInterface.sendNotification(type, studentId,modeOfPayment,amount);
+			
 		}
 		catch(SQLException ex)
 		{
-			logger.error("Error occured"+ex.getMessage());
+			logger.error("Error occured "+ex.getMessage());
 		}
 		return notificationId;
 	}

@@ -9,6 +9,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
+import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
 import com.flipkart.exception.CourseFoundException;
 import com.flipkart.exception.CourseNotFoundException;
@@ -16,6 +17,8 @@ import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminOperation;
+import com.flipkart.service.NotificationInterface;
+import com.flipkart.service.NotificationOperation;
 
 /**
  * 
@@ -29,6 +32,7 @@ public class AdminCRSMenu {
 	
 	AdminInterface adminOperation =AdminOperation.getInstance();
 	Scanner scanner = new Scanner(System.in);
+	NotificationInterface notificationInterface=NotificationOperation.getInstance();
 	
 	/**
 	 * Method to Create Admin Menu
@@ -188,11 +192,14 @@ public class AdminCRSMenu {
 			return;
 		}
 		
-		logger.info("Enter Student's User ID:");
+		logger.info("Enter Student's ID:");
 		int studentUserIdApproval = scanner.nextInt();
 		
 		try {
 			adminOperation.approveStudent(studentUserIdApproval, studentList);
+			//send notification from system
+			notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null,0);
+	
 		} catch (StudentNotFoundException e) {
 			logger.error(e.getMessage());
 		}

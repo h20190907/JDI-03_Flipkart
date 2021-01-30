@@ -22,7 +22,7 @@ public interface StudentDaoInterface {
 	 * @return true if student is added, else false
 	 * @throws StudentNotRegisteredException
 	 */
-	public boolean addStudent(Student student) throws StudentNotRegisteredException;
+	public int addStudent(Student student) throws StudentNotRegisteredException;
 	
 	
 	/**

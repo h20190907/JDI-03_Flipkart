@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.apache.log4j.Logger;
 
@@ -59,8 +60,9 @@ public class StudentDaoOperation implements StudentDaoInterface {
 	 * @throws StudentNotRegisteredException
 	 */
 	@Override
-	public boolean addStudent(Student student) throws StudentNotRegisteredException{
+	public int addStudent(Student student) throws StudentNotRegisteredException{
 		Connection connection=DBUtils.getConnection();
+		int studentId=0;
 		try
 		{
 			//open db connection
@@ -78,13 +80,17 @@ public class StudentDaoOperation implements StudentDaoInterface {
 				//add the student record
 				//"insert into student (userId,branchName,batch,isApproved) values (?,?,?,?)";
 				PreparedStatement preparedStatementStudent;
-				preparedStatementStudent=connection.prepareStatement(SQLQueriesConstants.ADD_STUDENT);
+				preparedStatementStudent=connection.prepareStatement(SQLQueriesConstants.ADD_STUDENT,Statement.RETURN_GENERATED_KEYS);
 				preparedStatementStudent.setString(1,student.getUserId());
 				preparedStatementStudent.setString(2, student.getBranchName());
 				preparedStatementStudent.setInt(3, student.getBatch());
 				preparedStatementStudent.setBoolean(4, false);
 				preparedStatementStudent.executeUpdate();
+				ResultSet results=preparedStatementStudent.getGeneratedKeys();
+				if(results.next())
+					studentId=results.getInt(1);
 			}
+			
 			
 		}
 		catch(Exception ex)
@@ -100,7 +106,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 				e.printStackTrace();
 			}
 		}
-		return true;
+		return studentId;
 	}
 	
 	/**

@@ -21,7 +21,7 @@ public interface NotificationInterface {
 	 * @param modeOfPayment: payment mode used
 	 * @return notification id for the record added in the database
 	 */
-	public int sendNotification(NotificationType type,int studentId,ModeOfPayment modeOfPayment);
+	public int sendNotification(NotificationType type,int studentId,ModeOfPayment modeOfPayment,double amount);
 	
 	/**
 	 * 

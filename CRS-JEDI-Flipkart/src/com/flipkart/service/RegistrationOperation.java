@@ -113,19 +113,6 @@ public class RegistrationOperation implements RegistrationInterface {
 		return registrationDaoInterface.calculateFee(studentId);
 	}
 
-	/**
-	 * method for fee payment for selected courses
-	 * 
-	 * @param studentId
-	 * @param mode      - mode of payment
-	 * @param amount    - amount to be paid by student
-	 * @throws SQLException
-	 */
-	@Override
-	public Notification payFee(int studentId, ModeOfPayment mode, double amount) throws SQLException {
-		return registrationDaoInterface.payFee(studentId, mode, amount);
-
-	}
 
 	/**
 	 * Method to view grade card for students

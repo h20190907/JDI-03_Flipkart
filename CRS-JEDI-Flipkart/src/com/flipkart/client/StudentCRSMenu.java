@@ -13,9 +13,12 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.constant.NotificationType;
 import com.flipkart.exception.CourseLimitExceedException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.SeatNotAvailableException;
+import com.flipkart.service.NotificationInterface;
+import com.flipkart.service.NotificationOperation;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
 import com.flipkart.service.RegistrationInterface;
@@ -33,6 +36,7 @@ public class StudentCRSMenu {
 	Scanner sc = new Scanner(System.in);
 	RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
 	ProfessorInterface professorInterface = ProfessorOperation.getInstance();
+	NotificationInterface notificationInterface=NotificationOperation.getInstance();
 	private boolean is_registered;
 	
 	/**
@@ -363,7 +367,7 @@ public class StudentCRSMenu {
 		double fee =0.0;
 		try
 		{
-			registrationInterface.calculateFee(studentId);
+			fee=registrationInterface.calculateFee(studentId);
 		} 
 		catch (SQLException e) 
 		{
@@ -398,19 +402,15 @@ public class StudentCRSMenu {
 					logger.info("Invalid Input");
 				else
 				{
-					Notification notify=null;
 					try 
 					{
-						notify = registrationInterface.payFee(studentId, mode,fee);
+						notificationInterface.sendNotification(NotificationType.PAYMENT, studentId, mode, fee);
 					}
-					catch (SQLException e) 
+					catch (Exception e) 
 					{
 
 			            logger.info(e.getMessage());
 					}
-					
-					logger.info("Your Payment is successful");
-					logger.info("Your transaction id : " + notify.getReferenceId());
 				}
 					
 			}

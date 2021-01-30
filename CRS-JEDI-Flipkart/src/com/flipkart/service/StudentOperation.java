@@ -49,18 +49,20 @@ public class StudentOperation implements StudentInterface {
 	 * @throws StudentNotRegisteredException
 	 */
 	@Override
-	public void register(String name,String userId,String password,Gender gender,int batch,String branch,String address,String country) throws StudentNotRegisteredException{
+	public int register(String name,String userId,String password,Gender gender,int batch,String branch,String address,String country) throws StudentNotRegisteredException{
+		int studentId;
 		try
 		{
 			//call the DAO class, and add the student record to the DB
 			Student newStudent=new Student(userId,name,Role.STUDENT,password,gender,address,country,branch,0,batch,false);
-			studentDaoInterface.addStudent(newStudent);
+			studentId=studentDaoInterface.addStudent(newStudent);
 			
 		}
 		catch(StudentNotRegisteredException ex)
 		{
 			throw ex;
 		}
+		return studentId;
 	}
 	
 	/**

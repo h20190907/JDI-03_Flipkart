@@ -68,15 +68,7 @@ public interface RegistrationInterface {
 	 * @throws SQLException 
 	 */
 	public double calculateFee(int studentId) throws SQLException;
-	/**
-	 * method for fee payment for selected courses
-	 * @param studentId
-	 * @param mode
-	 * @param amount
-	 * @return
-	 * @throws SQLException 
-	 */
-	public Notification payFee(int studentId, ModeOfPayment mode, double amount) throws SQLException;
+	
 	
 	/**
 	 *  Method to check student registration status
