@@ -19,7 +19,7 @@ import com.flipkart.utils.DBUtils;
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	private static volatile ProfessorDaoOperation instance=null;
-	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
+	private static Logger logger = Logger.getLogger(ProfessorDaoOperation.class);
 	private ProfessorDaoOperation()
 	{
 		

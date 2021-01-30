@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.flipkart.bean.Course;
@@ -33,11 +34,12 @@ public class ProfessorRestAPI {
 	@GET
 	@Path("/getCourses")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Course> getCourses(String profId)
+	public List<Course> getCourses(@QueryParam("profId") String profId)
 	{
 		List<Course> courses=new ArrayList<Course>();
 		try
 		{
+			System.out.println("profId is "+profId);
 			courses=professorInterface.getCourses(profId);
 			
 		}
