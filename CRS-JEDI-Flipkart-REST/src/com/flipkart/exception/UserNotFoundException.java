@@ -19,8 +19,9 @@ public class UserNotFoundException extends Exception {
 		this.userId = userId;
 	}
 
-	public String getUserId() {
-		return userId;
+	@Override
+	public String getMessage() {
+		return "User "+userId+" not found ";
 	}
 
 }

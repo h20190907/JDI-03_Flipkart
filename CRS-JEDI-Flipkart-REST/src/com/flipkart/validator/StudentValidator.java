@@ -48,6 +48,34 @@ public class StudentValidator {
 		return false;
 	
 	}
+
 	
+	public static boolean isValidRegistration(List<String> registeredCourseList , List<Course>availableCourseList) 
+	{
+		for(int j=0;j<registeredCourseList.size();j++)
+		{
+			for(int i=j+1;i<registeredCourseList.size();i++)
+			{
+				if(registeredCourseList.get(i).equals(registeredCourseList.get(j)))
+					return false;
+			}
+		}
+		
+		
+		
+		  int count=0;
+			for(String registeredCourse : registeredCourseList)
+			{
+				for(Course availableCourse: availableCourseList)
+				{
+				
+					if(availableCourse.getCourseCode().equals(registeredCourse))
+						count++;
+				}
+			}
+		
+		return count==6;
+	
+	}
 
 }
