@@ -1,5 +1,6 @@
 package com.flipkart.client;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,6 +12,7 @@ import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
+import com.flipkart.validator.ProfessorValidator;
 
 /**
  * 
@@ -61,7 +63,7 @@ public class ProfessorCRSMenu {
 					
 				case 3:
 					//add grade for a student
-					addGrade();
+					addGrade(profId);
 					break;
 				case 4:
 					//logout from the system
@@ -124,13 +126,23 @@ public class ProfessorCRSMenu {
 	/**
 	 * Method to help Professor grade a student
 	 */
-	public void addGrade()
-	{
+	public void addGrade(String profId)
+	{	
 		Scanner sc=new Scanner(System.in);
+		
 		int studentId;
 		String courseCode,grade;
 		try
 		{
+			List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
+			enrolledStudents=professorInterface.viewEnrolledStudents(profId);
+			logger.info(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","Student ID" ));
+			for(EnrolledStudent obj: enrolledStudents)
+			{
+				logger.info(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
+			}
+			List<Course> coursesEnrolled=new ArrayList<Course>();
+			coursesEnrolled	=professorInterface.getCourses(profId);
 			logger.info("----------------Add Grade--------------");
 			logger.info("Enter student id");
 			studentId=sc.nextInt();
@@ -138,14 +150,24 @@ public class ProfessorCRSMenu {
 			courseCode=sc.next();
 			logger.info("Enter grade");
 			grade=sc.next();
-			professorInterface.addGrade(studentId, courseCode, grade);
-			logger.info("Grade added successfully for "+studentId);
-			
+			if(ProfessorValidator.isValidStudent(enrolledStudents, studentId) && ProfessorValidator.isValidCourse(coursesEnrolled, courseCode))
+			{
+				professorInterface.addGrade(studentId, courseCode, grade);
+				logger.info("Grade added successfully for "+studentId);
+			}
+			else
+			{
+				logger.info("Invalid data entered, try again!");
+			}
 		}
 		catch(GradeNotAddedException ex)
 		{
 			logger.error("Grade cannot be added for"+ex.getStudentId());
 			
+		}
+		catch(SQLException ex)
+		{
+			logger.error("Grade not added, SQL exception occured "+ex.getMessage());
 		}
 	
 	}
