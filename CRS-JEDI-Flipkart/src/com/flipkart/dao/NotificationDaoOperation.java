@@ -25,6 +25,7 @@ import com.flipkart.utils.DBUtils;
 public class NotificationDaoOperation implements NotificationDaoInterface{
 	private static volatile NotificationDaoOperation instance=null;
 	private static Logger logger = Logger.getLogger(NotificationDaoOperation.class);
+	
 	/**
 	 * Default Constructor
 	 */
@@ -53,6 +54,8 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 	 * Send Notification using SQL commands
 	 * @param type: type of the notification to be sent
 	 * @param studentId: student to be notified
+	 * @param modeOfPayment: mode of payment used, defined in enum
+	 * @param amount
 	 * @return notification id for the record added in the database
 	 * @throws SQLException
 	 */
@@ -105,6 +108,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface{
 	 * Perform Payment actions using SQL commands
 	 * @param studentId: Id of the student for which the payment is done
 	 * @param modeOfPayment: mode of payment used, defined in enum
+	 * @param amount 
 	 * @return: reference id of the transaction
 	 * @throws SQLException
 	 */

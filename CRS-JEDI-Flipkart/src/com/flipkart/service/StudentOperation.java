@@ -10,6 +10,12 @@ import com.flipkart.dao.StudentDaoInterface;
 import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.exception.StudentNotRegisteredException;
 
+/**
+ * 
+ * @author JEDI-03
+ * Implementations of Student Operations
+ *
+ */
 public class StudentOperation implements StudentInterface {
 	
 	private static volatile StudentOperation instance=null;
@@ -46,6 +52,7 @@ public class StudentOperation implements StudentInterface {
 	 * @param branch
 	 * @param address
 	 * @param country
+	 * @return Student ID
 	 * @throws StudentNotRegisteredException
 	 */
 	@Override
@@ -68,7 +75,7 @@ public class StudentOperation implements StudentInterface {
 	/**
 	 * Method to get Student ID from User ID
 	 * @param userId
-	 * @return
+	 * @return Student ID
 	 */
 	@Override
 	public int getStudentId(String userId) {
@@ -79,7 +86,7 @@ public class StudentOperation implements StudentInterface {
 	/**
      * Method to check if student is approved by Admin or not
      * @param studentId
-     * @return
+     * @return boolean indicating if student is approved
      */
 	@Override
 	public boolean isApproved(int studentId) {

@@ -28,14 +28,14 @@ public interface StudentDaoInterface {
 	/**
 	 * Method to retrieve Student Id from User Id
 	 * @param userId
-	 * @return
+	 * @return Student Id
 	 */
 	public int getStudentId(String userId);
 	
 	/**
 	 * Method to check if Student is approved
 	 * @param studentId
-	 * @return
+	 * @return boolean indicating if student is approved
 	 */
 	public boolean isApproved(int studentId);
 }

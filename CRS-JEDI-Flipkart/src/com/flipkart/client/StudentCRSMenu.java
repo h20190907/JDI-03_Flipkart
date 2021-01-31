@@ -106,7 +106,7 @@ public class StudentCRSMenu {
 	
 
 	/**
-	 * Select course 
+	 * Select course for registration
 	 * @param studentId
 	 */
 	private void registerCourses(int studentId)
@@ -161,7 +161,7 @@ public class StudentCRSMenu {
 	}
 	
 	/**
-	 * Add course
+	 * Add course for registration
 	 * @param studentId
 	 */
 	private void addCourse(int studentId)	
@@ -199,6 +199,11 @@ public class StudentCRSMenu {
 		
 	}
 	
+	/**
+	 * Method to check if student is already registered
+	 * @param studentId
+	 * @return Registration Status
+	 */
 	private boolean getRegistrationStatus(int studentId)
 	{
 		try 
@@ -252,9 +257,9 @@ public class StudentCRSMenu {
 	}
 	
 	/**
-	 * View Course
+	 * View all available Courses 
 	 * @param studentId
-	 * @return true if any course is available, false otherwise
+	 * @return List of available Courses 
 	 */
 	private List<Course> viewCourse(int studentId)
 	{
@@ -288,9 +293,9 @@ public class StudentCRSMenu {
 	}
 	
 	/**
-	 * View Registered Course
+	 * View Registered Courses
 	 * @param studentId
-	 * @return true if any course is registered, false otherwise
+	 * @return List of Registered Courses
 	 */
 	private List<Course> viewRegisteredCourse(int studentId)
 	{
@@ -360,7 +365,6 @@ public class StudentCRSMenu {
 	 * Make Payment for selected courses. Student is provided with an option to pay the fees and select the mode of payment.
 	 * @param studentId
 	 */
-	
 	private void make_payment(int studentId)
 	{
 		

@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * 
+ * @author JEDI-03
  * Interface for Professor Operations
  * 
  */

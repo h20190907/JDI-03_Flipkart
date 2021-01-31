@@ -168,7 +168,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	/**
 	 * Method to Get professor name by id
 	 * @param profId
-	 * @return
+	 * @return Professor Id in string
 	 */
 	@Override
 	public String getProfessorById(String profId)

@@ -168,6 +168,7 @@ public class AdminCRSMenu {
 
 	/**
 	 * Method to view Students who are yet to be approved
+	 * @return List of Students whose admissions are pending
 	 */
 	private List<Student> viewPendingAdmissions() {
 		
@@ -246,6 +247,7 @@ public class AdminCRSMenu {
 	
 	/**
 	 * Method to display courses in catalogue
+	 * @return List of courses in catalogue
 	 */
 	private List<Course> viewCoursesInCatalogue() {
 		List<Course> courseList = adminOperation.viewCourses(1);

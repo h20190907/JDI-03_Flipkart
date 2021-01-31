@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * 
- * @author JDI-03
+ * @author JEDI-03
  * Interface for Admin Operations
  * 
  */
@@ -22,36 +22,47 @@ public interface AdminInterface {
 	/**
 	 * Method to Delete Course from Course Catalog
 	 * @param courseCode
+	 * @param courseList : Courses available in the catalog
 	 * @throws CourseNotFoundException 
 	 */
 	public void deleteCourse(String courseCode, List<Course> courseList) throws CourseNotFoundException;
+	
 	/**
 	 * Method to add Course to Course Catalog
 	 * @param course : Course object storing details of a course
+	 * @param courseList : Courses available in the catalog
 	 */
 	public void addCourse(Course course, List<Course> courseList) throws CourseFoundException;
+	
 	/**
 	 * Method to view Students yet to be approved by Admin
 	 * @return List of Students with pending admissions
 	 */
 	public List<Student> viewPendingAdmissions();
+	
 	/**
 	 * Method to approve a Student 
 	 * @param studentId
+	 * @param studentList
 	 * @throws StudentNotFoundException 
 	 */
 	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundException;
+	
 	/**
 	 * Method to add Professor to DB
 	 * @param professor : Professor Object storing details of a professor
+	 * @throws ProfessorNotAddedException
 	 */
 	public void addProfessor(Professor professor) throws ProfessorNotAddedException;	
+	
 	/**
 	 * Method to assign Course to a Professor
 	 * @param courseCode
+	 * @param professorId
 	 * @throws CourseNotFoundException 
 	 */
-	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException ;
+	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException;
+	
 	/**
 	 * Method to get list of courses in catalog
 	 * @param catalogId

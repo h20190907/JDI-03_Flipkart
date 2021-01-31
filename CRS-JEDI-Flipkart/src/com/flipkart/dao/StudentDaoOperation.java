@@ -112,7 +112,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 	/**
 	 * Method to retrieve Student Id from User Id
 	 * @param userId
-	 * @return
+	 * @return Student Id
 	 */
 	@Override
 	public int getStudentId(String userId) {
@@ -139,7 +139,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 	/**
 	 * Method to check if Student is approved
 	 * @param studentId
-	 * @return
+	 * @return boolean indicating if student is approved
 	 */
 	@Override
 	public boolean isApproved(int studentId) {

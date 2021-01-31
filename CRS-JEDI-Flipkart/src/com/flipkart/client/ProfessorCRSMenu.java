@@ -125,6 +125,7 @@ public class ProfessorCRSMenu {
 	
 	/**
 	 * Method to help Professor grade a student
+	 * @param profId
 	 */
 	public void addGrade(String profId)
 	{	

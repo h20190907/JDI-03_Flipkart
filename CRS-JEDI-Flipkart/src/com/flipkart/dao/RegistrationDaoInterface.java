@@ -13,7 +13,7 @@ import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.exception.CourseNotFoundException;
 
 /**
- * @author JDI-03
+ * @author JEDI-03
  * Interface for Registration DAO Operation
  *
  */
@@ -23,7 +23,7 @@ public interface RegistrationDaoInterface {
 	 * Method to add course in database
 	 * @param courseCode
 	 * @param studentId
-	 * @return 
+	 * @return boolean indicating if the course is added successfully
 	 * @throws SQLException 
 	 */
 	public boolean addCourse(String courseCode, int studentId) throws SQLException;
@@ -32,7 +32,7 @@ public interface RegistrationDaoInterface {
 	 * Drop Course selected by student
 	 * @param courseCode
 	 * @param studentId
-	 * @return
+	 * @return boolean indicating if the course is dropped successfully
 	 * @throws CourseNotFoundException 
 	 * @throws SQLException 
 	 */
@@ -77,7 +77,8 @@ public interface RegistrationDaoInterface {
 	 */
 	public boolean seatAvailable(String courseCode) throws SQLException;
 	
-	/**Method to get the list of courses registered by the student
+	/**
+	 * Method to get the list of courses registered by the student
 	 * Number of registered courses for a student
 	 * @param studentId
 	 * @return Number of registered Courses

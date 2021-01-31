@@ -24,7 +24,7 @@ import com.flipkart.exception.UserNotAddedException;
 import com.flipkart.utils.DBUtils;
 
 /**
- * @author JDI-03
+ * @author JEDI-03
  * Dao Class Operations for Admin
  * 
  */
@@ -129,7 +129,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 
 	/**
 	 * Fetch Students yet to approved using SQL commands
-	 * @return
+	 * @return List of Students yet to approved
 	 */
 	@Override
 	public List<Student> viewPendingAdmissions() {
@@ -315,7 +315,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	
 	/**
 	 * View courses in the catalog
-	 * @return List of courses in catalog
+	 * @param Catalog ID
 	 * @return List of courses in the catalog
 	 */
 	public List<Course> viewCourses(int catalogId) {

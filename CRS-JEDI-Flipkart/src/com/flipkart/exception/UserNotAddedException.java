@@ -1,7 +1,9 @@
 package com.flipkart.exception;
 
 /**
- * @author Rag_Patel
+ * 
+ * @author JEDI-03
+ * Class for UserNotAddedException
  *
  */
 public class UserNotAddedException extends Exception{
@@ -11,10 +13,17 @@ public class UserNotAddedException extends Exception{
 		this.userId = userId;
 	}
 	
+	/**
+	  * Method to get User ID
+	  * @return User ID
+	  */
 	public String getUserId() {
 		return this.userId;
 	}
 	
+	/**
+	 * Method to return error message
+	 */
 	@Override
 	public String getMessage() {
 		return "UserId: " + userId + " not added!";

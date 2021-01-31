@@ -4,7 +4,9 @@
 package com.flipkart.exception;
 
 /**
- * @author 
+ * 
+ * @author JEDI-03
+ * Class for CourseLimitExceedException
  *
  */
 public class CourseLimitExceedException extends Exception{
@@ -18,6 +20,9 @@ public class CourseLimitExceedException extends Exception{
 	}
 
 
+	/**
+	 * Method to return error message
+	 */
 	@Override
 	public String getMessage() 
 	{

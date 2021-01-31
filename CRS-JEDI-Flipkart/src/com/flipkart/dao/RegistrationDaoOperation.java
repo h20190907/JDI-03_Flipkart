@@ -27,7 +27,7 @@ import com.flipkart.utils.DBUtils;
 
 /**
  * 
- * @author JDI-03
+ * @author JEDI-03
  * Class to implement Registration Dao Operations
  * This class communicates with the database.
  *
@@ -39,9 +39,16 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	private static Logger logger = Logger.getLogger(RegistrationDaoOperation.class);
 	private PreparedStatement stmt = null;
 	
+	/**
+	 * Default Constructor
+	 */
 	private RegistrationDaoOperation() 
 	{}
 	
+	/**
+	 * Method to make RegistrationDaoOperation Singleton
+	 * @return
+	 */
 	public static RegistrationDaoOperation getInstance()
 	{
 		if(instance==null)
@@ -59,7 +66,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	 * Method to add course in database
 	 * @param courseCode
 	 * @param studentId
-	 * @return Course add status
+	 * @return boolean indicating if the course is added successfully
 	 * @throws SQLException 
 	 */
 	@Override
