@@ -9,11 +9,6 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
-import com.flipkart.exception.CourseFoundException;
-import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.StudentNotFoundException;
-import com.flipkart.exception.UserNotAddedException;
 
 /**
  * @author JD1-03
@@ -26,13 +21,13 @@ public interface AdminDaoInterface {
 	 * Delete Course using SQL commands
 	 * @param courseCode
 	 */
-	public void deleteCourse(String courseCode) throws CourseNotFoundException;
-
+	public boolean deleteCourse(String courseCode);
 	/**
 	 * Add Course using SQL commands
 	 * @param course
+	 * @return 
 	 */
-	public void addCourse(Course course) throws CourseFoundException;
+	public boolean addCourse(Course course);
 	/**
 	 * Fetch Students yet to approved using SQL commands
 	 * @return
@@ -41,23 +36,27 @@ public interface AdminDaoInterface {
 	/**
 	 * Approve Student using SQL commands
 	 * @param studentId
+	 * @return 
 	 */
-	public void approveStudent(int studentId) throws StudentNotFoundException;
+	public boolean approveStudent(int studentId);
 	/**
 	 * Add professor using SQL commands
 	 * @param professor
+	 * @return 
 	 */
-	public void addProfessor(Professor professor) throws ProfessorNotAddedException;
+	public boolean addProfessor(Professor professor);
 	/**Method to add user using SQL commands
 	 * @param user
+	 * @return 
 	 */
-	public void addUser(User user) throws UserNotAddedException;	
+	public boolean addUser(User user);	
 	/**
 	 * Assign courses to Professor using SQL commands
 	 * @param courseCode
 	 * @param professorId
+	 * @return 
 	 */
-	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException;
+	public boolean assignCourse(String courseCode, String professorId);
 	/**
 	 * View courses in the catalog
 	 * @param Catalog ID

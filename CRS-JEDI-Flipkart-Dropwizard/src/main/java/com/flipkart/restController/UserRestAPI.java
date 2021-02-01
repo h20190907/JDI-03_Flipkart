@@ -3,6 +3,10 @@
  */
 package com.flipkart.restController;
 
+import javax.validation.Valid;
+import javax.validation.ValidationException;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -10,6 +14,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.hibernate.validator.constraints.Email;
 
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
@@ -40,7 +46,13 @@ public class UserRestAPI {
 	 */
 	@GET
 	@Path("/updatePassword")
-	public Response updatePassword(@QueryParam("userId") String userId, @QueryParam("newPassword") String newPassword) {
+	public Response updatePassword(
+			@NotNull
+			@Email(message = "Invalid User ID: Not in email format")
+			@QueryParam("userId") String userId,
+			@NotNull
+			@Size(min = 4 , max = 20 , message = "Password length should be between 4 and 20 characters")
+			@QueryParam("newPassword") String newPassword) throws ValidationException {
 	
 		if(userInterface.updatePassword(userId, newPassword))
 		{
@@ -62,7 +74,13 @@ public class UserRestAPI {
 	
 	@GET
 	@Path("/verifyCredentials")
-	public Response verifyCredentials(@QueryParam("userId") String userId, @QueryParam("password") String password)  {
+	public Response verifyCredentials(
+			@NotNull
+			@Email(message = "Invalid User ID: Not in email format")
+			@QueryParam("userId") String userId,
+			@NotNull
+			@Size(min = 4 , max = 20 , message = "Password length should be between 4 and 20 characters")
+			@QueryParam("password") String password) throws ValidationException {
 		
 		try 
 		{
@@ -83,9 +101,18 @@ public class UserRestAPI {
 		
 	}
 	
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws ValidationException
+	 */
 	@GET
 	@Path("/getRole")
-	public String getRole(@QueryParam("userId") String userId) {
+	public String getRole(
+			@NotNull
+			@Email(message = "Invalid User ID: Not in email format")
+			@QueryParam("userId") String userId ) throws ValidationException{
 		
 		return userInterface.getRole(userId);
 	}
@@ -98,9 +125,9 @@ public class UserRestAPI {
 	@POST
 	@Path("/register")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response register(Student student)
+	public Response register(@Valid Student student)
 	{
-		//register(String name,String userId,String password,Gender gender,int batch,String branch,String address,String country) throws StudentNotRegisteredException
+		
 		try
 		{
 			studentInterface.register(student.getName(), student.getUserId(), student.getPassword(), student.getGender(), student.getBatch(), student.getBranchName(), student.getAddress(), student.getCountry());
@@ -109,6 +136,7 @@ public class UserRestAPI {
 		{
 			return Response.status(500).entity("Something went wrong! Please try again.").build(); 
 		}
+		
 		return Response.status(201).entity("Registration Successful for "+student.getUserId()).build(); 
 	}
 	
