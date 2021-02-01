@@ -3,7 +3,6 @@
  */
 package com.flipkart.restController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -28,9 +27,11 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.CourseFoundException;
+import com.flipkart.exception.CourseNotAssignedToProfessorException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.StudentNotFoundException;
+import com.flipkart.exception.StudentNotFoundForApprovalException;
+import com.flipkart.exception.UserNotAddedException;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminOperation;
 
@@ -53,21 +54,23 @@ public class AdminRestAPI {
 	@Path("/assignCourseToProfessor")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response assignCourseToProfessor(
-			@Size(min = 4 , max = 10 , message = "Course Code length should be between 4 and 10 character")
+			@Size(min = 4 , max = 10 , message = "courseCode length should be between 4 and 10 character")
 			@NotNull
 			@QueryParam("courseCode") String courseCode, 
 			@Email(message = "Invalid Professor ID: Not in email format")
 			@NotNull
-			@QueryParam("professorId") String professorId) throws ValidationException{
+			@QueryParam("professorId") String professorId) throws ValidationException {
 		
-		try {
-			adminOperation.assignCourse(courseCode, professorId);
-			return Response.status(201).entity("courseCode: " + courseCode + " assigned to professor: " + professorId).build();
-		} 
-		catch (CourseNotFoundException e) {
-			return Response.status(201).entity(e.getMessage()).build();
-		}
-		
+			try {
+				
+				adminOperation.assignCourse(courseCode, professorId);
+				return Response.status(201).entity("courseCode: " + courseCode + " assigned to professor: " + professorId).build();
+				
+			} catch (CourseNotAssignedToProfessorException e) {
+				
+				return Response.status(201).entity(e.getMessage()).build();
+				
+			}
 	}
 	
 	/**
@@ -80,12 +83,16 @@ public class AdminRestAPI {
 	@Consumes("application/json")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addProfessor(@Valid Professor professor) throws ValidationException{
-		
+		 
 		try {
+			
 			adminOperation.addProfessor(professor);
 			return Response.status(201).entity("Professor with professorId: " + professor.getUserId() + " added").build();
-		} catch (ProfessorNotAddedException e) {
-			return Response.status(201).entity(e.getMessage()).build();
+			
+		} catch (ProfessorNotAddedException | UserNotAddedException e) {
+			
+			return Response.status(409).entity(e.getMessage()).build();
+			
 		}
 		
 	}
@@ -121,8 +128,8 @@ public class AdminRestAPI {
 		try {
 			adminOperation.approveStudent(studentId, studentList);
 			return Response.status(201).entity("Student with studentId: " + studentId + " approved").build();
-		} catch (StudentNotFoundException e) {
-			return Response.status(201).entity(e.getMessage()).build();
+		} catch (StudentNotFoundForApprovalException e) {
+			return Response.status(409).entity(e.getMessage()).build();
 		}
 		
 	}
@@ -158,7 +165,7 @@ public class AdminRestAPI {
 			adminOperation.deleteCourse(courseCode, courseList);
 			return Response.status(201).entity("Course with courseCode: " + courseCode + " deleted from catalog").build();
 		} catch (CourseNotFoundException e) {
-			return Response.status(201).entity(e.getMessage()).build();
+			return Response.status(409).entity(e.getMessage()).build();
 		}	
 	}
 	
@@ -178,7 +185,7 @@ public class AdminRestAPI {
 			adminOperation.addCourse(course, courseList);
 			return Response.status(201).entity("Course with courseCode: " + course.getCourseCode() + " added to catalog").build();
 		} catch (CourseFoundException e) {
-			return Response.status(201).entity(e.getMessage()).build();
+			return Response.status(409).entity(e.getMessage()).build();
 		}
 			
 	}

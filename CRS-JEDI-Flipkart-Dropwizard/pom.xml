@@ -26,8 +26,8 @@
       	<version>3.8.1</version>
       	<scope>test</scope>
     </dependency>
-  
-  </dependencies>
+  	 
+  	</dependencies>
 
 	<build>
         <finalName>CRSDropWizard-${version}</finalName>
@@ -54,7 +54,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.dropwizard.App</mainClass>
+                                    <mainClass>com.flipkart.App</mainClass>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer">
                                 </transformer>

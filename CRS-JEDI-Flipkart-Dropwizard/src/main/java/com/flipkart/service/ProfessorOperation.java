@@ -1,21 +1,14 @@
 package com.flipkart.service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
-import com.flipkart.bean.Student;
-import com.flipkart.constant.Grade;
-import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.dao.ProfessorDaoInterface;
 import com.flipkart.dao.ProfessorDaoOperation;
 import com.flipkart.exception.GradeNotAddedException;
-import com.flipkart.utils.DBUtils;
 
 public class ProfessorOperation implements ProfessorInterface {
 	

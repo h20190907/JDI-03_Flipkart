@@ -4,9 +4,11 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.CourseFoundException;
+import com.flipkart.exception.CourseNotAssignedToProfessorException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.StudentNotFoundException;
+import com.flipkart.exception.StudentNotFoundForApprovalException;
+import com.flipkart.exception.UserNotAddedException;
 
 import java.util.List;
 
@@ -38,20 +40,21 @@ public interface AdminInterface {
 	/**
 	 * Method to approve a Student 
 	 * @param studentId
-	 * @throws StudentNotFoundException 
+	 * @throws StudentNotFoundForApprovalException 
 	 */
-	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundException;
+	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundForApprovalException;
 	/**
 	 * Method to add Professor to DB
 	 * @param professor : Professor Object storing details of a professor
+	 * @throws UserNotAddedException 
 	 */
-	public void addProfessor(Professor professor) throws ProfessorNotAddedException;	
+	public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserNotAddedException;	
 	/**
 	 * Method to assign Course to a Professor
-	 * @param courseCode
-	 * @throws CourseNotFoundException 
+	 * @param courseCode 
+	 * @throws CourseNotAssignedToProfessorException 
 	 */
-	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException;
+	public void assignCourse(String courseCode, String professorId) throws CourseNotAssignedToProfessorException;
 	/**
 	 * Method to get list of courses in catalog
 	 * @param catalogId
