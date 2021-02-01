@@ -46,6 +46,38 @@ public class RegistrationOperation implements RegistrationInterface {
 
 	RegistrationDaoInterface registrationDaoInterface = RegistrationDaoOperation.getInstance();
 	
+	
+	@Override
+	public boolean checkCourse(String courseCode,int studentId,List<Course> availableCourseList) throws CourseLimitExceedException, CourseAlreadyRegisteredException, SeatNotAvailableException, CourseNotFoundException
+	{
+	       
+			try {
+					int response = registrationDaoInterface.checkCourseAvailability(studentId, courseCode);
+					
+					if (response == 0){
+						throw new CourseLimitExceedException(6);
+					}
+					else if (response == 1) {
+						throw new CourseAlreadyRegisteredException(courseCode);
+					}
+					else if (!registrationDaoInterface.seatAvailable(courseCode)) {
+						throw new SeatNotAvailableException(courseCode);
+					} 
+					else if(!StudentValidator.isValidCourseCode(courseCode, availableCourseList)){
+						throw new CourseNotFoundException(courseCode);
+					}	
+					
+					return true;
+					
+			} 
+			catch (SQLException e) {
+				logger.info(e.getMessage());
+				
+			}
+			
+			return false;
+			
+	}
 
 	/**
 	 * Method to add Course selected by student
@@ -59,32 +91,16 @@ public class RegistrationOperation implements RegistrationInterface {
 	 * @throws CourseAlreadyRegisteredException
 	 */
 	@Override
-	public boolean addCourse(String courseCode, int studentId,List<Course> availableCourseList) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException,CourseAlreadyRegisteredException 
+	public boolean addCourse(String courseCode, int studentId,List<Course> availableCourseList)
 	{
-       
-		try {
-				if (registrationDaoInterface.numOfRegisteredCourses(studentId) >= 6)
-				{	
-					throw new CourseLimitExceedException(6);
-				}
-				else if (registrationDaoInterface.isRegistered(courseCode, studentId)) 
-				{
-					throw new CourseAlreadyRegisteredException(courseCode);
-				}
-				else if (!registrationDaoInterface.seatAvailable(courseCode)) 
-				{
-					throw new SeatNotAvailableException(courseCode);
-				} 
-				else if(!StudentValidator.isValidCourseCode(courseCode, availableCourseList))
-				{
-					throw new CourseNotFoundException(courseCode);
-				}	
 
+		try
+		{
 			registrationDaoInterface.addCourse(courseCode, studentId);
 			return true;
-		} 
-		catch (SQLException e) {
-			e.printStackTrace();
+		}
+		catch(SQLException e){
+			logger.info(e.getMessage());
 		}
 		return false;
 

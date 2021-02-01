@@ -92,6 +92,14 @@ public interface RegistrationInterface {
 	 * @param studentId
 	 * @throws SQLException
 	 */
+	
+	/**
+	 * 
+	 * @param studentId
+	 */
 	public void setRegistrationStatus(int studentId);
+	boolean checkCourse(String courseCode, int studentId, List<Course> availableCourseList)
+			throws CourseLimitExceedException, CourseAlreadyRegisteredException, SeatNotAvailableException,
+			CourseNotFoundException;
 	
 }
