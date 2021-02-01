@@ -157,6 +157,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 			stmt.setString(1, courseCode);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
+				logger.info(rs.getInt("seats"));
 				return (rs.getInt("seats") > 0);
 			}
 

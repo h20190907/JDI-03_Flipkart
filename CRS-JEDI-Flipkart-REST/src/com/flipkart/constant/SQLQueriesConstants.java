@@ -27,7 +27,7 @@ public class SQLQueriesConstants {
 		
 	// Student Queries
 	public static final String VIEW_REGISTERED_COURSES=" select * from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?";
-	public static final String VIEW_AVAILABLE_COURSES=" select * from course where courseCode not in  (select courseCode  from registeredcourse where studentId = ?) and course.isOffered = ?";
+	public static final String VIEW_AVAILABLE_COURSES=" select * from course where courseCode not in  (select courseCode  from registeredcourse where studentId = ?) and course.isOffered = ? and seats > 0";
 	public static final String IS_REGISTERED=" select courseCode from registeredcourse where courseCode=? and studentId=? ";
 	public static final String NUMBER_OF_REGISTERED_COURSES=" select studentId from registeredcourse where studentId = ? ";
 	public static final String DECREMENT_COURSE_SEATS="update course set seats = seats-1 where courseCode = ? ";

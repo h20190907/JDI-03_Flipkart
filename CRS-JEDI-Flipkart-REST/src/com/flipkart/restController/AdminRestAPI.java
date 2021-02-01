@@ -49,7 +49,8 @@ public class AdminRestAPI {
 		try {
 			adminOperation.assignCourse(courseCode, professorId);
 			return Response.status(201).entity("courseCode: " + courseCode + " assigned to professor: " + professorId).build();
-		} catch (CourseNotFoundException e) {
+		} 
+		catch (CourseNotFoundException e) {
 			return Response.status(201).entity(e.getMessage()).build();
 		}
 		

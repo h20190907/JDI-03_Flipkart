@@ -6,6 +6,10 @@ package com.flipkart.restController;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.validation.ValidationException;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -31,14 +35,16 @@ import com.flipkart.service.ProfessorOperation;
 import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.RegistrationOperation;
 import com.flipkart.validator.StudentValidator;
+import com.flipkart.validator.ValidationExceptionMapper;
 
 /**
- * @author dilpreetkaur
+ * @author JEDI - 03
  *
  */
 
 @Path("/student")
 public class StudentRestAPI {
+	
 	RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
 	ProfessorInterface professorInterface = ProfessorOperation.getInstance();
 	
@@ -47,58 +53,48 @@ public class StudentRestAPI {
 	@POST
 	@Path("/registerCourses")
 	@Consumes("application/json")
-	public Response registerCourses(List<String> courseList,@QueryParam("studentId") int studentId)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response registerCourses(List<String> courseList, @QueryParam("studentId") int studentId)
 	{
 		List<Course> availableCourseList = null;
 						
 		try
 		{
 			availableCourseList = registrationInterface.viewCourses(studentId);
-			
-			if(StudentValidator.isValidRegistration(courseList,availableCourseList))
-			{
-			
-				for(String courseCode:courseList)
-				{
-					registrationInterface.addCourse(courseCode, studentId, availableCourseList);
-				}
-			}
-			else
-			{
-				return Response.status(201).entity( "Please Try Again ! ").build();
-			}
-								
+	
+			for(String courseCode:courseList)
+				registrationInterface.addCourse(courseCode, studentId, availableCourseList);	
+			registrationInterface.setRegistrationStatus(studentId);
 		}
-		catch (SQLException e) 
-		{
-			return Response.status(201).entity(e.getMessage()).build();
-		} 
-		catch (CourseLimitExceedException | SeatNotAvailableException | CourseNotFoundException e) 
+		catch (CourseLimitExceedException | SeatNotAvailableException | CourseNotFoundException | SQLException e) 
 		{
 			logger.info(e.getMessage());
 			return Response.status(201).entity(e.getMessage()).build();
 		}
 					
-				
-			
 		
-	
-		
-			return Response.status(201).entity( "Registration Successful").build();
+		return Response.status(201).entity( "Registration Successful").build();
 		
 	}
 	
-	
-		
+
+
+ 	
 	@PUT
 	@Path("/addCourse")
-	public Response addCourse(@QueryParam("courseCode") String courseCode,@QueryParam("studentId") int studentId)	
-	{
-		List<Course> availCourseList = null;
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addCourse(
+			@Size(min = 4 , max = 10 , message = "Course Code length should be between 2 and 10 character")
+			@NotNull
+			@QueryParam("courseCode") String courseCode,
+			@Min( value = 1, message = "student id should not be less than 1")
+			@NotNull
+			@QueryParam("studentId") int studentId) throws ValidationException{
+		
 		
 		try
 		{
-			availCourseList = registrationInterface.viewCourses(studentId);
+			List<Course> availCourseList = registrationInterface.viewCourses(studentId);
 			
 			if(registrationInterface.addCourse(courseCode, studentId, availCourseList))
 			{
@@ -110,34 +106,29 @@ public class StudentRestAPI {
 		    }
 			
 		}
-		catch (SQLException e) 
-		{
-			return Response.status(201).entity(e.getMessage()).build();
-		} 
-		catch (CourseLimitExceedException | SeatNotAvailableException | CourseNotFoundException e) 
+		catch (CourseLimitExceedException | SeatNotAvailableException | CourseNotFoundException | SQLException e) 
 		{
 			logger.info(e.getMessage());
 			return Response.status(201).entity(e.getMessage()).build();
 		}
 		
 	}
-	
-	
-	public boolean getRegistrationStatus(int studentId)
-	{
-		return false;
-	}
-	
+
 	
 	@DELETE
 	@Path("/dropCourse")
-	public Response dropCourse(@QueryParam("courseCode") String courseCode,@QueryParam("studentId") int studentId)
-	{
-		List<Course> registeredCourseList=null;
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response dropCourse(
+			@Size(min = 4 , max = 10 , message = "Course Code length should be between 2 and 10 character")
+			@NotNull
+			@QueryParam("courseCode") String courseCode,
+			@Min( value = 1, message = "student id should not be less than 1")
+			@NotNull
+			@QueryParam("studentId") int studentId) throws ValidationException{
 		
 		try
 		{
-			registeredCourseList = registrationInterface.viewRegisteredCourses(studentId);
+			List<Course>registeredCourseList = registrationInterface.viewRegisteredCourses(studentId);
 			
 			registrationInterface.dropCourse(courseCode, studentId, registeredCourseList);
 			
@@ -197,53 +188,51 @@ public class StudentRestAPI {
 	
 	@POST
 	@Path("/make_payment")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response make_payment(@QueryParam("studentId") int studentId , @QueryParam("paymentMode") int paymentMode)
 	{
 		
 			
-			double fee =0.0;
 			try
 			{
-				fee=registrationInterface.calculateFee(studentId);
-			} 
+				double fee=registrationInterface.calculateFee(studentId);
+
+				fee = registrationInterface.calculateFee(studentId);
+				logger.info("Your total fee  = " + fee);
+				ModeOfPayment mode = ModeOfPayment.getModeofPayment(paymentMode);
+				
+			
+				Notification notify = registrationInterface.payFee(studentId, mode,fee);
+
+				
+				logger.info("Your Payment is successful");
+				logger.info("Your transaction id : " + notify.getReferenceId());
+			
+				return Response.status(201).entity("Your total fee  = " + fee+"\n"+"Your Payment is successful\n"+"Your transaction id : " + notify.getReferenceId()).build();
+				
+			}
 			catch (SQLException e) 
 			{
-
 	            logger.info(e.getMessage());
+	            return Response.status(501).entity("Exception e").build();
 			}
-
-			if(fee == 0.0)
-			{
-				logger.info("You have not registered for any courses yet");
-				
-				return Response.status(201).entity("You have not registered for any courses yet " ).build();
-			}
-			else
-			{
-				
-				logger.info("Your total fee  = " + fee);
-			
-					ModeOfPayment mode = ModeOfPayment.getModeofPayment(paymentMode);
-					
-				
-						Notification notify=null;
-						try 
-						{
-							notify = registrationInterface.payFee(studentId, mode,fee);
-						}
-						catch (SQLException e) 
-						{
-
-				            logger.info(e.getMessage());
-						}
-						
-						logger.info("Your Payment is successful");
-						logger.info("Your transaction id : " + notify.getReferenceId());
-					
-						return Response.status(201).entity("Your total fee  = " + fee+"\n"+"Your Payment is successful\n"+"Your transaction id : " + notify.getReferenceId()).build();
-						
-				}
 		
+	}
+	
+	@GET
+	@Path("/calculateFee")
+	public Response calculateFee(@QueryParam("studentId") int studentId , @QueryParam("paymentMode") int paymentMode)
+	{
+		try
+		{
+			double fee = registrationInterface.calculateFee(studentId);
+			return Response.status(201).entity("Your total fee  = " + fee + "\n").build();
+		} 
+		catch (SQLException e) 
+		{
+            logger.info(e.getMessage());
+    		return Response.status(501).entity("SQL Exception\n").build();
+		}
 	}
 	
 	@GET
@@ -259,13 +248,11 @@ public class StudentRestAPI {
 		} 
 		catch (SQLException e) 
 		{
-
-            logger.info(e.getMessage());
-            
+            logger.info(e.getMessage());          
 		}
 		
-	
 		return grade_card;
 		
 	}
+	
 }
