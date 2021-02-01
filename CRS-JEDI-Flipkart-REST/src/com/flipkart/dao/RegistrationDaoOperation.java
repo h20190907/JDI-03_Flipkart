@@ -62,7 +62,6 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface{
 	 * @throws CourseLimitExceedException if course limit exceeded
 	 * @throws SeatNotAvailableException if seat is not available
 	 */
-	//TODD: remove if else
 	
 	@Override
 	public boolean addCourse(String courseCode, int studentId) throws SQLException{

@@ -17,6 +17,6 @@ public class UserNotAddedException extends Exception{
 	
 	@Override
 	public String getMessage() {
-		return "UserId: " + userId + " not added!";
+		return "UserId: " + userId + " is already in use!";
 	}
 }

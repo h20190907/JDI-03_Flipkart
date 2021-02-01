@@ -7,10 +7,10 @@ package com.flipkart.exception;
  * @author Rag_Patel
  *
  */
-public class StudentNotFoundException extends Exception {
+public class StudentNotFoundForApprovalException extends Exception {
 	private int studentId;
 	
-	public StudentNotFoundException(int studentId) {
+	public StudentNotFoundForApprovalException(int studentId) {
 		this.studentId = studentId;
 	}
 	
@@ -20,6 +20,6 @@ public class StudentNotFoundException extends Exception {
 	
 	@Override
 	public String getMessage() {
-		return "studentId: " + studentId + " not found!" ;
+		return "studentId: " + studentId + " not found for approval!" ;
 	}
 }
