@@ -6,6 +6,12 @@ package com.flipkart.restController;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.ValidationException;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -15,6 +21,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.hibernate.validator.constraints.Email;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
@@ -44,7 +52,13 @@ public class AdminRestAPI {
 	@POST
 	@Path("/assignCourseToProfessor")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response assignCourseToProfessor(@QueryParam("courseCode") String courseCode, @QueryParam("professorId") String professorId) {
+	public Response assignCourseToProfessor(
+			@Size(min = 4 , max = 10 , message = "Course Code length should be between 4 and 10 character")
+			@NotNull
+			@QueryParam("courseCode") String courseCode, 
+			@Email(message = "Invalid Professor ID: Not in email format")
+			@NotNull
+			@QueryParam("professorId") String professorId) throws ValidationException{
 		
 		try {
 			adminOperation.assignCourse(courseCode, professorId);
@@ -65,7 +79,7 @@ public class AdminRestAPI {
 	@Path("/addProfessor")
 	@Consumes("application/json")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addProfessor(Professor professor) {
+	public Response addProfessor(@Valid Professor professor) throws ValidationException{
 		
 		try {
 			adminOperation.addProfessor(professor);
@@ -97,7 +111,11 @@ public class AdminRestAPI {
 	@PUT
 	@Path("/approveStudent")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response approveStudent(@QueryParam("studentId") int studentId) {
+	public Response approveStudent(
+			@Min(value = 1, message = "Student ID should not be less than 1")
+			@Max(value = 9999, message = "Student ID should be less than 10000")
+			@NotNull
+			@QueryParam("studentId") int studentId) throws ValidationException{
 		List<Student> studentList = adminOperation.viewPendingAdmissions();
 		
 		try {
@@ -130,7 +148,10 @@ public class AdminRestAPI {
 	@PUT
 	@Path("/deleteCourse")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteCourse(@QueryParam("courseCode") String courseCode) {
+	public Response deleteCourse(
+			@Size(min = 4 , max = 10 , message = "Course Code length should be between 4 and 10 character")
+			@NotNull
+			@QueryParam("courseCode") String courseCode) throws ValidationException{
 		List<Course> courseList = adminOperation.viewCourses(1);
 		
 		try {
@@ -150,7 +171,7 @@ public class AdminRestAPI {
 	@Path("/addCourse")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addCourse(Course course) {
+	public Response addCourse(@Valid Course course) throws ValidationException{
 		List<Course> courseList = adminOperation.viewCourses(1);
 		
 		try {
