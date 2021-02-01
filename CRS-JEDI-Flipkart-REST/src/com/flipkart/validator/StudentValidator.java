@@ -20,9 +20,7 @@ public class StudentValidator {
 		for(Course course : registeredCourseList)
 		{
 			if(courseCode.equalsIgnoreCase(course.getCourseCode())) 
-			{
 				return true; 
-			}
 		}
 		
 		return false;
@@ -40,9 +38,7 @@ public class StudentValidator {
 		for(Course course : availableCourseList)
 		{
 			if(courseCode.equalsIgnoreCase(course.getCourseCode())) 
-			{
 				return true; 
-			}
 		}
 		
 		return false;
