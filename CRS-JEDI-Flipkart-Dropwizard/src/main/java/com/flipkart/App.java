@@ -1,4 +1,4 @@
-package com.dropwizard;
+package com.flipkart;
 
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
