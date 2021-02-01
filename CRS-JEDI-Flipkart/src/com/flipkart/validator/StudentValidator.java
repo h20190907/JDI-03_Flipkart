@@ -8,7 +8,10 @@ import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.SeatNotAvailableException;
 
 /**
+ * 
+ * @author JEDI-03
  * Class for Student Validator 
+ * 
  */
 public class StudentValidator {
 

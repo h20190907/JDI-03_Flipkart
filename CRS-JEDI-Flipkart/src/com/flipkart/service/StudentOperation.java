@@ -10,6 +10,12 @@ import com.flipkart.dao.StudentDaoInterface;
 import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.exception.StudentNotRegisteredException;
 
+/**
+ * 
+ * @author JEDI-03
+ * Implementations of Student Operations
+ *
+ */
 public class StudentOperation implements StudentInterface {
 	
 	private static volatile StudentOperation instance=null;
@@ -46,27 +52,30 @@ public class StudentOperation implements StudentInterface {
 	 * @param branch
 	 * @param address
 	 * @param country
+	 * @return Student ID
 	 * @throws StudentNotRegisteredException
 	 */
 	@Override
-	public void register(String name,String userId,String password,Gender gender,int batch,String branch,String address,String country) throws StudentNotRegisteredException{
+	public int register(String name,String userId,String password,Gender gender,int batch,String branch,String address,String country) throws StudentNotRegisteredException{
+		int studentId;
 		try
 		{
 			//call the DAO class, and add the student record to the DB
 			Student newStudent=new Student(userId,name,Role.STUDENT,password,gender,address,country,branch,0,batch,false);
-			studentDaoInterface.addStudent(newStudent);
+			studentId=studentDaoInterface.addStudent(newStudent);
 			
 		}
 		catch(StudentNotRegisteredException ex)
 		{
 			throw ex;
 		}
+		return studentId;
 	}
 	
 	/**
 	 * Method to get Student ID from User ID
 	 * @param userId
-	 * @return
+	 * @return Student ID
 	 */
 	@Override
 	public int getStudentId(String userId) {
@@ -77,7 +86,7 @@ public class StudentOperation implements StudentInterface {
 	/**
      * Method to check if student is approved by Admin or not
      * @param studentId
-     * @return
+     * @return boolean indicating if student is approved
      */
 	@Override
 	public boolean isApproved(int studentId) {

@@ -1,7 +1,9 @@
 package com.flipkart.exception;
 
 /**
- * @author Rag_Patel
+ * 
+ * @author JEDI-03
+ * Class for ProfessorNotAddedException
  *
  */
 public class ProfessorNotAddedException extends Exception{
@@ -11,10 +13,17 @@ public class ProfessorNotAddedException extends Exception{
 		this.professorId = professorId;
 	}
 	
+	/**
+	 * Method to get User ID
+	 * @return User ID (same as Professor ID)
+	 */
 	public String getUserId() {
 		return this.professorId;
 	}
 	
+	/**
+	 * Method to return error message
+	 */
 	@Override
 	public String getMessage() {
 		return "professorId: " + professorId + " not added!";

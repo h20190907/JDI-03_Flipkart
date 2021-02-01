@@ -15,8 +15,9 @@ import com.flipkart.exception.SeatNotAvailableException;
 import com.flipkart.validator.StudentValidator;
 
 /**
- * @author JDI-03 The Registration Operation provides the business logic for
- *         student registration.
+ * @author JEDI-03
+ * The Registration Operation provides the business logic for student registration.
+ * 
  */
 public class RegistrationOperation implements RegistrationInterface {
 
@@ -42,14 +43,15 @@ public class RegistrationOperation implements RegistrationInterface {
 	RegistrationDaoInterface registrationDaoInterface = RegistrationDaoOperation.getInstance();
 
 	/**
-	 * Method to add Course selected by student
-	 * 
-	 * @param courseCode : code for selected course
+	 * Method to add Course selected by student 
+	 * @param courseCode
 	 * @param studentId
-	 * @return
+	 * @param courseList 
+	 * @return boolean indicating if the course is added successfully
 	 * @throws CourseNotFoundException
-	 * @throws SeatNotAvailableException
-	 * @throws CourseLimitExceedException
+	 * @throws SeatNotAvailableException 
+	 * @throws CourseLimitExceedException 
+	 * @throws SQLException 
 	 */
 	@Override
 	public boolean addCourse(String courseCode, int studentId,List<Course> availableCourseList) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException, SQLException 
@@ -81,13 +83,13 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 
 	/**
-	 * Method to drop Course selected by student
-	 * 
-	 * @param courseCode : code for selected course
+	 *  Method to drop Course selected by student
+	 * @param courseCode
 	 * @param studentId
-	 * @return
+	 * @param registeredCourseList 
+	 * @return boolean indicating if the course is dropped successfully
 	 * @throws CourseNotFoundException
-	 * @throws SQLException
+	 * @throws SQLException 
 	 */
 	@Override
 	public boolean dropCourse(String courseCode, int studentId,List<Course> registeredCourseList) throws CourseNotFoundException, SQLException {
@@ -100,39 +102,23 @@ public class RegistrationOperation implements RegistrationInterface {
 
 	}
 
-	/**
-	 * Method for Fee Calculation for selected courses
-	 * 
+	/** Method for Fee Calculation for selected courses
+	 * Fee calculation for selected courses
 	 * @param studentId
-	 * @return
-	 * @throws SQLException
+	 * @return Fee Student has to pay
+	 * @throws SQLException 
 	 */
-
 	@Override
 	public double calculateFee(int studentId) throws SQLException {
 		return registrationDaoInterface.calculateFee(studentId);
 	}
 
-	/**
-	 * method for fee payment for selected courses
-	 * 
-	 * @param studentId
-	 * @param mode      - mode of payment
-	 * @param amount    - amount to be paid by student
-	 * @throws SQLException
-	 */
-	@Override
-	public Notification payFee(int studentId, ModeOfPayment mode, double amount) throws SQLException {
-		return registrationDaoInterface.payFee(studentId, mode, amount);
-
-	}
 
 	/**
 	 * Method to view grade card for students
-	 * 
 	 * @param studentId
-	 * @return
-	 * @throws SQLException
+	 * @return List of Student's Grades
+	 * @throws SQLException 
 	 */
 	@Override
 	public List<StudentGrade> viewGradeCard(int studentId) throws SQLException {
@@ -140,11 +126,10 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 
 	/**
-	 * Method to view the list of available courses The list will not display the
-	 * courses registered by student
-	 * 
+	 *  Method to view the list of available courses
 	 * @param studentId
-	 * @throws SQLException
+	 * @return List of courses
+	 * @throws SQLException 
 	 */
 	@Override
 	public List<Course> viewCourses(int studentId) throws SQLException {
@@ -153,9 +138,9 @@ public class RegistrationOperation implements RegistrationInterface {
 
 	/**
 	 * Method to view the list of courses registered by the student
-	 * 
 	 * @param studentId
-	 * @throws SQLException
+	 * @return List of courses
+	 * @throws SQLException 
 	 */
 	@Override
 	public List<Course> viewRegisteredCourses(int studentId) throws SQLException {
@@ -163,8 +148,9 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
     
 	/**
-	 * 
+	 *  Method to check student registration status
 	 * @param studentId
+	 * @return boolean indicating if the student's registration status
 	 * @throws SQLException
 	 */
 	@Override
@@ -173,7 +159,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 	
 	/**
-	 * 
+	 * Method to set student registration status
 	 * @param studentId
 	 * @throws SQLException
 	 */

@@ -16,7 +16,7 @@ import com.flipkart.exception.StudentNotFoundException;
 import com.flipkart.exception.UserNotAddedException;
 
 /**
- * @author JD1-03
+ * @author JEDI-03
  * Interface for Admin Dao Operations
  *
  */
@@ -37,7 +37,7 @@ public interface AdminDaoInterface {
 	public void addCourse(Course course) throws CourseFoundException;
 	/**
 	 * Fetch Students yet to approved using SQL commands
-	 * @return
+	 * @return List of Students yet to approved
 	 */
 	public List<Student> viewPendingAdmissions();
 	
@@ -69,6 +69,7 @@ public interface AdminDaoInterface {
 	 * @throws CourseNotFoundException
 	 */
 	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException;
+	
 	/**
 	 * View courses in the catalog
 	 * @param Catalog ID

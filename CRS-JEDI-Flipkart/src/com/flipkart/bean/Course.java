@@ -7,7 +7,7 @@ package com.flipkart.bean;
  * 
  */
 public class Course {
-	//TODO: add constructor 
+
 	private String courseCode;
 	private String courseName;
 	private String instructorId;

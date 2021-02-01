@@ -5,9 +5,12 @@ import org.apache.log4j.Logger;
 
 import com.flipkart.service.UserOperation;
 import com.flipkart.constant.Gender;
+import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
 import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.exception.UserNotFoundException;
+import com.flipkart.service.NotificationInterface;
+import com.flipkart.service.NotificationOperation;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentOperation;
 import com.flipkart.service.UserInterface;
@@ -25,6 +28,7 @@ public class CRSApplication {
 	static boolean loggedin = false;
 	StudentInterface studentInterface=StudentOperation.getInstance();
 	UserInterface userInterface =UserOperation.getInstance();
+	NotificationInterface notificationInterface=NotificationOperation.getInstance();
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -185,7 +189,8 @@ public class CRSApplication {
 			logger.info("Country");
 			country=sc.next();
 			gender=Gender.getName(genderV);
-			studentInterface.register(name, userId, password, gender, batch, branchName, address, country);
+			int newStudentId=studentInterface.register(name, userId, password, gender, batch, branchName, address, country);
+			notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null,0);
 			
 		}
 		catch(StudentNotRegisteredException ex)

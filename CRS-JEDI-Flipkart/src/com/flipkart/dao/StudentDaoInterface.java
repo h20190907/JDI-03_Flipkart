@@ -22,20 +22,20 @@ public interface StudentDaoInterface {
 	 * @return true if student is added, else false
 	 * @throws StudentNotRegisteredException
 	 */
-	public boolean addStudent(Student student) throws StudentNotRegisteredException;
+	public int addStudent(Student student) throws StudentNotRegisteredException;
 	
 	
 	/**
 	 * Method to retrieve Student Id from User Id
 	 * @param userId
-	 * @return
+	 * @return Student Id
 	 */
 	public int getStudentId(String userId);
 	
 	/**
 	 * Method to check if Student is approved
 	 * @param studentId
-	 * @return
+	 * @return boolean indicating if student is approved
 	 */
 	public boolean isApproved(int studentId);
 }

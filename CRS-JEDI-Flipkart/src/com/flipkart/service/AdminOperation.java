@@ -17,7 +17,7 @@ import com.flipkart.validator.AdminValidator;
 
 /**
  * 
- * @author JDI-03
+ * @author JEDI-03
  * Implementations of Admin Operations
  * 
  */
@@ -33,7 +33,6 @@ public class AdminOperation implements AdminInterface{
 	
 	/**
 	 * Method to make AdminOperation Singleton
-	 * @return
 	 */
 	public static AdminOperation getInstance()
 	{
@@ -102,6 +101,7 @@ public class AdminOperation implements AdminInterface{
 	/**
 	 * Method to approve a Student 
 	 * @param studentId
+	 * @param studentList 
 	 * @throws StudentNotFoundException 
 	 */
 	@Override
@@ -138,6 +138,7 @@ public class AdminOperation implements AdminInterface{
 	/**
 	 * Method to assign Course to a Professor
 	 * @param courseCode
+	 * @param professorId
 	 * @throws CourseNotFoundException 
 	 */
 	@Override

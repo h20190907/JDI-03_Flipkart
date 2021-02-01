@@ -3,7 +3,14 @@ package com.flipkart.service;
 import com.flipkart.constant.Gender;
 import com.flipkart.exception.StudentNotRegisteredException;
 
+/**
+ * 
+ * @author JEDI-03
+ * Interface for Student Operations
+ *
+ */
 public interface StudentInterface {
+	
 	/**
 	 * Method to register a student, although student can't login until it's approved by admin
 	 * @param name
@@ -14,21 +21,22 @@ public interface StudentInterface {
 	 * @param branch
 	 * @param address
 	 * @param country
+	 * @return Student ID
 	 * @throws StudentNotRegisteredException
 	 */
-	public void register(String name,String userID,String password,Gender gender,int batch,String branch,String address,String country) throws StudentNotRegisteredException; 
+	public int register(String name,String userID,String password,Gender gender,int batch,String branch,String address,String country) throws StudentNotRegisteredException; 
 	
 	/**
 	 * Method to get Student ID from User ID
 	 * @param userId
-	 * @return
+	 * @return Student ID
 	 */
 	public int getStudentId(String userId);
 	
 	/**
      * Method to check if student is approved by Admin or not
      * @param studentId
-     * @return
+     * @return boolean indicating if student is approved
      */
     public boolean isApproved(int studentId);
 }

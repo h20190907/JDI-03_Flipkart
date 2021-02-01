@@ -13,9 +13,12 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.constant.NotificationType;
 import com.flipkart.exception.CourseLimitExceedException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.SeatNotAvailableException;
+import com.flipkart.service.NotificationInterface;
+import com.flipkart.service.NotificationOperation;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
 import com.flipkart.service.RegistrationInterface;
@@ -33,6 +36,7 @@ public class StudentCRSMenu {
 	Scanner sc = new Scanner(System.in);
 	RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
 	ProfessorInterface professorInterface = ProfessorOperation.getInstance();
+	NotificationInterface notificationInterface=NotificationOperation.getInstance();
 	private boolean is_registered;
 	
 	/**
@@ -102,7 +106,7 @@ public class StudentCRSMenu {
 	
 
 	/**
-	 * Select course 
+	 * Select course for registration
 	 * @param studentId
 	 */
 	private void registerCourses(int studentId)
@@ -157,7 +161,7 @@ public class StudentCRSMenu {
 	}
 	
 	/**
-	 * Add course
+	 * Add course for registration
 	 * @param studentId
 	 */
 	private void addCourse(int studentId)	
@@ -195,6 +199,11 @@ public class StudentCRSMenu {
 		
 	}
 	
+	/**
+	 * Method to check if student is already registered
+	 * @param studentId
+	 * @return Registration Status
+	 */
 	private boolean getRegistrationStatus(int studentId)
 	{
 		try 
@@ -248,9 +257,9 @@ public class StudentCRSMenu {
 	}
 	
 	/**
-	 * View Course
+	 * View all available Courses 
 	 * @param studentId
-	 * @return true if any course is available, false otherwise
+	 * @return List of available Courses 
 	 */
 	private List<Course> viewCourse(int studentId)
 	{
@@ -284,9 +293,9 @@ public class StudentCRSMenu {
 	}
 	
 	/**
-	 * View Registered Course
+	 * View Registered Courses
 	 * @param studentId
-	 * @return true if any course is registered, false otherwise
+	 * @return List of Registered Courses
 	 */
 	private List<Course> viewRegisteredCourse(int studentId)
 	{
@@ -356,14 +365,13 @@ public class StudentCRSMenu {
 	 * Make Payment for selected courses. Student is provided with an option to pay the fees and select the mode of payment.
 	 * @param studentId
 	 */
-	
 	private void make_payment(int studentId)
 	{
 		
 		double fee =0.0;
 		try
 		{
-			registrationInterface.calculateFee(studentId);
+			fee=registrationInterface.calculateFee(studentId);
 		} 
 		catch (SQLException e) 
 		{
@@ -398,19 +406,15 @@ public class StudentCRSMenu {
 					logger.info("Invalid Input");
 				else
 				{
-					Notification notify=null;
 					try 
 					{
-						notify = registrationInterface.payFee(studentId, mode,fee);
+						notificationInterface.sendNotification(NotificationType.PAYMENT, studentId, mode, fee);
 					}
-					catch (SQLException e) 
+					catch (Exception e) 
 					{
 
 			            logger.info(e.getMessage());
 					}
-					
-					logger.info("Your Payment is successful");
-					logger.info("Your transaction id : " + notify.getReferenceId());
 				}
 					
 			}

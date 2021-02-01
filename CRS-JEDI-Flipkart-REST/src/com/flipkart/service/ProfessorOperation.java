@@ -50,13 +50,12 @@ public class ProfessorOperation implements ProfessorInterface {
 	public boolean addGrade(int studentId,String courseCode,String grade) throws GradeNotAddedException {
 		try
 		{
-			professorDAOInterface.addGrade(studentId, courseCode, grade);
+			return professorDAOInterface.addGrade(studentId, courseCode, grade);
 		}
 		catch(Exception ex)
 		{
 			throw new GradeNotAddedException(studentId);
 		}
-		return true;
 	}
 	
 	
