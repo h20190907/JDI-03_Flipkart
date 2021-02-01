@@ -10,8 +10,9 @@
   
   <properties>
        <dropwizard.version>1.0.0</dropwizard.version>
+       <mysql-connector-java.version>5.1.49</mysql-connector-java.version>
        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+  </properties>  
   
   <dependencies>
     
@@ -26,7 +27,11 @@
       	<version>3.8.1</version>
       	<scope>test</scope>
     </dependency>
-  	 
+    <dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>${mysql-connector-java.version}</version>
+	</dependency>
   	</dependencies>
 
 	<build>
