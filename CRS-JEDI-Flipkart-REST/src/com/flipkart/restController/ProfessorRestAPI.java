@@ -3,7 +3,9 @@ package com.flipkart.restController;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -17,7 +19,11 @@ import com.flipkart.service.ProfessorOperation;
 @Path("/professor")
 public class ProfessorRestAPI {
 	ProfessorInterface professorInterface=ProfessorOperation.getInstance();
-	public List<EnrolledStudent> viewEnrolledStudents(String profId)
+	
+	@GET
+	@Path("/getEnrolledStudents")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<EnrolledStudent> viewEnrolledStudents(@QueryParam("profId") String profId)
 	{
 		List<EnrolledStudent> students=new ArrayList<EnrolledStudent>();
 		try
@@ -39,9 +45,7 @@ public class ProfessorRestAPI {
 		List<Course> courses=new ArrayList<Course>();
 		try
 		{
-			System.out.println("profId is "+profId);
-			courses=professorInterface.getCourses(profId);
-			
+			courses=professorInterface.getCourses(profId);	
 		}
 		catch(Exception ex)
 		{
@@ -51,12 +55,12 @@ public class ProfessorRestAPI {
 	
 	}
 	
+	@POST
+	@Path("/addGrade")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public void addGrade()
 	{
 		
-	}
-	
-	private void addCourseToCatalogue() {
 	}
 	
 	
