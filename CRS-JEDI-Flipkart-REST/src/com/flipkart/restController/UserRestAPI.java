@@ -3,6 +3,9 @@
  */
 package com.flipkart.restController;
 
+import javax.validation.ValidationException;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -40,7 +43,14 @@ public class UserRestAPI {
 	 */
 	@GET
 	@Path("/updatePassword")
-	public Response updatePassword(@QueryParam("userId") String userId, @QueryParam("newPassword") String newPassword) {
+	public Response updatePassword(
+			@NotNull
+			@Size(min = 4 , max = 10 , message = "UserId length should be between 4 and 10 character")
+			@QueryParam("userId") String userId,
+			@NotNull
+			@Size(min = 4 , max = 10 , message = "Password length should be between 4 and 10 character")
+			@QueryParam("newPassword") String newPassword) 
+					throws ValidationException {
 	
 		if(userInterface.updatePassword(userId, newPassword))
 		{
