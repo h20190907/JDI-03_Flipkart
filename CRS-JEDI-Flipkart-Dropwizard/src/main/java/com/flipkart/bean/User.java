@@ -1,11 +1,6 @@
 
 package com.flipkart.bean;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Email;
-
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 
@@ -15,25 +10,14 @@ import com.flipkart.constant.Role;
  *
  */
 public abstract class User {
-	@Email(message = "Invalid User ID: Not in email format")
-	@NotNull
 	private String userId;
-	
-	@Size(min = 4 , max = 30 , message = "Name length should be between 4 and 30 characters")
 	private String name;
-	
 	private Role role;
-	
-	@Size(min = 4 , max = 20 , message = "Password length should be between 4 and 20 characters")
 	private String password;
-	
 	private Gender gender;
-	
-	@Size(min = 4 ,message = "Address length should be minimum 4 characters")
 	private String address;
-	
-	@Size(min = 3 , max = 20, message = "Country name length should be between 3 and 20 characters")
 	private String country;
+	
 
 	public User(String userId, String name, Role role, String password, Gender gender, String address,
 			String country) {

@@ -1,8 +1,5 @@
 package com.flipkart.bean;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 /**
  * 
  * @author JEDI-03
@@ -10,8 +7,6 @@ import javax.validation.constraints.Size;
  */
 public class Course {
 	//TODO: add constructor 
-	@Size(min = 4 , max = 10 , message = "Course Code length should be between 4 and 10 character")
-	@NotNull
 	private String courseCode;
 	private String courseName;
 	private String instructorId;
