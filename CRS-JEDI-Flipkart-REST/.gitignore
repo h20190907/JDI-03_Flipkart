@@ -7,3 +7,4 @@
 contact.log
 src/config.properties
 src/com/flipkart/utils/DBUtils.java
+WebContent/WEB-INF/lib

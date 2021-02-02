@@ -42,10 +42,10 @@ public class StudentDaoOperation implements StudentDaoInterface {
 	}
 
 	/**
-	 * 
-	 * @param student: student object
+	 * Register student into Institute 
+	 * @param student: student object containing all the fields
+	 * @return true if student is added, else false
 	 * @throws StudentNotRegisteredException
-	 * @return true, if record is added in DB, else false.
 	 */
 	@Override
 	public boolean addStudent(Student student) throws StudentNotRegisteredException{
@@ -92,6 +92,11 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		return true;
 	}
 	
+	/**
+	 * Get studentId of user
+	 * @param userId
+	 * @return studentId
+	 */
 	@Override
 	public int getStudentId(String userId) {
 		Connection connection=DBUtils.getConnection();
@@ -114,7 +119,11 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		return 0;
 	}
 	
-	
+	/**
+	 * Check if student is approved
+	 * @param studentId
+	 * @return 
+	 */
 	@Override
 	public boolean isApproved(int studentId) {
 		Connection connection=DBUtils.getConnection();

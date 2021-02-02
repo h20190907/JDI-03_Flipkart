@@ -5,6 +5,12 @@ import java.util.List;
 import com.flipkart.bean.Course;
 import com.flipkart.exception.CourseNotFoundException;
 
+/**
+ * 
+ * @author JEDI-03
+ * Class for Student Validator
+ *
+ */
 public class StudentValidator {
 
 	/**
@@ -49,7 +55,12 @@ public class StudentValidator {
 	
 	}
 
-	
+	/**
+	 * Method to check Registration Status
+	 * @param registeredCourseList
+	 * @param availableCourseList
+	 * @return boolean indicating Registration Status
+	 */
 	public static boolean isValidRegistration(List<String> registeredCourseList , List<Course>availableCourseList) 
 	{
 		for(int j=0;j<registeredCourseList.size();j++)
