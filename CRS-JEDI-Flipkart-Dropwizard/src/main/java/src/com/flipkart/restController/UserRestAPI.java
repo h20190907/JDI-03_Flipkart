@@ -1,0 +1,146 @@
+/**
+ * 
+ */
+package com.flipkart.restController;
+
+import javax.validation.Valid;
+import javax.validation.ValidationException;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.hibernate.validator.constraints.Email;
+
+import com.flipkart.bean.Student;
+import com.flipkart.constant.Gender;
+import com.flipkart.constant.Role;
+import com.flipkart.exception.StudentNotRegisteredException;
+import com.flipkart.exception.UserNotFoundException;
+import com.flipkart.service.StudentInterface;
+import com.flipkart.service.StudentOperation;
+import com.flipkart.service.UserInterface;
+import com.flipkart.service.UserOperation;
+
+/**
+ * @author JEDI-03
+ *
+ */
+
+@Path("/user")
+public class UserRestAPI {
+	StudentInterface studentInterface=StudentOperation.getInstance();
+	UserInterface userInterface =UserOperation.getInstance();
+	
+	
+	/**
+	 * Handles API request for UpdatePassword
+	 * @param userId: email address of the user
+	 * @param newPassword: new password to be stored in db.
+	 * @return 201, if password is updated, else 500 in case of error
+	 * @throws ValidationException
+	 */
+	@GET
+	@Path("/updatePassword")
+	public Response updatePassword(
+			@NotNull
+			@Email(message = "Invalid User ID: Not in email format")
+			@QueryParam("userId") String userId,
+			@NotNull
+			@Size(min = 4 , max = 20 , message = "Password length should be between 4 and 20 characters")
+			@QueryParam("newPassword") String newPassword) throws ValidationException {
+	
+		if(userInterface.updatePassword(userId, newPassword))
+		{
+			return Response.status(201).entity("Password updated successfully! ").build();
+		}
+		else
+		{
+			return Response.status(500).entity("Something went wrong, please try again!").build();
+		}
+			
+	}
+	
+	/**
+	 * Handles API request for VerifyCredentials
+	 * @param userId
+	 * @param password
+	 * @return
+	 * @throws ValidationException
+	 */
+	
+	@GET
+	@Path("/verifyCredentials")
+	public Response verifyCredentials(
+			@NotNull
+			@Email(message = "Invalid User ID: Not in email format")
+			@QueryParam("userId") String userId,
+			@NotNull
+			@Size(min = 4 , max = 20 , message = "Password length should be between 4 and 20 characters")
+			@QueryParam("password") String password) throws ValidationException {
+		
+		try 
+		{
+			if(userInterface.verifyCredentials(userId, password))
+			{
+				return Response.status(200).entity("Login Successful ").build();
+			}
+			else
+			{
+				return Response.status(500).entity("Login Unsuccessful ").build();
+			}
+		} 
+		catch (UserNotFoundException e) 
+		{
+			return Response.status(500).entity(e.getMessage()).build();
+		}
+		
+		
+	}
+	
+	/**
+	 * Handles API request for getRole 
+	 * @param userId
+	 * @return
+	 * @throws ValidationException
+	 */
+	@GET
+	@Path("/getRole")
+	public String getRole(
+			@NotNull
+			@Email(message = "Invalid User ID: Not in email format")
+			@QueryParam("userId") String userId ) throws ValidationException{
+		
+		return userInterface.getRole(userId);
+	}
+	
+	/**
+	 * Handles API request for registration (6 courses registration)
+	 * @param student
+	 * @return 201, if user is created, else 500 in case of error
+	 */
+	@POST
+	@Path("/register")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response register(@Valid Student student)
+	{
+		
+		try
+		{
+			studentInterface.register(student.getName(), student.getUserId(), student.getPassword(), student.getGender(), student.getBatch(), student.getBranchName(), student.getAddress(), student.getCountry());
+		}
+		catch(Exception ex)
+		{
+			return Response.status(500).entity("Something went wrong! Please try again.").build(); 
+		}
+		
+		return Response.status(201).entity("Registration Successful for "+student.getUserId()).build(); 
+	}
+	
+	
+}
