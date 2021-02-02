@@ -1,9 +1,11 @@
 package com.flipkart.client;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
 import org.apache.log4j.Logger;
 
-import com.flipkart.service.UserOperation;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
@@ -14,6 +16,7 @@ import com.flipkart.service.NotificationOperation;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentOperation;
 import com.flipkart.service.UserInterface;
+import com.flipkart.service.UserOperation;
 
 /**
  * 
@@ -110,6 +113,14 @@ public class CRSApplication {
 			//true->role->student->approved
 			if(loggedin)
 			{
+				 DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");  
+				 
+				 LocalDateTime myDateObj = LocalDateTime.now();
+				   
+				 String formattedDate = myDateObj.format(myFormatObj);  
+				 
+				 logger.info(formattedDate + " Login Successful");
+				    
 				//logger.info("Welcome "+userId);
 				String role=userInterface.getRole(userId);
 				Role userRole=Role.stringToName(role);
