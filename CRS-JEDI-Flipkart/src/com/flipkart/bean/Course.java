@@ -22,10 +22,10 @@ public class Course {
 	
 	/**
 	 * Parameterized constructor
-	 * @param courseCode
-	 * @param courseName
-	 * @param instructorId
-	 * @param seats
+	 * @param courseCode: course code
+	 * @param courseName: course name
+	 * @param instructorId: instructor user id
+	 * @param seats: seats available 
 	 */
 	public Course(String courseCode, String courseName, String instructorId, int seats) 
 	{

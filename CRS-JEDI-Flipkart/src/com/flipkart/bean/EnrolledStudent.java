@@ -21,7 +21,7 @@ public class EnrolledStudent {
 	
 	/**
 	 * Method to set Course Code
-	 * @param courseCode
+	 * @param courseCode: course code 
 	 */
 	public void setCourseCode(String courseCode) {
 		this.courseCode = courseCode;
@@ -29,7 +29,7 @@ public class EnrolledStudent {
 	
 	/**
 	 * Method to get Course Name
-	 * @return Course Name
+	 * @return Course Name: course name
 	 */
 	public String getCourseName() {
 		return courseName;
@@ -37,7 +37,7 @@ public class EnrolledStudent {
 	
 	/**
 	 * Method to set Course Name
-	 * @param courseName
+	 * @param courseName: course name
 	 */
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
@@ -45,7 +45,7 @@ public class EnrolledStudent {
 	
 	/**
 	 * Method to get Student Id of student enrolled in the course
-	 * @return Student Id
+	 * @return Student Id: student id
 	 */
 	public int getStudentId() {
 		return studentId;
