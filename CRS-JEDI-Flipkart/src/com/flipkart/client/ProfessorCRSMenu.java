@@ -89,7 +89,6 @@ public class ProfessorCRSMenu {
 		{
 			List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
 			enrolledStudents=professorInterface.viewEnrolledStudents(profId);
-			logger.info(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","Student ID" ));
 			for(EnrolledStudent obj: enrolledStudents)
 			{
 				logger.info(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
