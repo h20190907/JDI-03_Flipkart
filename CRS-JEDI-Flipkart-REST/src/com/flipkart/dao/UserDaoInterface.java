@@ -4,7 +4,7 @@ import com.flipkart.exception.UserNotFoundException;
 
 public interface UserDaoInterface {
 	/**
-	 * 
+	 * Method to verify credentials of the user from database
 	 * @param userId
 	 * @param password
 	 * @return
@@ -13,14 +13,7 @@ public interface UserDaoInterface {
 	public boolean verifyCredentials(String userId,String password) throws UserNotFoundException;
 	
 	/**
-	 * 
-	 * @param userID
-	 * @return
-	 */
-	public boolean updatePassword(String userID);
-	
-	/**
-	 * 
+	 * Method to fetch the role of user from database
 	 * @param userId
 	 * @return
 	 */
@@ -28,7 +21,7 @@ public interface UserDaoInterface {
 	
 	
 	/**
-	 * 
+	 * Method to update the password of user
 	 * @param userID
 	 * @param newPassword
 	 * @return

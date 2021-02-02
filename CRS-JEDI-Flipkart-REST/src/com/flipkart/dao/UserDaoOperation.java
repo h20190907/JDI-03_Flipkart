@@ -11,19 +11,22 @@ import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.utils.DBUtils;
 
+/**
+ * This class communicates with the database
+ * @author JEDI-03
+ *
+ */
 public class UserDaoOperation implements UserDaoInterface{
 	private static volatile UserDaoOperation instance=null;
 	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
 	private UserDaoOperation()
-	{
-		
+	{		
 	}
 	
 	public static UserDaoOperation getInstance()
 	{
 		if(instance==null)
 		{
-			// This is a synchronized block, when multiple threads will access this instance
 			synchronized(UserDaoOperation.class){
 				instance=new UserDaoOperation();
 			}
@@ -32,6 +35,14 @@ public class UserDaoOperation implements UserDaoInterface{
 	}
 	
 
+
+	/**
+	 * Method to update the password of user
+	 * @param userID
+	 * @param newPassword
+	 * @return
+	 */
+	
 	@Override
 	public boolean updatePassword(String userId, String newPassword) {
 		Connection connection=DBUtils.getConnection();
@@ -64,12 +75,18 @@ public class UserDaoOperation implements UserDaoInterface{
 		return false;
 	}
 	
+	/**
+	 * Method to verify credentials of the user from database
+	 * @param userId
+	 * @param password
+	 * @return
+	 * @throws UserNotFoundException
+	 */
 	@Override
 	public boolean verifyCredentials(String userId, String password) throws UserNotFoundException {
 		Connection connection = DBUtils.getConnection();
 		try
 		{
-			//open db connection
 			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.VERIFY_CREDENTIALS);
 			preparedStatement.setString(1,userId);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -95,19 +112,13 @@ public class UserDaoOperation implements UserDaoInterface{
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		return false;
 	}
 
-	@Override
-	public boolean updatePassword(String userID) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
+
 	@Override
 	public String getRole(String userId) {
 		Connection connection=DBUtils.getConnection();

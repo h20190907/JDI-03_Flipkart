@@ -22,7 +22,6 @@ public interface RegistrationInterface {
 	 * Method to add Course selected by student 
 	 * @param courseCode
 	 * @param studentId
-	 * @param courseList 
 	 * @return
 	 * @throws CourseNotFoundException
 	 * @throws SeatNotAvailableException 
@@ -30,7 +29,7 @@ public interface RegistrationInterface {
 	 * @throws CourseAlreadyRegisteredException 
 	 * @throws SQLException 
 	 */
-	public boolean addCourse(String courseCode, int studentId, List<Course> courseList) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException, CourseAlreadyRegisteredException ;
+	public boolean addCourse(String courseCode, int studentId) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException, CourseAlreadyRegisteredException ;
 	/**
 	 *  Method to drop Course selected by student
 	 * @param courseCode
@@ -92,6 +91,14 @@ public interface RegistrationInterface {
 	 * @param studentId
 	 * @throws SQLException
 	 */
+	
+	/**
+	 * 
+	 * @param studentId
+	 */
 	public void setRegistrationStatus(int studentId);
+	boolean checkCourse(String courseCode, int studentId, List<Course> availableCourseList)
+			throws CourseLimitExceedException, CourseAlreadyRegisteredException, SeatNotAvailableException,
+			CourseNotFoundException;
 	
 }
