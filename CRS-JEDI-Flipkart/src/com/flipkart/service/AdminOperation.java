@@ -10,9 +10,12 @@ import com.flipkart.bean.Student;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.exception.CourseFoundException;
+import com.flipkart.exception.CourseNotDeletedException;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.UserIdAlreadyInUseException;
+import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.StudentNotFoundException;
+import com.flipkart.exception.StudentNotFoundForApprovalException;
 import com.flipkart.validator.AdminValidator;
 
 /**
@@ -55,17 +58,20 @@ public class AdminOperation implements AdminInterface{
 	 * @throws CourseNotFoundException 
 	 */
 	@Override
-	public void deleteCourse(String dropCourseCode, List<Course> courseList) throws CourseNotFoundException {
+	public void deleteCourse(String dropCourseCode, List<Course> courseList) throws CourseNotFoundException, CourseNotDeletedException {
+		
 		if(!AdminValidator.isValidDropCourse(dropCourseCode, courseList)) {
 			logger.error("courseCode: " + dropCourseCode + " not present in catalog!");
 			throw new CourseNotFoundException(dropCourseCode);
 		}
+		
 		try {
 			adminDaoOperation.deleteCourse(dropCourseCode);
 		}
-		catch(CourseNotFoundException e) {
+		catch(CourseNotFoundException | CourseNotDeletedException e) {
 			throw e;
 		}
+		
 	}
 
 	/**
@@ -81,12 +87,14 @@ public class AdminOperation implements AdminInterface{
 			logger.error("courseCode: " + newCourse.getCourseCode() + " already present in catalog!");
 			throw new CourseFoundException(newCourse.getCourseCode());
 		}
+		
 		try {
 			adminDaoOperation.addCourse(newCourse);
 		}
 		catch(CourseFoundException e) {
 			throw e;
 		}
+		
 	}
 
 	/**
@@ -105,18 +113,20 @@ public class AdminOperation implements AdminInterface{
 	 * @throws StudentNotFoundException 
 	 */
 	@Override
-	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundException {
+	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundForApprovalException {
 		
 		if(!AdminValidator.isValidUnapprovedStudent(studentId, studentList)) {
 			logger.error("studentId: " + studentId + " is already approvet/not-present!");
-			throw new StudentNotFoundException(studentId);
+			throw new StudentNotFoundForApprovalException(studentId);
 		}
+		
 		try {
 			adminDaoOperation.approveStudent(studentId);
 		}
-		catch(StudentNotFoundException e) {
+		catch(StudentNotFoundForApprovalException e) {
 			throw e;
 		}
+		
 	}
 
 	/**
@@ -125,14 +135,15 @@ public class AdminOperation implements AdminInterface{
 	 * @throws ProfessorNotAddedException
 	 */
 	@Override
-	public void addProfessor(Professor professor) throws ProfessorNotAddedException {
+	public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException {
 		
 		try {
 			adminDaoOperation.addProfessor(professor);
 		}
-		catch(ProfessorNotAddedException e) {
+		catch(ProfessorNotAddedException | UserIdAlreadyInUseException e) {
 			throw e;
 		}
+		
 	}
 
 	/**
@@ -142,14 +153,15 @@ public class AdminOperation implements AdminInterface{
 	 * @throws CourseNotFoundException 
 	 */
 	@Override
-	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException{
+	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException, UserNotFoundException{
 		
 		try {
 			adminDaoOperation.assignCourse(courseCode, professorId);
 		}
-		catch(CourseNotFoundException e) {
+		catch(CourseNotFoundException | UserNotFoundException e) {
 			throw e;
 		}
+		
 	}
 	
 	/**
@@ -161,5 +173,17 @@ public class AdminOperation implements AdminInterface{
 	public List<Course> viewCourses(int catalogId) {
 		
 		return adminDaoOperation.viewCourses(catalogId);
+		
+	}
+	
+	/**
+	 * View professor in the institute
+	 * @return List of the professors in the institute  
+	 */
+	@Override
+	public List<Professor> viewProfessors() {
+		
+		return adminDaoOperation.viewProfessors();
+		
 	}
 }

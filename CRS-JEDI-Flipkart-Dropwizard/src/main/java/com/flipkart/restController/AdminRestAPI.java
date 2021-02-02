@@ -27,6 +27,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.CourseFoundException;
+import com.flipkart.exception.CourseNotDeletedException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.UserIdAlreadyInUseException;
 import com.flipkart.exception.ProfessorNotAddedException;
@@ -176,7 +177,7 @@ public class AdminRestAPI {
 			adminOperation.deleteCourse(courseCode, courseList);
 			return Response.status(201).entity("Course with courseCode: " + courseCode + " deleted from catalog").build();
 		
-		} catch (CourseNotFoundException e) {
+		} catch (CourseNotFoundException | CourseNotDeletedException e) {
 			
 			return Response.status(409).entity(e.getMessage()).build();
 		
@@ -207,6 +208,14 @@ public class AdminRestAPI {
 		
 		}
 			
+	}
+	
+	@GET
+	@Path("/viewProfessors")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Professor> viewProfessors() {
+		
+		return adminOperation.viewProfessors();
 	}
 }
 	

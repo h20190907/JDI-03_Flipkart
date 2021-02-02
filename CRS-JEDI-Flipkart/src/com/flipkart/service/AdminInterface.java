@@ -1,14 +1,18 @@
 package com.flipkart.service;
 
+
+import java.util.List;
+
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.CourseFoundException;
+import com.flipkart.exception.CourseNotDeletedException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.StudentNotFoundException;
-
-import java.util.List;
+import com.flipkart.exception.StudentNotFoundForApprovalException;
+import com.flipkart.exception.UserIdAlreadyInUseException;
+import com.flipkart.exception.UserNotFoundException;
 
 /**
  * 
@@ -24,8 +28,9 @@ public interface AdminInterface {
 	 * @param courseCode
 	 * @param courseList : Courses available in the catalog
 	 * @throws CourseNotFoundException 
+	 * @throws CourseNotDeletedException 
 	 */
-	public void deleteCourse(String courseCode, List<Course> courseList) throws CourseNotFoundException;
+	public void deleteCourse(String courseCode, List<Course> courseList) throws CourseNotFoundException, CourseNotDeletedException;
 	
 	/**
 	 * Method to add Course to Course Catalog
@@ -45,23 +50,26 @@ public interface AdminInterface {
 	 * @param studentId
 	 * @param studentList
 	 * @throws StudentNotFoundException 
+	 * @throws StudentNotFoundForApprovalException 
 	 */
-	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundException;
+	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundForApprovalException;
 	
 	/**
 	 * Method to add Professor to DB
 	 * @param professor : Professor Object storing details of a professor
 	 * @throws ProfessorNotAddedException
+	 * @throws UserIdAlreadyInUseException 
 	 */
-	public void addProfessor(Professor professor) throws ProfessorNotAddedException;	
+	public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException;	
 	
 	/**
 	 * Method to assign Course to a Professor
 	 * @param courseCode
 	 * @param professorId
 	 * @throws CourseNotFoundException 
+	 * @throws UserNotFoundException 
 	 */
-	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException;
+	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException, UserNotFoundException;
 	
 	/**
 	 * Method to get list of courses in catalog
@@ -69,4 +77,10 @@ public interface AdminInterface {
 	 * @return List of courses in catalog
 	 */
 	public List<Course> viewCourses(int catalogId);
+	
+	/**
+	 * View professor in the institute
+	 * @return List of the professors in the institute  
+	 */
+	public List<Professor> viewProfessors();
 }

@@ -17,13 +17,15 @@ import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.exception.CourseFoundException;
+import com.flipkart.exception.CourseNotDeletedException;
 import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.UserIdAlreadyInUseException;
 import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundForApprovalException;
+import com.flipkart.exception.UserIdAlreadyInUseException;
 import com.flipkart.exception.UserNotAddedException;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.utils.DBUtils;
+
 
 /**
  * @author JEDI-03
@@ -62,9 +64,10 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	 * Delete Course using SQL commands
 	 * @param courseCode
 	 * @throws CourseNotFoundException
+	 * @throws CourseNotDeletedException 
 	 */
 	@Override
-	public void deleteCourse(String courseCode) throws CourseNotFoundException{
+	public void deleteCourse(String courseCode) throws CourseNotFoundException, CourseNotDeletedException{
 		
 		statement = null;
 		try {
@@ -85,7 +88,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		}catch(SQLException se) {
 			
 			logger.error(se.getMessage());
-			
+			throw new CourseNotDeletedException(courseCode);
 		}
 		
 	}
@@ -360,7 +363,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			
 			logger.info(courseList.size() + " courses in catalogId: " + catalogId + ".");
 			
-			
 		}catch(SQLException se) {
 			
 			logger.error(se.getMessage());
@@ -369,5 +371,46 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		
 		return courseList; 
 		
+	}
+	
+	/**
+	 * View professor in the institute
+	 * @return List of the professors in the institute  
+	 */
+	@Override
+	public List<Professor> viewProfessors() {
+		
+		statement = null;
+		List<Professor> professorList = new ArrayList<>();
+		try {
+			
+			String sql = SQLQueriesConstants.VIEW_PROFESSOR_QUERY;
+			statement = connection.prepareStatement(sql);
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				Professor professor = new Professor();
+				professor.setUserId(resultSet.getString(1));
+				professor.setName(resultSet.getString(2));
+				professor.setGender(Gender.stringToGender(resultSet.getString(3)));
+				professor.setDepartment(resultSet.getString(4));
+				professor.setDesignation(resultSet.getString(5));
+				professor.setAddress(resultSet.getString(6));
+				professor.setCountry(resultSet.getString(7));
+				professor.setRole(Role.PROFESSOR);
+				professor.setPassword("*********");
+				professorList.add(professor);
+				
+			}
+			
+			logger.info(professorList.size() + " professors in the institute.");
+			
+		}catch(SQLException se) {
+			
+			logger.error(se.getMessage());
+			
+		}
+		return professorList;
 	}
 }

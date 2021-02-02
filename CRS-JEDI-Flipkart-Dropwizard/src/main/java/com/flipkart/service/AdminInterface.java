@@ -1,16 +1,18 @@
 package com.flipkart.service;
 
+
+import java.util.List;
+
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.CourseFoundException;
+import com.flipkart.exception.CourseNotDeletedException;
 import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.UserIdAlreadyInUseException;
-import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundForApprovalException;
-
-import java.util.List;
+import com.flipkart.exception.UserIdAlreadyInUseException;
+import com.flipkart.exception.UserNotFoundException;
 
 /**
  * 
@@ -26,8 +28,9 @@ public interface AdminInterface {
 	 * @param courseCode
 	 * @param courseList : Courses available in the catalog
 	 * @throws CourseNotFoundException 
+	 * @throws CourseNotDeletedException 
 	 */
-	public void deleteCourse(String courseCode, List<Course> courseList) throws CourseNotFoundException;
+	public void deleteCourse(String courseCode, List<Course> courseList) throws CourseNotFoundException, CourseNotDeletedException;
 	
 	/**
 	 * Method to add Course to Course Catalog
@@ -49,7 +52,7 @@ public interface AdminInterface {
 	 * @throws StudentNotFoundException 
 	 * @throws StudentNotFoundForApprovalException 
 	 */
-	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundForApprovalException, StudentNotFoundForApprovalException;
+	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundForApprovalException;
 	
 	/**
 	 * Method to add Professor to DB
@@ -74,4 +77,10 @@ public interface AdminInterface {
 	 * @return List of courses in catalog
 	 */
 	public List<Course> viewCourses(int catalogId);
+	
+	/**
+	 * View professor in the institute
+	 * @return List of the professors in the institute  
+	 */
+	public List<Professor> viewProfessors();
 }

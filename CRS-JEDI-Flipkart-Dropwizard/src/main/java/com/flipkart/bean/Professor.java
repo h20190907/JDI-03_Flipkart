@@ -11,6 +11,8 @@ public class Professor extends User{
 	private String department;
 	private String designation;
 	
+	public Professor() {}
+	
 	public String getDesignation() {
 		return designation;
 	}

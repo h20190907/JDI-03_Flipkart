@@ -10,6 +10,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.exception.CourseFoundException;
+import com.flipkart.exception.CourseNotDeletedException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.UserIdAlreadyInUseException;
 import com.flipkart.exception.UserNotFoundException;
@@ -57,7 +58,7 @@ public class AdminOperation implements AdminInterface{
 	 * @throws CourseNotFoundException 
 	 */
 	@Override
-	public void deleteCourse(String dropCourseCode, List<Course> courseList) throws CourseNotFoundException {
+	public void deleteCourse(String dropCourseCode, List<Course> courseList) throws CourseNotFoundException, CourseNotDeletedException {
 		
 		if(!AdminValidator.isValidDropCourse(dropCourseCode, courseList)) {
 			logger.error("courseCode: " + dropCourseCode + " not present in catalog!");
@@ -67,7 +68,7 @@ public class AdminOperation implements AdminInterface{
 		try {
 			adminDaoOperation.deleteCourse(dropCourseCode);
 		}
-		catch(CourseNotFoundException e) {
+		catch(CourseNotFoundException | CourseNotDeletedException e) {
 			throw e;
 		}
 		
@@ -172,6 +173,17 @@ public class AdminOperation implements AdminInterface{
 	public List<Course> viewCourses(int catalogId) {
 		
 		return adminDaoOperation.viewCourses(catalogId);
+		
+	}
+	
+	/**
+	 * View professor in the institute
+	 * @return List of the professors in the institute  
+	 */
+	@Override
+	public List<Professor> viewProfessors() {
+		
+		return adminDaoOperation.viewProfessors();
 		
 	}
 }

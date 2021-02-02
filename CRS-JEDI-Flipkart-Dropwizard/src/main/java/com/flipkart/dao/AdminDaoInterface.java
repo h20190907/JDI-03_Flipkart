@@ -10,12 +10,14 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.exception.CourseFoundException;
+import com.flipkart.exception.CourseNotDeletedException;
 import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.UserIdAlreadyInUseException;
 import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundForApprovalException;
+import com.flipkart.exception.UserIdAlreadyInUseException;
 import com.flipkart.exception.UserNotAddedException;
 import com.flipkart.exception.UserNotFoundException;
+
 
 /**
  * @author JEDI-03
@@ -28,8 +30,9 @@ public interface AdminDaoInterface {
 	 * Delete Course using SQL commands
 	 * @param courseCode
 	 * @throws CourseNotFoundException
+	 * @throws CourseNotDeletedException 
 	 */
-	public void deleteCourse(String courseCode) throws CourseNotFoundException;
+	public void deleteCourse(String courseCode) throws CourseNotFoundException, CourseNotDeletedException;
 
 	/**
 	 * Add Course using SQL commands
@@ -82,4 +85,10 @@ public interface AdminDaoInterface {
 	 * @return List of courses in the catalog
 	 */
 	public List<Course> viewCourses(int catalogId);
+	
+	/**
+	 * View professor in the institute
+	 * @return List of the professors in the institute  
+	 */
+	public List<Professor> viewProfessors();
 }

@@ -2,7 +2,7 @@ package com.flipkart.constant;
 /**
  * 
  * @author JEDI-03
- * Class storing SQL Queries
+ *
  */
 
 public class SQLQueriesConstants {
@@ -16,6 +16,7 @@ public class SQLQueriesConstants {
 	public static final String ADD_PROFESSOR_QUERY = "insert into Professor(userId, department, designation) values (?, ?, ?)";
 	public static final String ASSIGN_COURSE_QUERY = "update Course set professorId = ? where courseCode = ?";
 	public static final String VIEW_COURSE_QUERY = "select courseCode, courseName, professorId from Course where catalogId = ?";
+	public static final String VIEW_PROFESSOR_QUERY = "select userId, name, gender, department, designation, address, country from Professor natural join User";
 	
 	public static final String ADD_STUDENT="insert into student (userId,branchName,batch,isApproved) values (?,?,?,?)";
 	public static final String VERIFY_CREDENTIALS="select password from user where userId = ?";
@@ -28,13 +29,12 @@ public class SQLQueriesConstants {
 	// Student Queries
 	public static final String VIEW_REGISTERED_COURSES=" select * from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?";
 	public static final String VIEW_AVAILABLE_COURSES=" select * from course where courseCode not in  (select courseCode  from registeredcourse where studentId = ?) and course.isOffered = ? and seats > 0";
-	public static final String IS_REGISTERED=" select courseCode from registeredcourse where courseCode=? and studentId=? ";
-	public static final String NUMBER_OF_REGISTERED_COURSES=" select studentId from registeredcourse where studentId = ? ";
+	public static final String CHECK_COURSE_AVAILABILITY=" select courseCode from registeredcourse where studentId = ? ";
 	public static final String DECREMENT_COURSE_SEATS="update course set seats = seats-1 where courseCode = ? ";
 	public static final String ADD_COURSE="insert into registeredcourse (studentId,courseCode) values ( ? , ? )";
 	public static final String DROP_COURSE_QUERY = "delete from registeredcourse where courseCode = ? AND studentId = ?;";
 	public static final String INCREMENT_SEAT_QUERY  = "update course set seats = seats + 1 where  courseCode = ?;";
-	public static final String CALCULATE_FEES  = "select sum(courseFee) from course where courseCode in (select courseCode from registeredcourse where studentID = ?);";
+	public static final String CALCULATE_FEES  = "select sum(courseFee) from course where courseCode in (select courseCode from registeredcourse where studentId = ?);";
 	public static final String VIEW_GRADE = "select course.courseCode,course.courseName,registeredcourse.grade from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?;";	
 	public static final String GET_SEATS = "select seats from course where courseCode = ?;";
 	public static final String INSERT_PAYMENT = "insert into payment(studentId,modeofPayment,referenceId,amount) values(?,?,?,?);";
