@@ -17,6 +17,7 @@ import javax.ws.rs.ext.Provider;
 public class ValidationExceptionMapper implements ExceptionMapper<javax.validation.ValidationException> {
 
 	/**
+	 * Method to return Response Object
 	 * @param exception
 	 * @return Response
 	 */
