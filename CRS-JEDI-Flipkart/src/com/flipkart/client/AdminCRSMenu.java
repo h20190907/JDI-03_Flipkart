@@ -12,9 +12,13 @@ import com.flipkart.constant.Gender;
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
 import com.flipkart.exception.CourseFoundException;
+import com.flipkart.exception.CourseNotDeletedException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundException;
+import com.flipkart.exception.StudentNotFoundForApprovalException;
+import com.flipkart.exception.UserIdAlreadyInUseException;
+import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminOperation;
 import com.flipkart.service.NotificationInterface;
@@ -98,6 +102,21 @@ public class AdminCRSMenu {
 	 * Method to assign Course to a Professor
 	 */
 	private void assignCourseToProfessor() {
+		List<Professor> professorList= adminOperation.viewProfessors();
+		logger.info("*************************** Professor *************************** ");
+		logger.info(String.format("%20s | %20s | %20s ", "ProfessorId", "Name", "Designation"));
+		for(Professor professor : professorList) {
+			logger.info(String.format("%20s | %20s | %20s ", professor.getUserId(), professor.getName(), professor.getDesignation()));
+		}
+		
+		
+		logger.info("\n\n");
+		List<Course> courseList= adminOperation.viewCourses(1);
+		logger.info("**************** Course ****************");
+		logger.info(String.format("%20s | %20s", "CourseCode", "CourseName"));
+		for(Course course : courseList) {
+			logger.info(String.format("%20s | %20s ", course.getCourseCode(), course.getCourseName()));
+		}
 		
 		logger.info("Enter Course Code:");
 		String courseCode = scanner.next();
@@ -110,7 +129,7 @@ public class AdminCRSMenu {
 			adminOperation.assignCourse(courseCode, userId);
 		
 		}
-		catch(CourseNotFoundException e) {
+		catch(CourseNotFoundException | UserNotFoundException e) {
 			
 			logger.error(e.getMessage());
 		}
@@ -160,7 +179,7 @@ public class AdminCRSMenu {
 		
 		try {
 			adminOperation.addProfessor(professor);
-		} catch (ProfessorNotAddedException e) {
+		} catch (ProfessorNotAddedException | UserIdAlreadyInUseException e) {
 			logger.error(e.getMessage());
 		}
 
@@ -201,7 +220,7 @@ public class AdminCRSMenu {
 			//send notification from system
 			notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null,0);
 	
-		} catch (StudentNotFoundException e) {
+		} catch (StudentNotFoundForApprovalException e) {
 			logger.error(e.getMessage());
 		}
 	}
@@ -217,7 +236,7 @@ public class AdminCRSMenu {
 		
 		try {
 			adminOperation.deleteCourse(courseCode, courseList);
-		} catch (CourseNotFoundException e) {
+		} catch (CourseNotFoundException | CourseNotDeletedException e) {
 			logger.error(e.getMessage());
 		}
 	}
