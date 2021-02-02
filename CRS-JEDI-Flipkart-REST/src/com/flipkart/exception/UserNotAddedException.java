@@ -1,7 +1,8 @@
 package com.flipkart.exception;
 
 /**
- * @author Rag_Patel
+ * Exception to check if user cannot be added
+ * @author JEDI-03
  *
  */
 public class UserNotAddedException extends Exception{
@@ -11,10 +12,18 @@ public class UserNotAddedException extends Exception{
 		this.userId = userId;
 	}
 	
+	/**
+	 * Getter function for UserId
+	 * @return
+	 */
 	public String getUserId() {
 		return this.userId;
 	}
 	
+
+	/**
+	 * Message returned when exception is thrown
+	 */
 	@Override
 	public String getMessage() {
 		return "UserId: " + userId + " is already in use!";

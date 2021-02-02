@@ -4,7 +4,8 @@
 package com.flipkart.exception;
 
 /**
- * @author Rag_Patel
+ * Exception course is  not assigned to professor
+ * @author JEDI-03
  *
  */
 public class CourseNotAssignedToProfessorException extends Exception{
@@ -16,22 +17,41 @@ public class CourseNotAssignedToProfessorException extends Exception{
 		this.professorId = professorId;
 	}
 	
+	/**
+	 * Get courseCode
+	 * @return
+	 */
 	public String getCourseCode() {
 		return courseCode;
 	}
-	
+	/**
+	 * get Professor id
+	 * @return
+	 */
 	public String getProfessorId() {
 		return professorId;
 	}
 
+	/**
+	 * set professor id
+	 * @param professorId
+	 */
 	public void setProfessorId(String professorId) {
 		this.professorId = professorId;
 	}
 
+	/**
+	 * set course code
+	 * @param courseCode
+	 */
 	public void setCourseCode(String courseCode) {
 		this.courseCode = courseCode;
 	}
 
+
+	/**
+	 * Message returned when exception is thrown
+	 */
 	@Override
 	public String getMessage() {
 		return "courseCode: " + courseCode + " OR professorId: " + professorId + " does not exist!";
