@@ -1,6 +1,6 @@
 package com.flipkart.constant;
 
-import src.com.flipkart.constant.ModeOfPayment;
+import com.flipkart.constant.ModeOfPayment;
 
 /**
  * 

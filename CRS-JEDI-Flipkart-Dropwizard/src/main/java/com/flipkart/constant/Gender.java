@@ -1,8 +1,6 @@
 package com.flipkart.constant;
 
-import src.com.flipkart.constant.Gender;
-import src.com.flipkart.constant.Override;
-import src.com.flipkart.constant.String;
+import com.flipkart.constant.Gender;
 
 /**
  * 

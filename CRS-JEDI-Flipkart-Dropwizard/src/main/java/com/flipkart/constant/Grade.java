@@ -1,7 +1,5 @@
 package com.flipkart.constant;
 
-import src.com.flipkart.constant.Override;
-import src.com.flipkart.constant.String;
 
 /**
  * 
