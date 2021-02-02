@@ -69,9 +69,13 @@ public class StudentRestAPI {
 			@Min(value = 1, message = "Student ID should not be less than 1")
 			@Max(value = 9999, message = "Student ID should be less than 1000")
 			@QueryParam("studentId") int studentId)	throws ValidationException{
-						
+				
+		
 		try
 		{
+			if(registrationInterface.getRegistrationStatus(studentId) == true)
+				return Response.status(200).entity("Student "+ studentId+" is already registered.").build();
+			
 			List<Course> availableCourseList = registrationInterface.viewCourses(studentId);
 			Set<String> hash_set = new HashSet<String>();
 			
@@ -239,6 +243,9 @@ public class StudentRestAPI {
 			@Max( value = 3)
 			@QueryParam("paymentMode") int paymentMode) throws ValidationException{
 		
+			if(registrationInterface.getRegistrationStatus(studentId) == false)
+				return Response.status(200).entity("Student course registration is pending").build();
+			
 			double fee=registrationInterface.calculateFee(studentId);
 
 			fee = registrationInterface.calculateFee(studentId);
@@ -270,6 +277,8 @@ public class StudentRestAPI {
 			@Max(value = 9999, message = "Student ID should be less than 1000")
 			@QueryParam("studentId") int studentId) throws ValidationException{
 		
+			if(registrationInterface.getRegistrationStatus(studentId) == false)
+				return Response.status(200).entity("Student course registration is pending").build();
 			double fee = registrationInterface.calculateFee(studentId);
 			return Response.status(200).entity("Your total fee  = " + fee + "\n").build();
 	}

@@ -28,7 +28,7 @@ import com.flipkart.service.UserInterface;
 import com.flipkart.service.UserOperation;
 
 /**
- * @author JEDI-03
+ * @author dilpreetkaur
  *
  */
 
@@ -39,11 +39,10 @@ public class UserRestAPI {
 	
 	
 	/**
-	 * Handles API request for UpdatePassword
+	 * 
 	 * @param userId: email address of the user
 	 * @param newPassword: new password to be stored in db.
-	 * @return 201, if password is updated, else 500 in case of error
-	 * @throws ValidationException
+	 * @return @return 201, if password is updated, else 500 in case of error
 	 */
 	@GET
 	@Path("/updatePassword")
@@ -67,11 +66,10 @@ public class UserRestAPI {
 	}
 	
 	/**
-	 * Handles API request for VerifyCredentials
+	 * 
 	 * @param userId
 	 * @param password
-	 * @return
-	 * @throws ValidationException
+	 * @return 
 	 */
 	
 	@GET
@@ -104,7 +102,7 @@ public class UserRestAPI {
 	}
 	
 	/**
-	 * Handles API request for getRole 
+	 * 
 	 * @param userId
 	 * @return
 	 * @throws ValidationException
@@ -120,7 +118,7 @@ public class UserRestAPI {
 	}
 	
 	/**
-	 * Handles API request for registration (6 courses registration)
+	 * 
 	 * @param student
 	 * @return 201, if user is created, else 500 in case of error
 	 */
@@ -138,6 +136,7 @@ public class UserRestAPI {
 		{
 			return Response.status(500).entity("Something went wrong! Please try again.").build(); 
 		}
+		
 		
 		return Response.status(201).entity("Registration Successful for "+student.getUserId()).build(); 
 	}
