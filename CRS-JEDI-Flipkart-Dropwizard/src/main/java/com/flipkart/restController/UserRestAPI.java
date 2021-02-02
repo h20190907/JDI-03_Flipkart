@@ -28,7 +28,7 @@ import com.flipkart.service.UserInterface;
 import com.flipkart.service.UserOperation;
 
 /**
- * @author dilpreetkaur
+ * @author JEDI-03
  *
  */
 
@@ -39,10 +39,11 @@ public class UserRestAPI {
 	
 	
 	/**
-	 * 
+	 * Handles API request for UpdatePassword
 	 * @param userId: email address of the user
 	 * @param newPassword: new password to be stored in db.
-	 * @return @return 201, if password is updated, else 500 in case of error
+	 * @return 201, if password is updated, else 500 in case of error
+	 * @throws ValidationException
 	 */
 	@GET
 	@Path("/updatePassword")
@@ -66,10 +67,11 @@ public class UserRestAPI {
 	}
 	
 	/**
-	 * 
+	 * Handles API request for VerifyCredentials
 	 * @param userId
 	 * @param password
-	 * @return 
+	 * @return
+	 * @throws ValidationException
 	 */
 	
 	@GET
@@ -102,7 +104,7 @@ public class UserRestAPI {
 	}
 	
 	/**
-	 * 
+	 * Handles API request for getRole 
 	 * @param userId
 	 * @return
 	 * @throws ValidationException
@@ -118,7 +120,7 @@ public class UserRestAPI {
 	}
 	
 	/**
-	 * 
+	 * Handles API request for registration (6 courses registration)
 	 * @param student
 	 * @return 201, if user is created, else 500 in case of error
 	 */

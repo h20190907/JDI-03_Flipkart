@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.validation.ValidationException;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -27,6 +29,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.ModeOfPayment;
+import com.flipkart.exception.CourseAlreadyRegisteredException;
 import com.flipkart.exception.CourseLimitExceedException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.SeatNotAvailableException;
@@ -35,7 +38,6 @@ import com.flipkart.service.ProfessorOperation;
 import com.flipkart.service.RegistrationInterface;
 import com.flipkart.service.RegistrationOperation;
 import com.flipkart.validator.StudentValidator;
-import com.flipkart.validator.ValidationExceptionMapper;
 
 /**
  * @author JEDI - 03
@@ -54,26 +56,28 @@ public class StudentRestAPI {
 	@Path("/registerCourses")
 	@Consumes("application/json")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response registerCourses(List<String> courseList, @QueryParam("studentId") int studentId)
-	{
-		List<Course> availableCourseList = null;
+	public Response registerCourses(List<String> courseList, 
+			@NotNull
+			@Min(value = 1, message = "Student ID should not be less than 1")
+			@Max(value = 9999, message = "Student ID should be less than 1000")
+			@QueryParam("studentId") int studentId){
 						
 		try
 		{
-			availableCourseList = registrationInterface.viewCourses(studentId);
+			List<Course> availableCourseList = registrationInterface.viewCourses(studentId);
 	
 			for(String courseCode:courseList)
 				registrationInterface.addCourse(courseCode, studentId, availableCourseList);	
 			registrationInterface.setRegistrationStatus(studentId);
 		}
-		catch (CourseLimitExceedException | SeatNotAvailableException | CourseNotFoundException | SQLException e) 
+		catch (CourseLimitExceedException | SeatNotAvailableException | CourseNotFoundException | CourseAlreadyRegisteredException e) 
 		{
 			logger.info(e.getMessage());
 			return Response.status(201).entity(e.getMessage()).build();
 		}
 					
 		
-		return Response.status(201).entity( "Registration Successful").build();
+		return Response.status(501).entity( "Registration Successful").build();
 		
 	}
 	
@@ -84,32 +88,30 @@ public class StudentRestAPI {
 	@Path("/addCourse")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addCourse(
-			@Size(min = 4 , max = 10 , message = "Course Code length should be between 2 and 10 character")
 			@NotNull
+			@Size(min = 4 , max = 10, message = "Course Code length should be between 2 and 10 character")
 			@QueryParam("courseCode") String courseCode,
-			@Min( value = 1, message = "student id should not be less than 1")
 			@NotNull
+			@Min(value = 1, message = "Student ID should not be less than 1")
+			@Max(value = 9999, message = "Student ID should be less than 1000")
 			@QueryParam("studentId") int studentId) throws ValidationException{
 		
+
+		if(registrationInterface.getRegistrationStatus(studentId) == false)
+			return Response.status(201).entity("Student course registration is pending").build();
 		
-		try
-		{
+		try{
+			
 			List<Course> availCourseList = registrationInterface.viewCourses(studentId);
 			
-			if(registrationInterface.addCourse(courseCode, studentId, availCourseList))
-			{
-			  return Response.status(201).entity( "You have successfully added Course : " + courseCode).build();
-			}
-			else
-		    {
-				return Response.status(201).entity( "You have already added Course : " + courseCode).build();
-		    }
+			registrationInterface.addCourse(courseCode, studentId, availCourseList);
+			 return Response.status(201).entity( "You have successfully added Course : " + courseCode).build();
 			
 		}
-		catch (CourseLimitExceedException | SeatNotAvailableException | CourseNotFoundException | SQLException e) 
+		catch (CourseLimitExceedException | SeatNotAvailableException | CourseNotFoundException | CourseAlreadyRegisteredException e) 
 		{
 			logger.info(e.getMessage());
-			return Response.status(201).entity(e.getMessage()).build();
+			return Response.status(501).entity(e.getMessage()).build();
 		}
 		
 	}
@@ -119,30 +121,29 @@ public class StudentRestAPI {
 	@Path("/dropCourse")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response dropCourse(
-			@Size(min = 4 , max = 10 , message = "Course Code length should be between 2 and 10 character")
 			@NotNull
+			@Size(min = 4 , max = 10 , message = "Course Code length should be between 4 and 10 character")
 			@QueryParam("courseCode") String courseCode,
-			@Min( value = 1, message = "student id should not be less than 1")
 			@NotNull
+			@Min(value = 1, message = "Student ID should not be less than 1")
+			@Max(value = 9999, message = "Student ID should be less than 1000")
 			@QueryParam("studentId") int studentId) throws ValidationException{
 		
-		try
-		{
+		
+
+		if(registrationInterface.getRegistrationStatus(studentId) == false)
+			return Response.status(201).entity("Student course registration is pending").build();
+		
+		try{
+			
 			List<Course>registeredCourseList = registrationInterface.viewRegisteredCourses(studentId);
-			
 			registrationInterface.dropCourse(courseCode, studentId, registeredCourseList);
-			
 			return Response.status(201).entity( "You have successfully dropped Course : " + courseCode).build();
-			
 		}
 		catch(CourseNotFoundException e)
 		{	
-			return Response.status(201).entity("You have not registered for course : " + e.getCourseCode()).build();
+			return Response.status(501).entity("You have not registered for course : " + e.getCourseCode()).build();
 		} 
-		catch (SQLException e) 
-		{
-			return Response.status(201).entity(e.getMessage()).build();
-		}
 		
 	}
 	
@@ -150,108 +151,83 @@ public class StudentRestAPI {
 	@GET
 	@Path("/viewCourse")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Course> viewCourse(@QueryParam("studentId") int studentId)
-	{
+	public List<Course> viewCourse(
+			@NotNull
+			@Min(value = 1, message = "Student ID should not be less than 1")
+			@Max(value = 9999, message = "Student ID should be less than 1000")
+			@QueryParam("studentId") int studentId){
 		
-		List<Course> courses = null;
+		return registrationInterface.viewCourses(studentId);
 		
-		try
-		{	
-			courses=registrationInterface.viewCourses(studentId);
-		}
-		catch(SQLException e)
-		{
-			logger.info(e.getMessage());
-		}
-		
-		return courses;
 	}
 	
 	@GET
 	@Path("/viewRegisteredCourse")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Course> viewRegisteredCourse(@QueryParam("studentId") int studentId)
-	{
-		List<Course> courses = null;
+	public List<Course> viewRegisteredCourse(
+			@NotNull
+			@Min(value = 1, message = "Student ID should not be less than 1")
+			@Max(value = 9999, message = "Student ID should be less than 1000")
+			@QueryParam("studentId") int studentId){
 		
-		try 
-		{
-			courses = registrationInterface.viewRegisteredCourses(studentId);
-		} 
-		catch (SQLException e) 
-		{
-			logger.info(e.getMessage());
-		}
-		
-		return courses;
+			return registrationInterface.viewRegisteredCourses(studentId);
 	}
 	
 	@POST
 	@Path("/make_payment")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response make_payment(@QueryParam("studentId") int studentId , @QueryParam("paymentMode") int paymentMode)
-	{
+	public Response make_payment(
+			@NotNull
+			@Min(value = 1, message = "Student ID should not be less than 1")
+			@Max(value = 9999, message = "Student ID should be less than 1000")
+			@QueryParam("studentId") int studentId , 
+			@NotNull
+			@Min( value = 1)
+			@Max( value = 3)
+			@QueryParam("paymentMode") int paymentMode){
 		
-			
-			try
-			{
-				double fee=registrationInterface.calculateFee(studentId);
+			double fee=registrationInterface.calculateFee(studentId);
 
-				fee = registrationInterface.calculateFee(studentId);
-				logger.info("Your total fee  = " + fee);
-				ModeOfPayment mode = ModeOfPayment.getModeofPayment(paymentMode);
-				
+			fee = registrationInterface.calculateFee(studentId);
+			logger.info("Your total fee  = " + fee);
+			ModeOfPayment mode = ModeOfPayment.getModeofPayment(paymentMode);
 			
-				Notification notify = registrationInterface.payFee(studentId, mode,fee);
+		
+			Notification notify = registrationInterface.payFee(studentId, mode,fee);
 
-				
-				logger.info("Your Payment is successful");
-				logger.info("Your transaction id : " + notify.getReferenceId());
 			
-				return Response.status(201).entity("Your total fee  = " + fee+"\n"+"Your Payment is successful\n"+"Your transaction id : " + notify.getReferenceId()).build();
-				
-			}
-			catch (SQLException e) 
-			{
-	            logger.info(e.getMessage());
-	            return Response.status(501).entity("Exception e").build();
-			}
+			logger.info("Your Payment is successful");
+			logger.info("Your transaction id : " + notify.getReferenceId());
+			
+			return Response.status(201).entity("Your total fee  = " + fee+"\n"+"Your Payment is successful\n"+"Your transaction id : " + notify.getReferenceId()).build();
 		
 	}
 	
 	@GET
 	@Path("/calculateFee")
-	public Response calculateFee(@QueryParam("studentId") int studentId , @QueryParam("paymentMode") int paymentMode)
-	{
-		try
-		{
+	public Response calculateFee(
+			@NotNull
+			@Min(value = 1, message = "Student ID should not be less than 1")
+			@Max(value = 9999, message = "Student ID should be less than 1000")
+			@QueryParam("studentId") int studentId){
+		
 			double fee = registrationInterface.calculateFee(studentId);
 			return Response.status(201).entity("Your total fee  = " + fee + "\n").build();
-		} 
-		catch (SQLException e) 
-		{
-            logger.info(e.getMessage());
-    		return Response.status(501).entity("SQL Exception\n").build();
-		}
 	}
 	
 	@GET
 	@Path("/viewGradeCard")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<StudentGrade> viewGradeCard(@QueryParam("studentId") int studentId)
-	{
-		List<StudentGrade> grade_card = null;
+	public List<StudentGrade> viewGradeCard(
+			@NotNull
+			@Min(value = 1, message = "Student ID should not be less than 1")
+			@Max(value = 9999, message = "Student ID should be less than 1000")
+			@QueryParam("studentId") Integer studentId) {
 		
-		try 
-		{
-			grade_card = registrationInterface.viewGradeCard(studentId);
-		} 
-		catch (SQLException e) 
-		{
-            logger.info(e.getMessage());          
-		}
 		
-		return grade_card;
+			List<StudentGrade> grade_card = registrationInterface.viewGradeCard(studentId);
+			return grade_card;
+		
 		
 	}
 	

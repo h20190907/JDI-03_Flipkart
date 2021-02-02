@@ -4,10 +4,8 @@
 package com.flipkart.exception;
 
 /**
- * 
- * @author JEDI-03
- * Class for CourseFoundException
- * 
+ * @author Rag_Patel
+ *
  */
 public class CourseFoundException extends Exception{
 	private String courseCode;
@@ -16,19 +14,12 @@ public class CourseFoundException extends Exception{
 		this.courseCode = courseCode;
 	}
 	
-	/**
-	 * Method to get Course Code
-	 * @return Course Code
-	 */
 	public String getCourseCode() {
 		return courseCode;
 	}
 	
-	/**
-	 * Method to return error message
-	 */
 	@Override
 	public String getMessage() {
-		return "courseCode: " + courseCode + " already present in catalog!";
+		return "Course with courseCode: " + courseCode + " already present in catalog.";
 	}
 }

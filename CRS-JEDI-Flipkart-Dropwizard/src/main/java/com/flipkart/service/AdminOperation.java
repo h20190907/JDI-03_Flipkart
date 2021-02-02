@@ -10,16 +10,16 @@ import com.flipkart.bean.Student;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.exception.CourseFoundException;
-import com.flipkart.exception.CourseNotAssignedToProfessorException;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.UserIdAlreadyInUseException;
+import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundForApprovalException;
-import com.flipkart.exception.UserNotAddedException;
 import com.flipkart.validator.AdminValidator;
 
 /**
  * 
- * @author JDI-03
+ * @author JEDI-03
  * Implementations of Admin Operations
  * 
  */
@@ -35,7 +35,6 @@ public class AdminOperation implements AdminInterface{
 	
 	/**
 	 * Method to make AdminOperation Singleton
-	 * @return
 	 */
 	public static AdminOperation getInstance()
 	{
@@ -49,7 +48,7 @@ public class AdminOperation implements AdminInterface{
 	}
 	
 
-	AdminDaoInterface adminDaoOperation = AdminDaoOperation.getInstance();
+	AdminDaoInterface adminDaoOperation =AdminDaoOperation.getInstance();
 	
 	/**
 	 * Method to Delete Course from Course Catalog
@@ -65,8 +64,11 @@ public class AdminOperation implements AdminInterface{
 			throw new CourseNotFoundException(dropCourseCode);
 		}
 		
-		if(!adminDaoOperation.deleteCourse(dropCourseCode)) {
-			throw new CourseNotFoundException(dropCourseCode);
+		try {
+			adminDaoOperation.deleteCourse(dropCourseCode);
+		}
+		catch(CourseNotFoundException e) {
+			throw e;
 		}
 		
 	}
@@ -84,41 +86,44 @@ public class AdminOperation implements AdminInterface{
 			logger.error("courseCode: " + newCourse.getCourseCode() + " already present in catalog!");
 			throw new CourseFoundException(newCourse.getCourseCode());
 		}
-
-
-		if(!adminDaoOperation.addCourse(newCourse)) {
-			throw new CourseFoundException(newCourse.getCourseCode());
+		
+		try {
+			adminDaoOperation.addCourse(newCourse);
+		}
+		catch(CourseFoundException e) {
+			throw e;
 		}
 		
 	}
 
 	/**
 	 * Method to view Students yet to be approved by Admin
-	 * @return List of Students
+	 * @return List of Students with pending admissions
 	 */
 	@Override
 	public List<Student> viewPendingAdmissions() {
-		
 		return adminDaoOperation.viewPendingAdmissions();
-		
 	}
 	
 	/**
 	 * Method to approve a Student 
 	 * @param studentId
-	 * @throws StudentNotFoundForApprovalException 
+	 * @param studentList 
+	 * @throws StudentNotFoundException 
 	 */
 	@Override
 	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundForApprovalException {
 		
 		if(!AdminValidator.isValidUnapprovedStudent(studentId, studentList)) {
-			logger.error("studentId: " + studentId + " is not-present OR already-approved!");
+			logger.error("studentId: " + studentId + " is already approvet/not-present!");
 			throw new StudentNotFoundForApprovalException(studentId);
 		}
 		
-		if(!adminDaoOperation.approveStudent(studentId)) {
-			logger.error("studentId: " + studentId + " is not-present OR already-approved!");
-			throw new StudentNotFoundForApprovalException(studentId);
+		try {
+			adminDaoOperation.approveStudent(studentId);
+		}
+		catch(StudentNotFoundForApprovalException e) {
+			throw e;
 		}
 		
 	}
@@ -127,16 +132,15 @@ public class AdminOperation implements AdminInterface{
 	 * Method to add Professor to DB
 	 * @param professor : Professor Object storing details of a professor
 	 * @throws ProfessorNotAddedException
-	 * @throws UserNotAddedException 
 	 */
 	@Override
-	public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserNotAddedException {
+	public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException {
 		
-		if(!adminDaoOperation.addUser(professor)) {
-			throw new UserNotAddedException(professor.getUserId()); 
+		try {
+			adminDaoOperation.addProfessor(professor);
 		}
-		if(!adminDaoOperation.addProfessor(professor)) {
-			throw new ProfessorNotAddedException(professor.getUserId());
+		catch(ProfessorNotAddedException | UserIdAlreadyInUseException e) {
+			throw e;
 		}
 		
 	}
@@ -144,14 +148,17 @@ public class AdminOperation implements AdminInterface{
 	/**
 	 * Method to assign Course to a Professor
 	 * @param courseCode
+	 * @param professorId
 	 * @throws CourseNotFoundException 
-	 * @throws CourseNotAssignedToProfessorException 
 	 */
 	@Override
-	public void assignCourse(String courseCode, String professorId) throws CourseNotAssignedToProfessorException  {
-			
-		if(!adminDaoOperation.assignCourse(courseCode, professorId)) {
-			throw new CourseNotAssignedToProfessorException(courseCode, professorId);
+	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException, UserNotFoundException{
+		
+		try {
+			adminDaoOperation.assignCourse(courseCode, professorId);
+		}
+		catch(CourseNotFoundException | UserNotFoundException e) {
+			throw e;
 		}
 		
 	}

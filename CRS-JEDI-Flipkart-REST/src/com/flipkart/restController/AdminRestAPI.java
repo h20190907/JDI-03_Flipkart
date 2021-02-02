@@ -27,11 +27,11 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.CourseFoundException;
-import com.flipkart.exception.CourseNotAssignedToProfessorException;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.UserIdAlreadyInUseException;
 import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.exception.StudentNotFoundForApprovalException;
-import com.flipkart.exception.UserNotAddedException;
+import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminOperation;
 
@@ -46,6 +46,7 @@ public class AdminRestAPI {
 	
 	/**
 	 * /admin/assignCourseToProfessor
+	 * REST-service for assigning course to professor
 	 * @param courseCode
 	 * @param professorId
 	 * @return
@@ -66,15 +67,16 @@ public class AdminRestAPI {
 				adminOperation.assignCourse(courseCode, professorId);
 				return Response.status(201).entity("courseCode: " + courseCode + " assigned to professor: " + professorId).build();
 				
-			} catch (CourseNotAssignedToProfessorException e) {
+			} catch (CourseNotFoundException | UserNotFoundException e) {
 				
-				return Response.status(201).entity(e.getMessage()).build();
+				return Response.status(409).entity(e.getMessage()).build();
 				
 			}
 	}
 	
 	/**
 	 * /admin/addProfessor
+	 * REST-service for addding a new professor
 	 * @param professor
 	 * @return
 	 */
@@ -89,7 +91,7 @@ public class AdminRestAPI {
 			adminOperation.addProfessor(professor);
 			return Response.status(201).entity("Professor with professorId: " + professor.getUserId() + " added").build();
 			
-		} catch (ProfessorNotAddedException | UserNotAddedException e) {
+		} catch (ProfessorNotAddedException | UserIdAlreadyInUseException e) {
 			
 			return Response.status(409).entity(e.getMessage()).build();
 			
@@ -99,6 +101,7 @@ public class AdminRestAPI {
 	
 	/**
 	 * /admin/viewPendingAdmissions
+	 * REST-service for getting all pending-approval of students
 	 * @return
 	 */
 	@GET
@@ -112,6 +115,7 @@ public class AdminRestAPI {
 	
 	/**
 	 * /admin/approveStudent
+	 * REST-service for approving the student admission
 	 * @param studentId
 	 * @return
 	 */
@@ -126,16 +130,21 @@ public class AdminRestAPI {
 		List<Student> studentList = adminOperation.viewPendingAdmissions();
 		
 		try {
+			
 			adminOperation.approveStudent(studentId, studentList);
 			return Response.status(201).entity("Student with studentId: " + studentId + " approved").build();
+		
 		} catch (StudentNotFoundForApprovalException e) {
+			
 			return Response.status(409).entity(e.getMessage()).build();
+		
 		}
 		
 	}
 	
 	/**
 	 * /admin/viewCoursesInCatalogue
+	 * REST-service for getting courses in the catalog
 	 * @return
 	 */
 	@GET
@@ -149,6 +158,7 @@ public class AdminRestAPI {
 	
 	/**
 	 * /admin/deleteCourse
+	 * REST-services for dropping a course from catalog
 	 * @param courseCode
 	 * @return
 	 */
@@ -162,15 +172,20 @@ public class AdminRestAPI {
 		List<Course> courseList = adminOperation.viewCourses(1);
 		
 		try {
+			
 			adminOperation.deleteCourse(courseCode, courseList);
 			return Response.status(201).entity("Course with courseCode: " + courseCode + " deleted from catalog").build();
+		
 		} catch (CourseNotFoundException e) {
+			
 			return Response.status(409).entity(e.getMessage()).build();
+		
 		}	
 	}
 	
 	/**
 	 * /admin/addCourse
+	 * REST-service for adding a new course in catalog
 	 * @param course
 	 * @return
 	 */
@@ -182,10 +197,14 @@ public class AdminRestAPI {
 		List<Course> courseList = adminOperation.viewCourses(1);
 		
 		try {
+			
 			adminOperation.addCourse(course, courseList);
 			return Response.status(201).entity("Course with courseCode: " + course.getCourseCode() + " added to catalog").build();
+		
 		} catch (CourseFoundException e) {
+			
 			return Response.status(409).entity(e.getMessage()).build();
+		
 		}
 			
 	}

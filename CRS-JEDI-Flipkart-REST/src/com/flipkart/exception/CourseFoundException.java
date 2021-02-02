@@ -20,6 +20,6 @@ public class CourseFoundException extends Exception{
 	
 	@Override
 	public String getMessage() {
-		return "courseCode: " + courseCode + " already present in catalog!";
+		return "Course with courseCode: " + courseCode + " already present in catalog.";
 	}
 }

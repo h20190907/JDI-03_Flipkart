@@ -50,6 +50,7 @@
   <properties>
     <dropwizard.version>1.0.0</dropwizard.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <mysql-connector-java.version>5.1.49</mysql-connector-java.version>
   </properties>
 </project>
 

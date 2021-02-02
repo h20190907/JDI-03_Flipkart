@@ -9,9 +9,16 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
+import com.flipkart.exception.CourseFoundException;
+import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.UserIdAlreadyInUseException;
+import com.flipkart.exception.ProfessorNotAddedException;
+import com.flipkart.exception.StudentNotFoundForApprovalException;
+import com.flipkart.exception.UserNotAddedException;
+import com.flipkart.exception.UserNotFoundException;
 
 /**
- * @author JD1-03
+ * @author JEDI-03
  * Interface for Admin Dao Operations
  *
  */
@@ -20,43 +27,55 @@ public interface AdminDaoInterface {
 	/**
 	 * Delete Course using SQL commands
 	 * @param courseCode
+	 * @throws CourseNotFoundException
 	 */
-	public boolean deleteCourse(String courseCode);
+	public void deleteCourse(String courseCode) throws CourseNotFoundException;
+
 	/**
 	 * Add Course using SQL commands
 	 * @param course
-	 * @return 
+	 * @throws CourseFoundException
 	 */
-	public boolean addCourse(Course course);
+	public void addCourse(Course course) throws CourseFoundException;
 	/**
 	 * Fetch Students yet to approved using SQL commands
-	 * @return
+	 * @return List of Students yet to approved
 	 */
 	public List<Student> viewPendingAdmissions();
+	
 	/**
 	 * Approve Student using SQL commands
 	 * @param studentId
-	 * @return 
+	 * @throws StudentNotFoundException
 	 */
-	public boolean approveStudent(int studentId);
+	public void approveStudent(int studentId) throws StudentNotFoundForApprovalException;
+	
 	/**
 	 * Add professor using SQL commands
 	 * @param professor
-	 * @return 
+	 * @throws ProfessorNotAddedException
+	 * @throws UserIdAlreadyInUseException 
+	 * @throws UserNotAddedException 
 	 */
-	public boolean addProfessor(Professor professor);
-	/**Method to add user using SQL commands
+	public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException;
+	
+	/**
+	 * Method to add user using SQL commands
 	 * @param user
-	 * @return 
+	 * @throws UserNotAddedException
+	 * @throws UserIdAlreadyInUseException 
 	 */
-	public boolean addUser(User user);	
+	public void addUser(User user) throws UserNotAddedException, UserIdAlreadyInUseException;
+	
 	/**
 	 * Assign courses to Professor using SQL commands
 	 * @param courseCode
 	 * @param professorId
-	 * @return 
+	 * @throws CourseNotFoundException
+	 * @throws UserNotFoundException 
 	 */
-	public boolean assignCourse(String courseCode, String professorId);
+	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException, UserNotFoundException;
+	
 	/**
 	 * View courses in the catalog
 	 * @param Catalog ID

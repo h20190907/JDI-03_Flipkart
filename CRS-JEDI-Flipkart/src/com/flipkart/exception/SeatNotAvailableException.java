@@ -1,11 +1,5 @@
 package com.flipkart.exception;
 
-/**
- * 
- * @author JEDI-03
- * Class for SeatNotAvailableException
- *
- */
 public class SeatNotAvailableException extends Exception{
 	
 	private String courseCode;
@@ -15,12 +9,11 @@ public class SeatNotAvailableException extends Exception{
 		this.courseCode = courseCode;
 	}
 
-	/**
-	 * Method to return error message
-	 */
+
+
 	@Override
 	public String getMessage() {
-		return  "Seats are not available in course : " + courseCode;
+		return  "Seats are not available in : " + courseCode;
 	}
 
 

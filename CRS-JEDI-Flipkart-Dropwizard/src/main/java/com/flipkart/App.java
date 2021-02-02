@@ -20,11 +20,14 @@ public class App extends Application<Configuration> {
     @Override
     public void initialize(Bootstrap<Configuration> b) {
     }
- 
+    
+    /**
+     * Registering each REST-services module into the Dropwizard Environment
+     */
     @Override
     public void run(Configuration c, Environment e) throws Exception {
         LOGGER.info("Registering REST resources");
-       
+        
         e.jersey().register(new AdminRestAPI());
         e.jersey().register(new AdminRestAPI());
         e.jersey().register(new ProfessorRestAPI());
