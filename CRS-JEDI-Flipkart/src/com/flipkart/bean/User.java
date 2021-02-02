@@ -22,13 +22,13 @@ public abstract class User {
 
 	/**
 	 * Parameterized Constructor
-	 * @param userId
-	 * @param name
-	 * @param role
-	 * @param password
-	 * @param gender
-	 * @param address
-	 * @param country
+	 * @param userId: email address of the user
+	 * @param name: user name
+	 * @param role: user's role
+	 * @param password: user's password
+	 * @param gender: user's gender
+	 * @param address: user's address
+	 * @param country: user's country
 	 */
 	public User(String userId, String name, Role role, String password, Gender gender, String address,
 			String country) {

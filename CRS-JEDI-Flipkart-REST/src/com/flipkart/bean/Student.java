@@ -3,53 +3,35 @@
  */
 package com.flipkart.bean;
 
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 
 /**
- * @author dilpreetkaur
- *
+ * 
+ * @author JEDI-03
+ * Student Class
+ * 
  */
-
-
 public class Student extends User {
-	
-	@Size(min = 2, max = 30, message = "The length of BranchName should be between 5 to 30 characters")
 	private String branchName;
-	
-	
 	private int studentId;
-    
-	
-	@NotNull
-	@Min(value = 2017, message = "Batch number should not be less than 2017")
-	@Max(value = 9999, message = "Batch number should be less than 10000")
 	private int batch;
-	
 	private boolean isApproved;
 	
 	
 	/**
 	 * Parameterized Constructor
-	 * @param userId
-	 * @param name
-	 * @param role
-	 * @param password
-	 * @param gender
-	 * @param address
-	 * @param country
-	 * @param branchName
-	 * @param studentId
-	 * @param batch
-	 * @param isApproved
+	 * @param userId: email address of the user
+	 * @param name: user full name
+	 * @param role: role among student, professor, admin
+	 * @param password: user password
+	 * @param gender: gender
+	 * @param address: address of the user
+	 * @param country: user country 
+	 * @param branchName: branch name
+	 * @param studentId: student id
+	 * @param batch: batch
+	 * @param isApproved: check if student is approved by the admin or not
 	 */
 	public Student(String userId, String name, Role role, String password, Gender gender, String address,
 			String country,String branchName,int studentId,int batch,boolean isApproved) {

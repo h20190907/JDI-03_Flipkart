@@ -19,9 +19,9 @@ public class StudentGrade {
 	
 	/**
 	 * Parameterized Constructor
-	 * @param courseCode
-	 * @param courseName
-	 * @param grade
+	 * @param courseCode: course code
+	 * @param courseName: course name
+	 * @param grade: grade 
 	 */
 	public StudentGrade(String courseCode, String courseName, String grade) {
 		this.courseCode = courseCode;

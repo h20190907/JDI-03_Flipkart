@@ -16,10 +16,10 @@ public class Notification {
 	
 	/**
 	 * Parameterized constructor
-	 * @param notificationId
-	 * @param studentId
-	 * @param type
-	 * @param referenceId
+	 * @param notificationId: notification id in the database
+	 * @param studentId: student id of the student
+	 * @param type: type of notificaton
+	 * @param referenceId: reference id for the payment
 	 */
 	public Notification(int notificationId,int studentId, NotificationType type,String referenceId)
 	{
