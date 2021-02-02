@@ -23,16 +23,16 @@ public interface StudentDaoInterface {
 	
 	
 	/**
-	 * 
+	 * Get studentId of user
 	 * @param userId
-	 * @return
+	 * @return studentId
 	 */
 	public int getStudentId(String userId);
 	
 	/**
-	 * 
+	 * Check if student is approved
 	 * @param studentId
-	 * @return
+	 * @return 
 	 */
 	public boolean isApproved(int studentId);
 }

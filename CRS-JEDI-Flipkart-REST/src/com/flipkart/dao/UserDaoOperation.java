@@ -118,7 +118,11 @@ public class UserDaoOperation implements UserDaoInterface{
 		return false;
 	}
 
-
+	/**
+	 * Method to fetch the role of user from database
+	 * @param userId
+	 * @return
+	 */
 	@Override
 	public String getRole(String userId) {
 		Connection connection=DBUtils.getConnection();
