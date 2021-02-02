@@ -152,7 +152,7 @@ public class CRSApplication {
 		}
 		catch(UserNotFoundException ex)
 		{
-			logger.error(ex.getUserId()+" not registered!");
+			logger.error(ex.getMessage());
 		}	
 	}
 	
