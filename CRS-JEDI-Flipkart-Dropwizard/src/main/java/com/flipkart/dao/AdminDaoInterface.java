@@ -49,7 +49,7 @@ public interface AdminDaoInterface {
 	/**
 	 * Approve Student using SQL commands
 	 * @param studentId
-	 * @throws StudentNotFoundException
+	 * @throws StudentNotFoundForApprovalException
 	 */
 	public void approveStudent(int studentId) throws StudentNotFoundForApprovalException;
 	
@@ -58,7 +58,6 @@ public interface AdminDaoInterface {
 	 * @param professor
 	 * @throws ProfessorNotAddedException
 	 * @throws UserIdAlreadyInUseException 
-	 * @throws UserNotAddedException 
 	 */
 	public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException;
 	
@@ -81,7 +80,7 @@ public interface AdminDaoInterface {
 	
 	/**
 	 * View courses in the catalog
-	 * @param Catalog ID
+	 * @param catalogId: Catalog ID
 	 * @return List of courses in the catalog
 	 */
 	public List<Course> viewCourses(int catalogId);
