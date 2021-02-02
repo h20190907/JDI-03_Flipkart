@@ -5,8 +5,9 @@ import java.util.Date;
 
 /**
  * 
- * @author Anurag Behera, Rag Patel
- *
+ * @author JEDI-03
+ * Admin Class
+ * 
  */
 public class Admin extends User{
 	private Date dateOfJoining;

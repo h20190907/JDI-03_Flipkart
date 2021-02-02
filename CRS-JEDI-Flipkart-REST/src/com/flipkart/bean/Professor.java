@@ -4,7 +4,7 @@
 package com.flipkart.bean;
 import java.util.Date;
 /**
- * @author dilpreetkaur
+ * @author JEDI-03
  *
  */
 public class Professor extends User{
@@ -12,32 +12,37 @@ public class Professor extends User{
 	private String designation;
 	
 	/**
-	 * Method to get Designation of Professor
-	 * @return Designation of Professor
+	 * Constructor
+	 */
+	public Professor() {}
+	
+	/**
+	 * 
+	 * @return: get the designation
 	 */
 	public String getDesignation() {
 		return designation;
 	}
 	
 	/**
-	 * Method to set Designation of Professor
-	 * @param designation
+	 * 
+	 * @param designation: get the designation
 	 */
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
 	
 	/**
-	 * Method to get Department of Professor
-	 * @return Department
+	 * 
+	 * @return departmet
 	 */
 	public String getDepartment() {
 		return department;
 	}
 	
 	/**
-	 * Method to set Department of Professor
-	 * @param department
+	 * 
+	 * @param department: department for the professor
 	 */
 	public void setDepartment(String department) {
 		this.department = department;

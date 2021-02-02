@@ -5,6 +5,12 @@ import java.util.List;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
 
+/**
+ * 
+ * @author JEDI-03
+ * Class for Professor Validator
+ *
+ */
 public class ProfessorValidator {
 	/**
 	 * Method to check if Student exist in the database

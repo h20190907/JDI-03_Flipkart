@@ -37,8 +37,7 @@ import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminOperation;
 
 /**
- * @author Rag_Patel and Anurag
- *
+ * @author JEDI-03
  */
 @Path("/admin")
 public class AdminRestAPI {
@@ -210,6 +209,10 @@ public class AdminRestAPI {
 			
 	}
 	
+	/**
+	 * 
+	 * @return list of professors in the system
+	 */
 	@GET
 	@Path("/viewProfessors")
 	@Produces(MediaType.APPLICATION_JSON)

@@ -21,17 +21,17 @@ public class Student extends User {
 	
 	/**
 	 * Parameterized Constructor
-	 * @param userId
-	 * @param name
-	 * @param role
-	 * @param password
-	 * @param gender
-	 * @param address
-	 * @param country
-	 * @param branchName
-	 * @param studentId
-	 * @param batch
-	 * @param isApproved
+	 * @param userId: email address of the user
+	 * @param name: user full name
+	 * @param role: role among student, professor, admin
+	 * @param password: user password
+	 * @param gender: gender
+	 * @param address: address of the user
+	 * @param country: user country 
+	 * @param branchName: branch name
+	 * @param studentId: student id
+	 * @param batch: batch
+	 * @param isApproved: check if student is approved by the admin or not
 	 */
 	public Student(String userId, String name, Role role, String password, Gender gender, String address,
 			String country,String branchName,int studentId,int batch,boolean isApproved) {

@@ -21,13 +21,11 @@ public class App extends Application<Configuration> {
     public void initialize(Bootstrap<Configuration> b) {
     }
  
-    /**
-     * TODO: add comments
-     */
     @Override
     public void run(Configuration c, Environment e) throws Exception {
         LOGGER.info("Registering REST resources");
        
+        //registering all the RESTful service classes.
         e.jersey().register(new AdminRestAPI());
         e.jersey().register(new AdminRestAPI());
         e.jersey().register(new ProfessorRestAPI());

@@ -18,9 +18,7 @@ import javax.ws.rs.core.Response;
 import org.hibernate.validator.constraints.Email;
 
 import com.flipkart.bean.Student;
-import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
-import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentOperation;
@@ -72,8 +70,8 @@ public class UserRestAPI {
 	 * @return 
 	 */
 	
-	@GET
-	@Path("/verifyCredentials")
+	@POST
+	@Path("/login")
 	public Response verifyCredentials(
 			@NotNull
 			@Email(message = "Invalid User ID: Not in email format")
@@ -84,22 +82,37 @@ public class UserRestAPI {
 		
 		try 
 		{
-			if(userInterface.verifyCredentials(userId, password))
-			{
-				return Response.status(200).entity("Login Successful ").build();
-			}
-			else
-			{
-				return Response.status(500).entity("Login Unsuccessful ").build();
-			}
-		} 
+			boolean loggedin=userInterface.verifyCredentials(userId, password);
+				if(loggedin)
+				{
+					String role=userInterface.getRole(userId);
+					Role userRole=Role.stringToName(role);
+					switch(userRole)
+					{
+					
+					case STUDENT:
+						int studentId=studentInterface.getStudentId(userId);
+						boolean isApproved=studentInterface.isApproved(studentId);
+						if(!isApproved)	
+						{
+							return Response.status(200).entity("Login unsuccessful! Student "+userId+" has not been approved by the administration!" ).build();
+						}
+						break;
+						
+					}
+					return Response.status(200).entity("Login successful").build();
+				}
+				else
+				{
+					return Response.status(500).entity("Invalid credentials!").build();
+				}
+		}
 		catch (UserNotFoundException e) 
 		{
 			return Response.status(500).entity(e.getMessage()).build();
-		}
+		}		
 		
-		
-	}
+}
 	
 	/**
 	 * 
@@ -123,7 +136,7 @@ public class UserRestAPI {
 	 * @return 201, if user is created, else 500 in case of error
 	 */
 	@POST
-	@Path("/register")
+	@Path("/studentRegistration")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response register(@Valid Student student)
 	{
