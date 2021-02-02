@@ -1,5 +1,7 @@
 package com.flipkart.constant;
 
+import src.com.flipkart.constant.ModeOfPayment;
+
 /**
  * 
  * @author JEDI-03
@@ -9,6 +11,11 @@ public enum ModeOfPayment {
 	
 	CREDIT_CARD,NET_BANKING,DEBIT_CARD;
 	
+	/**
+	 * Method to get ModeOfPayment from int 
+	 * @param value
+	 * @return
+	 */
 	public static ModeOfPayment getModeofPayment(int value)
 	{
 		switch(value)

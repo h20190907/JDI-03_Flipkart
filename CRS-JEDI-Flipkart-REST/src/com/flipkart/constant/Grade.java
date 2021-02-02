@@ -16,15 +16,24 @@ public enum Grade {
     E(3);
 
     final private int value;
-
+    
+    /**
+     * Private parameterized constructor
+     * @param value
+     */
     private Grade(int value) {
         this.value = value;
     }
 
+    
     public int hasValue() {
         return this.value;
     }
 
+    /**
+     * Method to print Enum to well format
+     * @return
+     */
     @Override
     public String toString() {
     	

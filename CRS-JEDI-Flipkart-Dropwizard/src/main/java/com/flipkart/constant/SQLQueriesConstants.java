@@ -1,4 +1,7 @@
 package com.flipkart.constant;
+
+import src.com.flipkart.constant.String;
+
 /**
  * 
  * @author JEDI-03
@@ -16,8 +19,8 @@ public class SQLQueriesConstants {
 	public static final String ADD_PROFESSOR_QUERY = "insert into Professor(userId, department, designation) values (?, ?, ?)";
 	public static final String ASSIGN_COURSE_QUERY = "update Course set professorId = ? where courseCode = ?";
 	public static final String VIEW_COURSE_QUERY = "select courseCode, courseName, professorId from Course where catalogId = ?";
-	public static final String VIEW_PROFESSOR_QUERY = "select userId, name, gender, department, designation, address, country from Professor natural join User";
 	
+	//Professor Queries
 	public static final String ADD_STUDENT="insert into student (userId,branchName,batch,isApproved) values (?,?,?,?)";
 	public static final String VERIFY_CREDENTIALS="select password from user where userId = ?";
 	public static final String GET_ROLE="select role from user where userId = ? ";

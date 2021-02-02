@@ -1,5 +1,8 @@
 package com.flipkart.constant;
 
+import src.com.flipkart.constant.Override;
+import src.com.flipkart.constant.String;
+
 /**
  * 
  * @author JEDI-03
@@ -16,15 +19,24 @@ public enum Grade {
     E(3);
 
     final private int value;
-
+    
+    /**
+     * Private parameterized constructor
+     * @param value
+     */
     private Grade(int value) {
         this.value = value;
     }
 
+    
     public int hasValue() {
         return this.value;
     }
 
+    /**
+     * Method to print Enum to well format
+     * @return
+     */
     @Override
     public String toString() {
     	

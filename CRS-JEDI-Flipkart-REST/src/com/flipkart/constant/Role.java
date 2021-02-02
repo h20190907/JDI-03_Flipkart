@@ -9,13 +9,11 @@ public enum Role {
 	ADMIN,PROFESSOR,STUDENT;
 	
 	
-	/*@Override
-	public String toString()
-	{
-		final String name=name();
-		return name; 
-	}*/
-	
+	/**
+	 * Method to convert String to Role Enum
+	 * @param role
+	 * @return
+	 */
 	public static Role stringToName(String role)
 	{
 		Role userRole=null;
