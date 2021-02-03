@@ -1,0 +1,18 @@
+/.metadata/
+.classpath
+contacts.log
+/.metadata/
+/bin/
+/.settings/
+CRS-JEDI-Flipkart/.classpath
+CRS-JEDI-Flipkart/contact.log
+CRS-JEDI-Flipkart/src/config.properties
+CRS-JEDI-Flipkart/libs/
+CRS-JEDI-Flipkart/src/com/flipkart/utils/DBUtils.java
+CRS-JEDI-Flipkart-REST/libs/
+CRS-JEDI-Flipkart-REST/.classpath
+CRS-JEDI-Flipkart-REST/contact.log
+CRS-JEDI-Flipkart-REST/src/config.properties
+CRS-JEDI-Flipkart-REST/src/com/flipkart/utils/DBUtils.java
+CRS-JEDI-Flipkart-REST/Java Resources/src/config.properties
+Servers/
